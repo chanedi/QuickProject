@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ParseTableNameAspect {
 
-	@Around("execution(* cc.oit.bsmes.common.dao.BaseDAO.*(..))")
+	@Around("execution(* chanedi.dao.BaseDAO.*(..))")
 	public Object invoke(ProceedingJoinPoint proceedingJoinPoint)
 			throws Throwable {
 		parseTableName(proceedingJoinPoint);
