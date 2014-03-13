@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+    <!-- mybatis mapper -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="chanedi.dao"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:h2:~/test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+        <property name="maxActive" value="2"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property ref="dataSource" name="dataSource" />
+    </bean>
+
+    <!-- session工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- <property name="configLocation" value="/mybatis/mybatis-config.xml"></property> -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:/mybatis/*.xml</value>
+            </list>
+        </property>
+        <property name="configurationProperties">
+            <props>
+                <prop key="dialect">h2</prop>
+            </props>
+        </property>
+        <property name="typeAliasesPackage" value="chanedi.model"/>
+        <property name="plugins">
+            <list>
+                <bean class="chanedi.dao.SqlInterceptor">
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -13,9 +13,4 @@
 	<!-- enable @AspectJ support with XML based configuration -->
 	<aop:aspectj-autoproxy />
 	
-	<!-- mybatis mapper
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="" />
-	</bean> -->
-	
 </beans>
