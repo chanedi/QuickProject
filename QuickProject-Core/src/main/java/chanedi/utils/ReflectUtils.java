@@ -1,5 +1,6 @@
 package chanedi.utils;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
@@ -13,15 +14,12 @@ public class ReflectUtils {
 		return org.springframework.cglib.core.ReflectUtils.getBeanGetters(type);
 	}
 	
-	public static Method getBeanGetter(Class<?> type, String property) throws SecurityException, NoSuchMethodException {
-		String methodName = null;
-		if (property.length() == 1) {
-			methodName = property.substring(0, 1).toUpperCase();
-		} else {
-			methodName = property.substring(0, 1).toUpperCase() + property.substring(1, property.length());
-		}
-		methodName = "get" + methodName;
-		return type.getMethod(methodName);
+	public static Method getBeanGetter(Class<?> beanClass, String propertyName) throws IntrospectionException {
+		return new PropertyDescriptor(propertyName, beanClass).getReadMethod();
 	}
-	
+
+	public static Method getBeanSetter(Class<?> beanClass, String propertyName) throws IntrospectionException {
+		return new PropertyDescriptor(propertyName, beanClass).getWriteMethod();
+	}
+
 }
