@@ -16,4 +16,9 @@ public class FileUtils {
         return splits[splits.length - 1];
     }
 
+    public static String removeFileExtension(String fileName) {
+        int indexOfFileExtension = fileName.lastIndexOf('.');
+        return fileName.substring(0, indexOfFileExtension);
+    }
+
 }
