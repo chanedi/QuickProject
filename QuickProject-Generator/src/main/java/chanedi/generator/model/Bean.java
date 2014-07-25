@@ -1,7 +1,9 @@
 package chanedi.generator.model;
 
+import chanedi.utils.StringUtils;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,12 +11,17 @@ import java.util.Map;
 /**
  * Created by 羽霓 on 2014/6/10.
  */
-@Data
 public class Bean {
 
-    private StringBuffer modelName;
+    @Getter
     private String name;
+    @Getter
+    private String capitalizeName;
+    @Getter
+    private String tableName;
+    @Getter@Setter
     private String comment;
+    @Getter
     private Map<String, Property> columns = new HashMap<String, Property>();
 
     public void addColumn(Property column) {
@@ -25,15 +32,10 @@ public class Bean {
         return columns.get(columnName);
     }
 
-    public String getModelName() {
-        if (modelName == null) {
-            modelName = new StringBuffer();
-            String[] splits = name.split("_");
-            for (int i = 2; i < splits.length ; i++) {
-                modelName.append(StringUtils.capitalize(splits[i].toLowerCase()));
-            }
-        }
-        return modelName.toString();
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+        this.name = StringUtils.uncapitalizeCamelBySeparator(tableName, "_");
+        this.capitalizeName = StringUtils.capitalize(this.name);
     }
 
 }

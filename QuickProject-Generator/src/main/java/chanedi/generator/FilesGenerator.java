@@ -89,6 +89,10 @@ public class FilesGenerator {
                 if (file.exists()) {
                     continue; // TODO
                 }
+                File parentFile = file.getParentFile();
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();
+                }
                 file.createNewFile();
 
                 Writer out = new FileWriter(file);

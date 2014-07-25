@@ -33,7 +33,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
     public void exitCol(@NotNull CreateTableParser.ColContext ctx) {
         Property column = new Property();
         column.setColumnType(columnType);
-        column.setName(ctx.column().ID().getText());
+        column.setColumnName(ctx.column().ID().getText());
         currentTable.addColumn(column);
     }
 
@@ -73,7 +73,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
     @Override
     public void enterMdl(@NotNull CreateTableParser.MdlContext ctx) {
         currentTable = new Bean();
-        currentTable.setName(ctx.ID().getText());
+        currentTable.setTableName(ctx.ID().getText());
         tables.add(currentTable);
     }
 

@@ -1,29 +1,30 @@
 package chanedi.generator.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by 羽霓 on 2014/6/10.
  */
-@Data
 public class Property {
 
+    @Getter
     private String name;
-    private StringBuffer modelName;
+    @Getter
+    private String capitalizeName;
+    @Getter
+    private String columnName;
+    @Getter@Setter
     private String comment;
+    @Getter@Setter
     private ColumnType columnType;
 
-    public String getModelName() {
-        if (modelName == null) {
-            modelName = new StringBuffer();
-            String[] splits = name.split("_");
-            modelName.append(splits[0].toLowerCase());
-            for (int i = 1; i < splits.length ; i++) {
-                modelName.append(StringUtils.capitalize(splits[i].toLowerCase()));
-            }
-        }
-        return modelName.toString();
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+        this.name = chanedi.utils.StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
+        this.capitalizeName = chanedi.utils.StringUtils.capitalize(this.name);
     }
 
 }
