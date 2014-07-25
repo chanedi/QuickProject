@@ -25,7 +25,7 @@ public class Bean {
     private Map<String, Property> columns = new HashMap<String, Property>();
 
     public void addColumn(Property column) {
-        columns.put(column.getName(), column);
+        columns.put(column.getColumnName(), column);
     }
 
     public Property getColumn(String columnName) {

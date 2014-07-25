@@ -1,5 +1,6 @@
 package chanedi.generator;
 
+import chanedi.generator.exception.ConfigException;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Module;
 import chanedi.generator.model.TemplateRoot;
@@ -40,51 +41,88 @@ public class FilesGenerator {
         templateRoots = new ArrayList<TemplateRoot>();
     }
 
-    public void parseModule() throws IOException {
+    public void process() throws ConfigException {
+        parseModule();
+        parseTmpl();
+        generate();
+    }
+
+    public void parseModule() throws ConfigException {
         File sqlDir = new File(inputSqlPath);
+        if (!sqlDir.isDirectory()) {
+            throw new ConfigException("inputSqlPath", "路径必须是目录！");
+        }
         File[] files = sqlDir.listFiles();
         for (File sqlFile : files) {
-            Module module = new Module(sqlFile);
+            Module module = null;
+            try {
+                module = new Module(sqlFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             modules.add(module);
         }
     }
 
-    public void parseTmpl() throws IOException {
+    public void parseTmpl() throws ConfigException {
         File tmplDir = new File(tmplPath);
+        if (!tmplDir.isDirectory()) {
+            throw new ConfigException("tmplPath", "路径必须是目录！");
+        }
         File[] rootDirs = tmplDir.listFiles();
         for (File rootDir : rootDirs) {
             if (!rootDir.isDirectory()) {
                 continue;
             }
-            TemplateRoot templateRoot = new TemplateRoot(rootDir);
+            TemplateRoot templateRoot = null;
+            try {
+                templateRoot = new TemplateRoot(rootDir);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             templateRoots.add(templateRoot);
         }
     }
 
-    public void generate() throws IOException, TemplateException, InvocationTargetException {
+    public void generate() {
         Configuration cfg = new Configuration();
         File tmplDir = new File(tmplPath);
-        cfg.setDirectoryForTemplateLoading(tmplDir);
+        try {
+            cfg.setDirectoryForTemplateLoading(tmplDir);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         for (Module module : modules) {
             for (Bean bean : module.getBeans()) {
-                Map root = new HashMap();
-                root.put("bean", bean);
+                Map dataMap = new HashMap();
+                dataMap.put("bean", bean);
+                dataMap.put("module", module);
 
-                generate(cfg, module, bean, root);
+                generate(cfg, dataMap);
             }
 
         }
     }
 
-    private void generate(Configuration cfg, Module module, Bean bean, Map root) throws IOException, TemplateException {
+    private void generate(Configuration cfg, Map dataMap) {
         for (TemplateRoot templateRoot : templateRoots) {
             List<String> templateNames = templateRoot.getTemplateNames();
             for (String templateName : templateNames) {
-                Template temp = cfg.getTemplate(templateName);
+                Template temp = null;
+                try {
+                    temp = cfg.getTemplate(templateName);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
                 Config config = templateRoot.getConfig();
-                String destPath = parseDestPath(templateName, module, bean, config);
+                String destPath = null;
+                try {
+                    destPath = parseDestPath(templateName, dataMap, config);
+                } catch (Exception e) {
+                    throw new RuntimeException("目标路径解析发生错误，模板名称：" + templateName, e);
+                }
                 File file = new File(destPath);
                 if (file.exists()) {
                     continue; // TODO
@@ -93,32 +131,41 @@ public class FilesGenerator {
                 if (!parentFile.exists()) {
                     parentFile.mkdirs();
                 }
-                file.createNewFile();
+                try {
+                    file.createNewFile();
 
-                Writer out = new FileWriter(file);
-                temp.process(root, out);
-                out.flush();
+                    Writer out = new FileWriter(file);
+                    temp.process(dataMap, out);
+                    out.flush();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (TemplateException e) {
+                    throw new RuntimeException("模板解析发生错误，模板名称：" + templateName, e);
+                }
             }
         }
     }
 
-    private String parseDestPath(String templateName, Module module, Bean bean, Config config) {
+    private String parseDestPath(String templateName, Map dataMap, Config config) throws TemplateException {
         String destPath = config.getRootPath();
         destPath = destPath + templateName.replaceFirst("[^/]+", "");
-        destPath = destPath.replaceAll("\\$\\{bean\\.name\\}", bean.getName());// TODO
-        destPath = destPath.replaceAll("\\$\\{moduleName\\}", module.getModuleName());// TODO
         destPath = FileUtils.removeFileExtension(destPath);
         destPath = destPath + "." + config.getFileExtension();
 
-        return destPath;
-    }
+        Template template = null;
+        try {
+            template = new Template(null, destPath, null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Writer out = new StringWriter();
+        try {
+            template.process(dataMap, out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-
-    public static void main(String[] args) throws IOException, InvocationTargetException, TemplateException {
-        FilesGenerator filesGenerator = new FilesGenerator();
-        filesGenerator.parseModule();
-        filesGenerator.parseTmpl();
-        filesGenerator.generate();
+        return out.toString();
     }
 
 }

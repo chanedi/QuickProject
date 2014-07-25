@@ -21,12 +21,12 @@ import java.util.List;
 public class Module {
 
     @Getter
-    private String moduleName;
+    private String name;
     @Getter
     private List<Bean> beans;
 
     public Module(File sqlFile) throws IOException {
-        moduleName = FileUtils.removeFileExtension(sqlFile.getName());
+        name = FileUtils.removeFileExtension(sqlFile.getName());
 
         parseBean(sqlFile);
     }
