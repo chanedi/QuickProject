@@ -39,6 +39,8 @@ public class FilesGenerator {
     public FilesGenerator() {
         modules = new ArrayList<Module>();
         templateRoots = new ArrayList<TemplateRoot>();
+
+        // TODO config
     }
 
     public void process() throws ConfigException {
@@ -98,6 +100,7 @@ public class FilesGenerator {
                 Map dataMap = new HashMap();
                 dataMap.put("bean", bean);
                 dataMap.put("module", module);
+                // TODO serialize
 
                 generate(cfg, dataMap);
             }
@@ -132,8 +135,6 @@ public class FilesGenerator {
                     parentFile.mkdirs();
                 }
                 try {
-                    file.createNewFile();
-
                     Writer out = new FileWriter(file);
                     temp.process(dataMap, out);
                     out.flush();

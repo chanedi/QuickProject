@@ -23,7 +23,6 @@ public class TemplateRoot {
         templateNames = new ArrayList<String>();
 
         parseTemplateNames(rootDir, rootDir.getName());
-        preprocess();
     }
 
     private void parseTemplateNames(File dir, String namePath) {
@@ -35,14 +34,6 @@ public class TemplateRoot {
             } else if (!file.getName().equals(Config.CONFIG_FILE_NAME)) {
                 templateNames.add(name);
             }
-        }
-    }
-
-    private void preprocess() {
-        String rootPath = config.getRootPath();
-        File rootPathDir = new File(rootPath);
-        if (!rootPathDir.exists()) {
-            rootPathDir.mkdir();
         }
     }
 
