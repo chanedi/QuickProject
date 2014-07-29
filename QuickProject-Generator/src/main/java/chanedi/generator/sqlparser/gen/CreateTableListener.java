@@ -1,5 +1,4 @@
-// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/parser\CreateTable.g4 by ANTLR 4.x
-package chanedi.generator.parser.gen;
+package chanedi.generator.sqlparser.gen;// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

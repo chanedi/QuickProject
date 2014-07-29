@@ -3,6 +3,7 @@ package chanedi.generator.model;
 /**
  * Created by 羽霓 on 2014/6/10.
  */
+// TODO 待重写
 public enum ColumnType {
 
     BOOLEAN("Boolean", "boolean", "textfield", "boolean"), STRING("String", "string", "textfield", "string"),

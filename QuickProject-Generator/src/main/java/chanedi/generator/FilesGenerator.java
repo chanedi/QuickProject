@@ -2,26 +2,17 @@ package chanedi.generator;
 
 import chanedi.generator.exception.ConfigException;
 import chanedi.generator.model.Bean;
+import chanedi.generator.model.Generate;
 import chanedi.generator.model.Module;
-import chanedi.generator.model.TemplateRoot;
-import chanedi.generator.parser.CreateTableListenerImpl;
-import chanedi.generator.parser.gen.CreateTableLexer;
-import chanedi.generator.parser.gen.CreateTableParser;
 import chanedi.utils.FileUtils;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -33,12 +24,14 @@ public class FilesGenerator {
 
     private List<Module> modules;
     private List<TemplateRoot> templateRoots;
+    private Generate generate;
     private String inputSqlPath = "E:\\IDEA\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\sql";
     private String tmplPath = "E:\\IDEA\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\tmpl";
 
     public FilesGenerator() {
         modules = new ArrayList<Module>();
         templateRoots = new ArrayList<TemplateRoot>();
+        generate = Generate.getInstance();
 
         // TODO config
     }
@@ -100,7 +93,7 @@ public class FilesGenerator {
                 Map dataMap = new HashMap();
                 dataMap.put("bean", bean);
                 dataMap.put("module", module);
-                // TODO serialize
+                dataMap.put("generate", generate);
 
                 generate(cfg, dataMap);
             }
@@ -119,7 +112,7 @@ public class FilesGenerator {
                     throw new RuntimeException(e);
                 }
 
-                Config config = templateRoot.getConfig();
+                TemplateRootConfig config = templateRoot.getConfig();
                 String destPath = null;
                 try {
                     destPath = parseDestPath(templateName, dataMap, config);
@@ -128,7 +121,7 @@ public class FilesGenerator {
                 }
                 File file = new File(destPath);
                 if (file.exists()) {
-                    continue; // TODO
+                    continue; // TODO config
                 }
                 File parentFile = file.getParentFile();
                 if (!parentFile.exists()) {
@@ -147,7 +140,7 @@ public class FilesGenerator {
         }
     }
 
-    private String parseDestPath(String templateName, Map dataMap, Config config) throws TemplateException {
+    private String parseDestPath(String templateName, Map dataMap, TemplateRootConfig config) throws TemplateException {
         String destPath = config.getRootPath();
         destPath = destPath + templateName.replaceFirst("[^/]+", "");
         destPath = FileUtils.removeFileExtension(destPath);

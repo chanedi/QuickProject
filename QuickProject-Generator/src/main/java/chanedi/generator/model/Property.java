@@ -1,9 +1,7 @@
 package chanedi.generator.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by 羽霓 on 2014/6/10.

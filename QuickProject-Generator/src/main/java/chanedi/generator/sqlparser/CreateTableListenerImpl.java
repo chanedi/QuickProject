@@ -1,11 +1,11 @@
 // Generated from E:/IDEA/BaoSheng/BaoShengMES-Core/src/main/java/cc/oit/bsmes/generator/parser\CreateTable.g4 by ANTLR 4.x
-package chanedi.generator.parser;
+package chanedi.generator.sqlparser;
 
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Property;
 import chanedi.generator.model.ColumnType;
-import chanedi.generator.parser.gen.CreateTableBaseListener;
-import chanedi.generator.parser.gen.CreateTableParser;
+import chanedi.generator.sqlparser.gen.CreateTableBaseListener;
+import chanedi.generator.sqlparser.gen.CreateTableParser;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class provides an empty implementation of {@link chanedi.generator.parser.gen.CreateTableListener},
+ * This class provides an empty implementation of {@link chanedi.generator.sqlparser.gen.CreateTableListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */

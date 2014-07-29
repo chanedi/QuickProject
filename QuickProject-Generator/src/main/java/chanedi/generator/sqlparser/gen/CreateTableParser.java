@@ -1,5 +1,4 @@
-// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/parser\CreateTable.g4 by ANTLR 4.x
-package chanedi.generator.parser.gen;
+package chanedi.generator.sqlparser.gen;// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -86,6 +85,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitSql(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitSql(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SqlContext sql() throws RecognitionException {
@@ -165,6 +169,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitMdl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitMdl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MdlContext mdl() throws RecognitionException {
@@ -221,6 +230,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitTableComment(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitTableComment(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TableCommentContext tableComment() throws RecognitionException {
@@ -264,6 +278,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitColumnComment(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitColumnComment(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -313,6 +332,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitCol(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitCol(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -383,6 +407,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitColType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitColType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ColTypeContext colType() throws RecognitionException {
@@ -448,6 +477,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitPrimmarykey(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitPrimmarykey(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PrimmarykeyContext primmarykey() throws RecognitionException {
@@ -485,6 +519,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitColumn(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitColumn(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -538,6 +577,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitStringType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitStringType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StringTypeContext stringType() throws RecognitionException {
@@ -573,6 +617,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitDateType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitDateType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -619,6 +668,11 @@ public class CreateTableParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitDoubleType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitDoubleType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DoubleTypeContext doubleType() throws RecognitionException {
@@ -660,6 +714,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitIntType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitIntType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -713,6 +772,11 @@ public class CreateTableParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CreateTableListener ) ((CreateTableListener)listener).exitBooleanType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CreateTableVisitor ) return ((CreateTableVisitor<? extends T>)visitor).visitBooleanType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

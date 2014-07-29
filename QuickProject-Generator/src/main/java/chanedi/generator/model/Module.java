@@ -1,8 +1,8 @@
 package chanedi.generator.model;
 
-import chanedi.generator.parser.CreateTableListenerImpl;
-import chanedi.generator.parser.gen.CreateTableLexer;
-import chanedi.generator.parser.gen.CreateTableParser;
+import chanedi.generator.sqlparser.CreateTableListenerImpl;
+import chanedi.generator.sqlparser.gen.CreateTableLexer;
+import chanedi.generator.sqlparser.gen.CreateTableParser;
 import chanedi.utils.FileUtils;
 import lombok.Getter;
 import org.antlr.v4.runtime.ANTLRFileStream;

@@ -1,7 +1,6 @@
 package chanedi.generator.model;
 
 import chanedi.utils.StringUtils;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
