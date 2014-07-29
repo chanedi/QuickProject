@@ -1,6 +1,6 @@
 package chanedi.generator.model;
 
-import chanedi.generator.Config;
+import chanedi.generator.TemplateRootConfig;
 import lombok.Getter;
 
 import java.io.File;
@@ -14,12 +14,12 @@ import java.util.List;
 public class TemplateRoot {
 
     @Getter
-    private Config config;
+    private TemplateRootConfig config;
     @Getter
     private List<String> templateNames;
 
     public TemplateRoot(File rootDir) throws IOException {
-        config = Config.getInstance(rootDir.getAbsolutePath());
+        config = TemplateRootConfig.getInstance(rootDir.getAbsolutePath());
         templateNames = new ArrayList<String>();
 
         parseTemplateNames(rootDir, rootDir.getName());
@@ -31,7 +31,7 @@ public class TemplateRoot {
             String name = namePath + "/" + file.getName();
             if (file.isDirectory()) {
                 parseTemplateNames(file, name);
-            } else if (!file.getName().equals(Config.CONFIG_FILE_NAME)) {
+            } else if (!file.getName().equals(TemplateRootConfig.CONFIG_FILE_NAME)) {
                 templateNames.add(name);
             }
         }

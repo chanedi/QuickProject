@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Bean {
 
-    @Getter
+    @Getter@Setter
     private String name;
     @Getter
     private String capitalizeName;
@@ -33,8 +33,12 @@ public class Bean {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
-        this.name = StringUtils.uncapitalizeCamelBySeparator(tableName, "_");
-        this.capitalizeName = StringUtils.capitalize(this.name);
+        setName(StringUtils.uncapitalizeCamelBySeparator(tableName, "_"));
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        this.capitalizeName = StringUtils.capitalize(name);
     }
 
 }

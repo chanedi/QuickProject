@@ -9,6 +9,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,18 +23,17 @@ public class FilesGenerator {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Getter
+    private GlobalConfig globalConfig;
     private List<Module> modules;
     private List<TemplateRoot> templateRoots;
     private Generate generate;
-    private String inputSqlPath = "E:\\IDEA\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\sql";
-    private String tmplPath = "E:\\IDEA\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\tmpl";
 
     public FilesGenerator() {
+        globalConfig = new GlobalConfig();
         modules = new ArrayList<Module>();
         templateRoots = new ArrayList<TemplateRoot>();
         generate = Generate.getInstance();
-
-        // TODO config
     }
 
     public void process() throws ConfigException {
@@ -43,7 +43,7 @@ public class FilesGenerator {
     }
 
     public void parseModule() throws ConfigException {
-        File sqlDir = new File(inputSqlPath);
+        File sqlDir = new File(globalConfig.getInputSqlPath());
         if (!sqlDir.isDirectory()) {
             throw new ConfigException("inputSqlPath", "路径必须是目录！");
         }
@@ -51,7 +51,7 @@ public class FilesGenerator {
         for (File sqlFile : files) {
             Module module = null;
             try {
-                module = new Module(sqlFile);
+                module = new Module(sqlFile, globalConfig);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -60,7 +60,7 @@ public class FilesGenerator {
     }
 
     public void parseTmpl() throws ConfigException {
-        File tmplDir = new File(tmplPath);
+        File tmplDir = new File(globalConfig.getTmplPath());
         if (!tmplDir.isDirectory()) {
             throw new ConfigException("tmplPath", "路径必须是目录！");
         }
@@ -81,7 +81,7 @@ public class FilesGenerator {
 
     public void generate() {
         Configuration cfg = new Configuration();
-        File tmplDir = new File(tmplPath);
+        File tmplDir = new File(globalConfig.getTmplPath());
         try {
             cfg.setDirectoryForTemplateLoading(tmplDir);
         } catch (IOException e) {

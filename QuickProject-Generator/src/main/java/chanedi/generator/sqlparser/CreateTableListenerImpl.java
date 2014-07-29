@@ -1,16 +1,20 @@
 // Generated from E:/IDEA/BaoSheng/BaoShengMES-Core/src/main/java/cc/oit/bsmes/generator/parser\CreateTable.g4 by ANTLR 4.x
 package chanedi.generator.sqlparser;
 
+import chanedi.generator.GlobalConfig;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Property;
 import chanedi.generator.model.ColumnType;
 import chanedi.generator.sqlparser.gen.CreateTableBaseListener;
 import chanedi.generator.sqlparser.gen.CreateTableParser;
+import chanedi.utils.StringUtils;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class provides an empty implementation of {@link chanedi.generator.sqlparser.gen.CreateTableListener},
@@ -21,60 +25,74 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
 
     @Getter
     private List<Bean> tables = new ArrayList<Bean>();
-    private Bean currentTable;
-    private ColumnType columnType;
+    private Bean currentBean;
+    private ColumnType currentColumnType;
+    private GlobalConfig globalConfig;
+
+    public CreateTableListenerImpl(GlobalConfig globalConfig) {
+        super();
+        this.globalConfig = globalConfig;
+    }
 
     @Override
     public void enterStringType(@NotNull CreateTableParser.StringTypeContext ctx) {
-        columnType = ColumnType.STRING;
+        currentColumnType = ColumnType.STRING;
     }
 
     @Override
     public void exitCol(@NotNull CreateTableParser.ColContext ctx) {
         Property column = new Property();
-        column.setColumnType(columnType);
+        column.setColumnType(currentColumnType);
         column.setColumnName(ctx.column().ID().getText());
-        currentTable.addColumn(column);
+        currentBean.addColumn(column);
     }
 
     @Override
     public void enterBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx) {
-        columnType = ColumnType.BOOLEAN;
+        currentColumnType = ColumnType.BOOLEAN;
     }
 
     @Override
     public void enterDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx) {
-        columnType = ColumnType.DOUBLE;
+        currentColumnType = ColumnType.DOUBLE;
     }
 
     @Override
     public void enterIntType(@NotNull CreateTableParser.IntTypeContext ctx) {
-        columnType = ColumnType.INT;
+        currentColumnType = ColumnType.INT;
     }
 
     @Override
     public void enterDateType(@NotNull CreateTableParser.DateTypeContext ctx) {
-        columnType = ColumnType.DATE;
+        currentColumnType = ColumnType.DATE;
     }
 
     @Override
     public void enterColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx) {
         String column = ctx.column().ID().getText();
         String comment = ctx.COMMENT().getText().replaceAll("'","");
-        currentTable.getColumn(column).setComment(comment);
+        currentBean.getColumn(column).setComment(comment);
     }
 
     @Override
     public void enterTableComment(@NotNull CreateTableParser.TableCommentContext ctx) {
         String comment = ctx.COMMENT().getText().replaceAll("'","");
-        currentTable.setComment(comment);
+        currentBean.setComment(comment);
     }
 
     @Override
     public void enterMdl(@NotNull CreateTableParser.MdlContext ctx) {
-        currentTable = new Bean();
-        currentTable.setTableName(ctx.ID().getText());
-        tables.add(currentTable);
+        currentBean = new Bean();
+        currentBean.setTableName(ctx.ID().getText());
+        String beanNameRegex = globalConfig.getBeanNameRegex();
+        if (beanNameRegex != null) {
+            Pattern pattern = Pattern.compile(beanNameRegex);
+            Matcher matcher = pattern.matcher(currentBean.getTableName());
+            matcher.find();
+            String group = matcher.group(matcher.groupCount());
+            currentBean.setName(StringUtils.uncapitalizeCamelBySeparator(group, "_"));
+        }
+        tables.add(currentBean);
     }
 
 }
