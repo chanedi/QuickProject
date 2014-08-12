@@ -11,18 +11,15 @@ public class Property {
     @Getter
     private String name;
     @Getter
-    private String capitalizeName;
-    @Getter
     private String columnName;
     @Getter@Setter
     private String comment;
     @Getter@Setter
-    private ColumnType columnType;
+    private PropertyType type;
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
         this.name = chanedi.utils.StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
-        this.capitalizeName = chanedi.utils.StringUtils.capitalize(this.name);
     }
 
 }

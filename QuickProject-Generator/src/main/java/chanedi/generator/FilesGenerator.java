@@ -49,6 +49,9 @@ public class FilesGenerator {
         }
         File[] files = sqlDir.listFiles();
         for (File sqlFile : files) {
+            if (!FileUtils.getFileExtension(sqlFile).equals("sql")) {
+                continue;
+            }
             Module module = null;
             try {
                 module = new Module(sqlFile, globalConfig);

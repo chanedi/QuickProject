@@ -4,7 +4,7 @@ package chanedi.generator.sqlparser;
 import chanedi.generator.GlobalConfig;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Property;
-import chanedi.generator.model.ColumnType;
+import chanedi.generator.model.PropertyType;
 import chanedi.generator.sqlparser.gen.CreateTableBaseListener;
 import chanedi.generator.sqlparser.gen.CreateTableParser;
 import chanedi.utils.StringUtils;
@@ -26,7 +26,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
     @Getter
     private List<Bean> tables = new ArrayList<Bean>();
     private Bean currentBean;
-    private ColumnType currentColumnType;
+    private PropertyType currentColumnType;
     private GlobalConfig globalConfig;
 
     public CreateTableListenerImpl(GlobalConfig globalConfig) {
@@ -36,7 +36,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
 
     @Override
     public void enterStringType(@NotNull CreateTableParser.StringTypeContext ctx) {
-        currentColumnType = ColumnType.STRING;
+        currentColumnType = PropertyType.STRING;
     }
 
     @Override
@@ -44,34 +44,35 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
         Property column = new Property();
         column.setColumnType(currentColumnType);
         column.setColumnName(ctx.column().ID().getText());
-        currentBean.addColumn(column);
+        currentBean.addProperty(column);
     }
+
 
     @Override
     public void enterBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx) {
-        currentColumnType = ColumnType.BOOLEAN;
+        currentColumnType = PropertyType.BOOLEAN;
     }
 
     @Override
     public void enterDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx) {
-        currentColumnType = ColumnType.DOUBLE;
+        currentColumnType = PropertyType.DOUBLE;
     }
 
     @Override
     public void enterIntType(@NotNull CreateTableParser.IntTypeContext ctx) {
-        currentColumnType = ColumnType.INT;
+        currentColumnType = PropertyType.INT;
     }
 
     @Override
     public void enterDateType(@NotNull CreateTableParser.DateTypeContext ctx) {
-        currentColumnType = ColumnType.DATE;
+        currentColumnType = PropertyType.DATE;
     }
 
     @Override
     public void enterColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx) {
         String column = ctx.column().ID().getText();
         String comment = ctx.COMMENT().getText().replaceAll("'","");
-        currentBean.getColumn(column).setComment(comment);
+        currentBean.getPropertyByColumnName(column).setComment(comment);
     }
 
     @Override

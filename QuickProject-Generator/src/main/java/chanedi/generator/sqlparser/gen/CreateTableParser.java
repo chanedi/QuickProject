@@ -1,4 +1,4 @@
-package chanedi.generator.sqlparser.gen;// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
+// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -16,14 +16,14 @@ public class CreateTableParser extends Parser {
 	public static final int
 		T__19=1, T__18=2, T__17=3, T__16=4, T__15=5, T__14=6, T__13=7, T__12=8, 
 		T__11=9, T__10=10, T__9=11, T__8=12, T__7=13, T__6=14, T__5=15, T__4=16, 
-		T__3=17, T__2=18, T__1=19, T__0=20, RANGE=21, COMMENT=22, NOTNULL=23, 
-		DEFAULT=24, NUMBER=25, ID=26, WS=27;
+		T__3=17, T__2=18, T__1=19, T__0=20, CREATE=21, TEMPORARY=22, RANGE=23, 
+		COMMENT=24, NOTNULL=25, DEFAULT=26, NUMBER=27, ID=28, WS=29;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'comment on column'", "'is'", "'TIMESTAMP'", "'.'", "')'", 
 		"','", "'CHAR(1)'", "'NUMERIC'", "');'", "'('", "'create'", "'constraint'", 
 		"';'", "'primary key (ID)'", "'comment on table'", "'table'", "'0)'", 
-		"'DATE'", "'\"'", "'VARCHAR2'", "RANGE", "COMMENT", "'not null'", "DEFAULT", 
-		"NUMBER", "ID", "WS"
+		"'DATE'", "'\"'", "'VARCHAR2'", "'CREATE'", "'GLOBAL TEMPORARY'", "RANGE", 
+		"COMMENT", "'not null'", "DEFAULT", "NUMBER", "ID", "WS"
 	};
 	public static final int
 		RULE_sql = 0, RULE_mdl = 1, RULE_tableComment = 2, RULE_columnComment = 3, 
@@ -801,7 +801,7 @@ public class CreateTableParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\35v\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\37v\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
 		"\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\5\2\37\n\2\3\2\7\2\"\n\2\f\2\16\2%\13"+
 		"\2\6\2\'\n\2\r\2\16\2(\3\3\3\3\3\3\3\3\3\3\6\3\60\n\3\r\3\16\3\61\3\3"+
@@ -815,19 +815,19 @@ public class CreateTableParser extends Parser {
 		"\34\36\5\4\3\2\35\37\5\6\4\2\36\35\3\2\2\2\36\37\3\2\2\2\37#\3\2\2\2 "+
 		"\"\5\b\5\2! \3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\'\3\2\2\2%#\3\2\2"+
 		"\2&\34\3\2\2\2\'(\3\2\2\2(&\3\2\2\2()\3\2\2\2)\3\3\2\2\2*+\7\r\2\2+,\7"+
-		"\22\2\2,-\7\34\2\2-/\7\f\2\2.\60\5\n\6\2/.\3\2\2\2\60\61\3\2\2\2\61/\3"+
+		"\22\2\2,-\7\36\2\2-/\7\f\2\2.\60\5\n\6\2/.\3\2\2\2\60\61\3\2\2\2\61/\3"+
 		"\2\2\2\61\62\3\2\2\2\62\63\3\2\2\2\63\64\5\16\b\2\64\65\7\13\2\2\65\5"+
-		"\3\2\2\2\66\67\7\21\2\2\678\7\34\2\289\7\4\2\29:\7\30\2\2:;\7\17\2\2;"+
-		"\7\3\2\2\2<=\7\3\2\2=>\7\34\2\2>?\7\6\2\2?@\5\20\t\2@A\7\4\2\2AB\7\30"+
-		"\2\2BC\7\17\2\2C\t\3\2\2\2DE\5\20\t\2EG\5\f\7\2FH\7\32\2\2GF\3\2\2\2G"+
-		"H\3\2\2\2HJ\3\2\2\2IK\7\31\2\2JI\3\2\2\2JK\3\2\2\2KL\3\2\2\2LM\7\b\2\2"+
+		"\3\2\2\2\66\67\7\21\2\2\678\7\36\2\289\7\4\2\29:\7\32\2\2:;\7\17\2\2;"+
+		"\7\3\2\2\2<=\7\3\2\2=>\7\36\2\2>?\7\6\2\2?@\5\20\t\2@A\7\4\2\2AB\7\32"+
+		"\2\2BC\7\17\2\2C\t\3\2\2\2DE\5\20\t\2EG\5\f\7\2FH\7\34\2\2GF\3\2\2\2G"+
+		"H\3\2\2\2HJ\3\2\2\2IK\7\33\2\2JI\3\2\2\2JK\3\2\2\2KL\3\2\2\2LM\7\b\2\2"+
 		"M\13\3\2\2\2NT\5\22\n\2OT\5\24\13\2PT\5\26\f\2QT\5\30\r\2RT\5\32\16\2"+
 		"SN\3\2\2\2SO\3\2\2\2SP\3\2\2\2SQ\3\2\2\2SR\3\2\2\2T\r\3\2\2\2UV\7\16\2"+
-		"\2VW\7\34\2\2WX\7\20\2\2X\17\3\2\2\2Y^\7\34\2\2Z[\7\25\2\2[\\\7\34\2\2"+
-		"\\^\7\25\2\2]Y\3\2\2\2]Z\3\2\2\2^\21\3\2\2\2_`\7\26\2\2`a\7\27\2\2a\23"+
-		"\3\2\2\2bc\t\2\2\2c\25\3\2\2\2de\7\n\2\2ef\7\f\2\2fg\7\33\2\2gh\7\b\2"+
-		"\2hi\7\33\2\2ij\7\7\2\2j\27\3\2\2\2kq\7\n\2\2lr\7\27\2\2mn\7\f\2\2no\7"+
-		"\33\2\2op\7\b\2\2pr\7\23\2\2ql\3\2\2\2qm\3\2\2\2r\31\3\2\2\2st\7\t\2\2"+
+		"\2VW\7\36\2\2WX\7\20\2\2X\17\3\2\2\2Y^\7\36\2\2Z[\7\25\2\2[\\\7\36\2\2"+
+		"\\^\7\25\2\2]Y\3\2\2\2]Z\3\2\2\2^\21\3\2\2\2_`\7\26\2\2`a\7\31\2\2a\23"+
+		"\3\2\2\2bc\t\2\2\2c\25\3\2\2\2de\7\n\2\2ef\7\f\2\2fg\7\35\2\2gh\7\b\2"+
+		"\2hi\7\35\2\2ij\7\7\2\2j\27\3\2\2\2kq\7\n\2\2lr\7\31\2\2mn\7\f\2\2no\7"+
+		"\35\2\2op\7\b\2\2pr\7\23\2\2ql\3\2\2\2qm\3\2\2\2r\31\3\2\2\2st\7\t\2\2"+
 		"t\33\3\2\2\2\13\36#(\61GJS]q";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

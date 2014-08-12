@@ -4,7 +4,9 @@ import chanedi.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,14 +23,16 @@ public class Bean {
     @Getter@Setter
     private String comment;
     @Getter
-    private Map<String, Property> columns = new HashMap<String, Property>();
+    private List<Property> properties = new ArrayList<Property>();
+    private Map<String, Property> propertyColumnNameMap = new HashMap<String, Property>();
 
-    public void addColumn(Property column) {
-        columns.put(column.getColumnName(), column);
+    public void addProperty(Property property) {
+        properties.add(property);
+        propertyColumnNameMap.put(property.getColumnName(), property);
     }
 
-    public Property getColumn(String columnName) {
-        return columns.get(columnName);
+    public Property getPropertyByColumnName(String columnName) {
+        return propertyColumnNameMap.get(columnName);
     }
 
     public void setTableName(String tableName) {
