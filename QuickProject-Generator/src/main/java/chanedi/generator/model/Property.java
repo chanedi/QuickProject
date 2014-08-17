@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by 羽霓 on 2014/6/10.
+ * Created by Chanedi on 2014/6/10.
  */
 public class Property {
 
@@ -19,7 +19,7 @@ public class Property {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
-        this.name = chanedi.utils.StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
+        this.name = chanedi.util.StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
     }
 
 }

@@ -1,4 +1,4 @@
-package chanedi.utils;
+package chanedi.util;
 
 import java.io.File;
 

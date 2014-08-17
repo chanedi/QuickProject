@@ -28,7 +28,6 @@
         <org.apache.tiles.version>3.0.1</org.apache.tiles.version>
         <junit.version>4.7</junit.version>
         <mybatis.version>3.2.3</mybatis.version>
-        <oracle.version>11.2.0.3.0</oracle.version>
     </properties>
 
     <dependencyManagement>
@@ -37,6 +36,11 @@
                 <groupId>chanedi</groupId>
                 <artifactId>QuickProject-Core</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mobicents.commons</groupId>
+                <artifactId>commons-annotations</artifactId>
+                <version>1.0.114</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -92,13 +96,12 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.0.13</version>
+                <version>1.1.2</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <!-- tiles带的版本太低报错 -->
-                <version>1.7.5</version>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.7</version>
             </dependency>
 
             <!-- Test -->
@@ -149,11 +152,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>${oracle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>

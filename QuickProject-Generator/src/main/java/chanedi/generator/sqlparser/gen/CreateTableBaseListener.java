@@ -1,4 +1,5 @@
-// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
+// Generated from E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
+package chanedi.generator.sqlparser.gen;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -16,97 +17,97 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringType(@NotNull CreateTableParser.StringTypeContext ctx) { }
+	@Override public void enterAny_name(@NotNull CreateTableParser.Any_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringType(@NotNull CreateTableParser.StringTypeContext ctx) { }
+	@Override public void exitAny_name(@NotNull CreateTableParser.Any_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCol(@NotNull CreateTableParser.ColContext ctx) { }
+	@Override public void enterInline_constraint(@NotNull CreateTableParser.Inline_constraintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCol(@NotNull CreateTableParser.ColContext ctx) { }
+	@Override public void exitInline_constraint(@NotNull CreateTableParser.Inline_constraintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx) { }
+	@Override public void enterExpr(@NotNull CreateTableParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx) { }
+	@Override public void exitExpr(@NotNull CreateTableParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimmarykey(@NotNull CreateTableParser.PrimmarykeyContext ctx) { }
+	@Override public void enterComment_value(@NotNull CreateTableParser.Comment_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrimmarykey(@NotNull CreateTableParser.PrimmarykeyContext ctx) { }
+	@Override public void exitComment_value(@NotNull CreateTableParser.Comment_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx) { }
+	@Override public void enterSigned_number(@NotNull CreateTableParser.Signed_numberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx) { }
+	@Override public void exitSigned_number(@NotNull CreateTableParser.Signed_numberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntType(@NotNull CreateTableParser.IntTypeContext ctx) { }
+	@Override public void enterColumn_name(@NotNull CreateTableParser.Column_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntType(@NotNull CreateTableParser.IntTypeContext ctx) { }
+	@Override public void exitColumn_name(@NotNull CreateTableParser.Column_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDateType(@NotNull CreateTableParser.DateTypeContext ctx) { }
+	@Override public void enterSchema(@NotNull CreateTableParser.SchemaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDateType(@NotNull CreateTableParser.DateTypeContext ctx) { }
+	@Override public void exitSchema(@NotNull CreateTableParser.SchemaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx) { }
+	@Override public void enterColumn_definition(@NotNull CreateTableParser.Column_definitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx) { }
+	@Override public void exitColumn_definition(@NotNull CreateTableParser.Column_definitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -124,37 +125,73 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTableComment(@NotNull CreateTableParser.TableCommentContext ctx) { }
+	@Override public void enterForeign_key_clause(@NotNull CreateTableParser.Foreign_key_clauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTableComment(@NotNull CreateTableParser.TableCommentContext ctx) { }
+	@Override public void exitForeign_key_clause(@NotNull CreateTableParser.Foreign_key_clauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColType(@NotNull CreateTableParser.ColTypeContext ctx) { }
+	@Override public void enterLiteral_value(@NotNull CreateTableParser.Literal_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColType(@NotNull CreateTableParser.ColTypeContext ctx) { }
+	@Override public void exitLiteral_value(@NotNull CreateTableParser.Literal_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumn(@NotNull CreateTableParser.ColumnContext ctx) { }
+	@Override public void enterTable_name(@NotNull CreateTableParser.Table_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumn(@NotNull CreateTableParser.ColumnContext ctx) { }
+	@Override public void exitTable_name(@NotNull CreateTableParser.Table_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterName(@NotNull CreateTableParser.NameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitName(@NotNull CreateTableParser.NameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDatatype(@NotNull CreateTableParser.DatatypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDatatype(@NotNull CreateTableParser.DatatypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComment(@NotNull CreateTableParser.CommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComment(@NotNull CreateTableParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

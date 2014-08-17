@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by chanedi on 14-2-10.
+ * Created by Chanedi on 14-2-10.
  */
 @Aspect
 @Component

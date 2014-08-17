@@ -1,7 +1,7 @@
 package chanedi.dao.modelParser;
 
 /**
- * Created by chanedi on 14-2-10.
+ * Created by Chanedi on 14-2-10.
  */
 public enum ColumnTarget {
 

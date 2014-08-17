@@ -1,4 +1,4 @@
-package chanedi.utils;
+package chanedi.util;
 
 /**
  * Created by jijy on 2014/7/9.

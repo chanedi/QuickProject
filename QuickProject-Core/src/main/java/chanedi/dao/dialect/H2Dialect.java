@@ -1,7 +1,7 @@
 package chanedi.dao.dialect;
 
 /**
- * Created by chanedi on 14-3-13.
+ * Created by Chanedi on 14-3-13.
  */
 public class H2Dialect extends Dialect {
 

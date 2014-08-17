@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chanedi.model.Entity;
-import chanedi.utils.ReflectUtils;
+import chanedi.util.ReflectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by chanedi on 14-2-10.
+ * Created by Chanedi on 14-2-10.
  */
 public class ModelUtils {
 

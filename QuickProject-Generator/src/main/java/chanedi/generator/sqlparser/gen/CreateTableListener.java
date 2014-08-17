@@ -1,4 +1,5 @@
-// Generated from E:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
+// Generated from E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.x
+package chanedi.generator.sqlparser.gen;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -8,85 +9,85 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CreateTableListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#stringType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#any_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterStringType(@NotNull CreateTableParser.StringTypeContext ctx);
+	void enterAny_name(@NotNull CreateTableParser.Any_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#stringType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#any_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitStringType(@NotNull CreateTableParser.StringTypeContext ctx);
+	void exitAny_name(@NotNull CreateTableParser.Any_nameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#col}.
+	 * Enter a parse tree produced by {@link CreateTableParser#inline_constraint}.
 	 * @param ctx the parse tree
 	 */
-	void enterCol(@NotNull CreateTableParser.ColContext ctx);
+	void enterInline_constraint(@NotNull CreateTableParser.Inline_constraintContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#col}.
+	 * Exit a parse tree produced by {@link CreateTableParser#inline_constraint}.
 	 * @param ctx the parse tree
 	 */
-	void exitCol(@NotNull CreateTableParser.ColContext ctx);
+	void exitInline_constraint(@NotNull CreateTableParser.Inline_constraintContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#booleanType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx);
+	void enterExpr(@NotNull CreateTableParser.ExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#booleanType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitBooleanType(@NotNull CreateTableParser.BooleanTypeContext ctx);
+	void exitExpr(@NotNull CreateTableParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#primmarykey}.
+	 * Enter a parse tree produced by {@link CreateTableParser#comment_value}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimmarykey(@NotNull CreateTableParser.PrimmarykeyContext ctx);
+	void enterComment_value(@NotNull CreateTableParser.Comment_valueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#primmarykey}.
+	 * Exit a parse tree produced by {@link CreateTableParser#comment_value}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimmarykey(@NotNull CreateTableParser.PrimmarykeyContext ctx);
+	void exitComment_value(@NotNull CreateTableParser.Comment_valueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#doubleType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#signed_number}.
 	 * @param ctx the parse tree
 	 */
-	void enterDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx);
+	void enterSigned_number(@NotNull CreateTableParser.Signed_numberContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#doubleType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#signed_number}.
 	 * @param ctx the parse tree
 	 */
-	void exitDoubleType(@NotNull CreateTableParser.DoubleTypeContext ctx);
+	void exitSigned_number(@NotNull CreateTableParser.Signed_numberContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#intType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#column_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntType(@NotNull CreateTableParser.IntTypeContext ctx);
+	void enterColumn_name(@NotNull CreateTableParser.Column_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#intType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#column_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntType(@NotNull CreateTableParser.IntTypeContext ctx);
+	void exitColumn_name(@NotNull CreateTableParser.Column_nameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#dateType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#schema}.
 	 * @param ctx the parse tree
 	 */
-	void enterDateType(@NotNull CreateTableParser.DateTypeContext ctx);
+	void enterSchema(@NotNull CreateTableParser.SchemaContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#dateType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#schema}.
 	 * @param ctx the parse tree
 	 */
-	void exitDateType(@NotNull CreateTableParser.DateTypeContext ctx);
+	void exitSchema(@NotNull CreateTableParser.SchemaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#columnComment}.
+	 * Enter a parse tree produced by {@link CreateTableParser#column_definition}.
 	 * @param ctx the parse tree
 	 */
-	void enterColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx);
+	void enterColumn_definition(@NotNull CreateTableParser.Column_definitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#columnComment}.
+	 * Exit a parse tree produced by {@link CreateTableParser#column_definition}.
 	 * @param ctx the parse tree
 	 */
-	void exitColumnComment(@NotNull CreateTableParser.ColumnCommentContext ctx);
+	void exitColumn_definition(@NotNull CreateTableParser.Column_definitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#sql}.
 	 * @param ctx the parse tree
@@ -98,35 +99,65 @@ public interface CreateTableListener extends ParseTreeListener {
 	 */
 	void exitSql(@NotNull CreateTableParser.SqlContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#tableComment}.
+	 * Enter a parse tree produced by {@link CreateTableParser#foreign_key_clause}.
 	 * @param ctx the parse tree
 	 */
-	void enterTableComment(@NotNull CreateTableParser.TableCommentContext ctx);
+	void enterForeign_key_clause(@NotNull CreateTableParser.Foreign_key_clauseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#tableComment}.
+	 * Exit a parse tree produced by {@link CreateTableParser#foreign_key_clause}.
 	 * @param ctx the parse tree
 	 */
-	void exitTableComment(@NotNull CreateTableParser.TableCommentContext ctx);
+	void exitForeign_key_clause(@NotNull CreateTableParser.Foreign_key_clauseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#colType}.
+	 * Enter a parse tree produced by {@link CreateTableParser#literal_value}.
 	 * @param ctx the parse tree
 	 */
-	void enterColType(@NotNull CreateTableParser.ColTypeContext ctx);
+	void enterLiteral_value(@NotNull CreateTableParser.Literal_valueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#colType}.
+	 * Exit a parse tree produced by {@link CreateTableParser#literal_value}.
 	 * @param ctx the parse tree
 	 */
-	void exitColType(@NotNull CreateTableParser.ColTypeContext ctx);
+	void exitLiteral_value(@NotNull CreateTableParser.Literal_valueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#column}.
+	 * Enter a parse tree produced by {@link CreateTableParser#table_name}.
 	 * @param ctx the parse tree
 	 */
-	void enterColumn(@NotNull CreateTableParser.ColumnContext ctx);
+	void enterTable_name(@NotNull CreateTableParser.Table_nameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#column}.
+	 * Exit a parse tree produced by {@link CreateTableParser#table_name}.
 	 * @param ctx the parse tree
 	 */
-	void exitColumn(@NotNull CreateTableParser.ColumnContext ctx);
+	void exitTable_name(@NotNull CreateTableParser.Table_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void enterName(@NotNull CreateTableParser.NameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void exitName(@NotNull CreateTableParser.NameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#datatype}.
+	 * @param ctx the parse tree
+	 */
+	void enterDatatype(@NotNull CreateTableParser.DatatypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#datatype}.
+	 * @param ctx the parse tree
+	 */
+	void exitDatatype(@NotNull CreateTableParser.DatatypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void enterComment(@NotNull CreateTableParser.CommentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void exitComment(@NotNull CreateTableParser.CommentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#mdl}.
 	 * @param ctx the parse tree

@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 import lombok.Getter;
 
 /**
- * Created by chanedi on 14-2-10.
+ * Created by Chanedi on 14-2-10.
  */
 public class Property {
 	

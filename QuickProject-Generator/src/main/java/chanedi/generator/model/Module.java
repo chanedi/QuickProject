@@ -4,7 +4,7 @@ import chanedi.generator.GlobalConfig;
 import chanedi.generator.sqlparser.CreateTableListenerImpl;
 import chanedi.generator.sqlparser.gen.CreateTableLexer;
 import chanedi.generator.sqlparser.gen.CreateTableParser;
-import chanedi.utils.FileUtils;
+import chanedi.util.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.ANTLRFileStream;
@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class Module {
     @Setter
     private String capName;
     @Getter
-    private List<Bean> beans;
+    private Collection<Bean> beans;
 
     public Module(File sqlFile, GlobalConfig globalConfig) throws IOException {
         name = FileUtils.removeFileExtension(sqlFile.getName());

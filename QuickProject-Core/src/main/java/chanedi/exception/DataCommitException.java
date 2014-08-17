@@ -1,9 +1,12 @@
 package chanedi.exception;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 表示数据提交失败。
  *
- * Created by chanedi on 14-2-10.
+ * Created by Chanedi on 14-2-10.
  */
 public class DataCommitException extends Exception {
 

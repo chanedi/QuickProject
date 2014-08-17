@@ -1,15 +1,23 @@
 package chanedi.generator.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by 羽霓 on 2014/6/10.
+ * Created by Chanedi on 2014/6/10.
  */
-public class PropertyType extends HashMap<String, String> {
+public class PropertyType {
 
-    public PropertyType(String dbType) {
+    private Map<String, String> types;
+
+    public PropertyType(String javaType) {
         super();
-        put("db", dbType);
+        types = new HashMap<String, String>();
+        addType("java", javaType);
+    }
+
+    public void addType(String typeKey, String type) {
+        types.put(typeKey, type);
     }
 
 }

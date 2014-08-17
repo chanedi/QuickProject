@@ -1,96 +1,104 @@
 grammar CreateTable;
-sql
+sql:mdl+;
+mdl
  : K_CREATE K_TABLE ( schema '.' )? table_name
-   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' ( K_WITHOUT IDENTIFIER )?
-   )
+   ( '(' column_definition ( ',' column_definition )* //( ',' table_constraint )* ')' ( K_WITHOUT IDENTIFIER )?
+   )  comment*;
+comment
+ : K_COMMENT K_ON
+   ( K_TABLE ( schema '.' )? table_name
+   | K_COLUMN ( schema '.' )? table_name '.' column_name
+   ) K_IS comment_value ';';
+
+column_definition : column_name datatype inline_constraint*;
+datatype : name+ ( '(' signed_number ')' | '(' signed_number ',' signed_number ')' )?;
+inline_constraint
+ : ( K_CONSTRAINT name )?
+   ( K_DEFAULT (signed_number | literal_value | '(' expr ')')
+   | K_NOT? K_NULL | K_UNIQUE | K_PRIMARY K_KEY | foreign_key_clause
+   | K_CHECK '(' expr ')'
+   );
+expr
+ : literal_value
+// | BIND_PARAMETER
+// | ( ( database_name '.' )? table_name '.' )? column_name
+// | unary_operator expr
+ | expr '||' expr | expr ( '*' | '/' | '%' ) expr | expr ( '+' | '-' ) expr | expr ( '<<' | '>>' | '&' | '|' ) expr | expr ( '<' | '<=' | '>' | '>=' ) expr
+ | expr ( '=' | '==' | '!=' | '<>' | K_IS | K_IS K_NOT | K_IN | K_LIKE | K_GLOB | K_MATCH | K_REGEXP ) expr
+ | expr K_AND expr | expr K_OR expr | name '(' ( K_DISTINCT? expr ( ',' expr )* | '*' )? ')' | '(' expr ')'
+// | K_CAST '(' expr K_AS type_name ')'
+// | expr K_COLLATE collation_name
+// | expr K_NOT? ( K_LIKE | K_GLOB | K_REGEXP | K_MATCH ) expr ( K_ESCAPE expr )?
+ | expr ( K_ISNULL | K_NOTNULL | K_NOT K_NULL ) | expr K_IS K_NOT? expr | expr K_NOT? K_BETWEEN expr K_AND expr
+// | expr K_NOT? K_IN ( '(' ( select_stmt | expr ( ',' expr )* )? ')' | ( database_name '.' )? table_name )
+// | ( ( K_NOT )? K_EXISTS )? '(' select_stmt ')'
+// | K_CASE expr? ( K_WHEN expr K_THEN expr )+ ( K_ELSE expr )? K_END
+// | raise_function
  ;
-//sql:(mdl tableComment? columnComment*)+;
-//mdl:'create'  'table' ID  '('  col+  primmarykey ');' ;
-//tableComment: 'comment on table' ID 'is' COMMENT ';';
-//columnComment: 'comment on column' ID '.' column 'is' COMMENT ';';
-//col: column colType DEFAULT? NOTNULL? ',';
-//colType: stringType | dateType | doubleType | intType | booleanType  ;
-//primmarykey : 'constraint' ID 'primary key (ID)';
-//column : (ID|'"'ID'"');
+foreign_key_clause : K_REFERENCES ( schema '.' )? table_name ( '(' column_name ( ',' column_name )* ')' )? ( K_ON K_DELETE (K_CASCADE | K_SET K_NULL) )?;
+comment_value : STRING_LITERAL;
 
+signed_number : ( '+' | '-' )? NUMERIC_LITERAL;
+literal_value : NUMERIC_LITERAL | STRING_LITERAL | BLOB_LITERAL | K_NULL | K_CURRENT_TIME | K_CURRENT_DATE | K_CURRENT_TIMESTAMP;
 
-// colType
-/*
-stringType : 'VARCHAR2' RANGE;
-dateType : 'TIMESTAMP' | 'DATE';
-doubleType : 'NUMERIC' '(' NUMBER ',' NUMBER ')';
-intType : 'NUMERIC' (RANGE | '(' NUMBER ',''0)');
-booleanType : 'CHAR(1)';
-
-
-RANGE : '(' NUMBER ')';
-COMMENT : '\'' STUFF '\'';
-
-NOTNULL : 'not null';
-DEFAULT : 'default \'' STUFF '\'';
-NUMBER : [0-9]+;
-ID : [a-zA-Z_]+;
-WS : [ \t\r\n]+ -> skip;
-fragment STUFF: ~[ \t\r\n']+;*/
-
-column_definition
- : column datatype? column_constraint*
- ;
-
-datatype
- : name+ ( '(' signed_number ')'
-         | '(' signed_number ',' signed_number ')' )?
- ;
-
-column_constraint
-  : ( K_CONSTRAINT name )?
-    ( K_PRIMARY K_KEY ( K_ASC | K_DESC )? conflict_clause K_AUTOINCREMENT?
-    | K_NOT? K_NULL conflict_clause
-    | K_UNIQUE conflict_clause
-    | K_CHECK '(' expr ')'
-    | K_DEFAULT (signed_number | literal_value | '(' expr ')')
-    | K_COLLATE collation_name
-    | foreign_key_clause
-    )
-  ;
-
+name : any_name;
 schema : any_name;
 table_name : any_name;
-column : any_name;
+column_name : any_name;
 
 any_name
  : IDENTIFIER
 // | keyword
-// | STRING_LITERAL
-// | '(' any_name ')'
+ | STRING_LITERAL
+ | '(' any_name ')'
  ;
 
-SCOL : ';';
-DOT : '.';
-OPEN_PAR : '(';
-CLOSE_PAR : ')';
-
+K_AND : A N D;
+K_BETWEEN : B E T W E E N;
+K_CASCADE : C A S C A D E;
+K_CHECK : C H E C K;
 K_CREATE : C R E A T E;
+K_COLUMN : C O L U M N;
+K_COMMENT : C O M M E N T;
+K_CONSTRAINT : C O N S T R A I N T;
+K_CURRENT_DATE : C U R R E N T '_' D A T E;
+K_CURRENT_TIME : C U R R E N T '_' T I M E;
+K_CURRENT_TIMESTAMP : C U R R E N T '_' T I M E S T A M P;
+K_DEFAULT : D E F A U L T;
+K_DELETE : D E L E T E;
+K_DISTINCT : D I S T I N C T;
+K_GLOB : G L O B;
+K_IN : I N;
+K_IS : I S;
+K_ISNULL : I S N U L L;
+K_KEY : K E Y;
+K_LIKE : L I K E;
+K_MATCH : M A T C H;
+K_NOT : N O T;
+K_NOTNULL : N O T N U L L;
+K_NULL : N U L L;
+K_ON : O N;
+K_OR : O R;
+K_PRIMARY : P R I M A R Y;
+K_REFERENCES : R E F E R E N C E S;
+K_REGEXP : R E G E X P;
+K_SET : S E T;
 K_TABLE : T A B L E;
+K_UNIQUE : U N I Q U E;
 
-IDENTIFIER
- : '"' (~'"' | '""')* '"'
- | '`' (~'`' | '``')* '`'
- | '[' ~']'* ']'
+IDENTIFIER : '"' (~'"' | '""')* '"' | '`' (~'`' | '``')* '`' | '[' ~']'* ']'
  | [a-zA-Z_] [a-zA-Z_0-9]* // TODO check: needs more chars in set
  ;
 
-SINGLE_LINE_COMMENT
- : '--' ~[\r\n]* -> channel(HIDDEN)
- ;
-MULTILINE_COMMENT
- : '/*' .*? ( '*/' | EOF ) -> channel(HIDDEN)
- ;
+NUMERIC_LITERAL : DIGIT+ ( '.' DIGIT* )? ( E [-+]? DIGIT+ )? | '.' DIGIT+ ( E [-+]? DIGIT+ )?;
+STRING_LITERAL : '\'' ( ~'\'' | '\'\'' )* '\'';
+BLOB_LITERAL : X STRING_LITERAL;
+
+SINGLE_LINE_COMMENT : '--' ~[\r\n]* -> channel(HIDDEN);
+MULTILINE_COMMENT : '/*' .*? ( '*/' | EOF ) -> channel(HIDDEN);
 SPACES : [ \u000B\t\r\n] -> channel(HIDDEN);
 
-
 fragment DIGIT : [0-9];
-
 fragment A : [aA];
 fragment B : [bB];
 fragment C : [cC];

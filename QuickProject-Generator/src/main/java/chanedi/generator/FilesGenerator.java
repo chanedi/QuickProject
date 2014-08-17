@@ -4,7 +4,7 @@ import chanedi.generator.exception.ConfigException;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Generate;
 import chanedi.generator.model.Module;
-import chanedi.utils.FileUtils;
+import chanedi.util.FileUtils;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -43,7 +43,11 @@ public class FilesGenerator {
     }
 
     public void parseModule() throws ConfigException {
-        File sqlDir = new File(globalConfig.getInputSqlPath());
+        String inputSqlPath = globalConfig.getInputSqlPath();
+        if (inputSqlPath == null) {
+            throw new ConfigException("inputSqlPath", "路径未配置！");
+        }
+        File sqlDir = new File(inputSqlPath);
         if (!sqlDir.isDirectory()) {
             throw new ConfigException("inputSqlPath", "路径必须是目录！");
         }
