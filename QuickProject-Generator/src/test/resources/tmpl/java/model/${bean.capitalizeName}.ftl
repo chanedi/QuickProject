@@ -1,5 +1,6 @@
 package chanedi.${module.name}.model;
 
+import java.util.*;
 import chanedi.model.Entity;
 
 public class ${bean.capitalizeName} extends Entity {
@@ -7,7 +8,7 @@ public class ${bean.capitalizeName} extends Entity {
     ${generate.serialVersionUID}
 
     <#list bean.properties as prop>
-        private String ${prop.name};
+        private ${prop.type.java} ${prop.name};
     </#list>
 
 }

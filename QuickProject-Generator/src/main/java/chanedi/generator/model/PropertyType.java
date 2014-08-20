@@ -6,18 +6,15 @@ import java.util.Map;
 /**
  * Created by Chanedi on 2014/6/10.
  */
-public class PropertyType {
-
-    private Map<String, String> types;
+public class PropertyType extends HashMap {
 
     public PropertyType(String javaType) {
         super();
-        types = new HashMap<String, String>();
         addType("java", javaType);
     }
 
     public void addType(String typeKey, String type) {
-        types.put(typeKey, type);
+        put(typeKey, type);
     }
 
 }

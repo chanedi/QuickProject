@@ -6,6 +6,7 @@ create table T_FAC_MAINTAIN_RECORD_ITEM
    VALUE                NUMERIC(10, 2),
    IS_PASSED            CHAR(1)              default '0',
    REMARKS              VARCHAR2(1000),
+   INTVALUE                 NUMERIC(10),
    CREATE_TIME          TIMESTAMP            not null,
    CREATE_USER_CODE     VARCHAR2(50),
    MODIFY_TIME          TIMESTAMP            not null,

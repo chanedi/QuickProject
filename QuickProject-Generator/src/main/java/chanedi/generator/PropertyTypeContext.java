@@ -40,34 +40,48 @@ public final class PropertyTypeContext {
         File typeDefFile = new File(PropertyTypeContext.class.getResource(CONFIG_PATH + TYPE_DEF_FILE_NAME + CONFIG_FILE_SUFFIX).getFile());
         Properties typeDefProp = new Properties();
         try {
-            dbConvertProp.load(new FileInputStream(typeDefFile));
+            typeDefProp.load(new FileInputStream(typeDefFile));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        // 构造所有propertyTypes
+        for (Object javaType : dbConvertProp.values()) {
+            String javaTypeStr = (String) javaType;
+            if (propertyTypes.get(javaTypeStr) != null) {
+                // 允许重复
+                continue;
+            }
+            PropertyType propertyType = new PropertyType(javaTypeStr);
+            propertyTypes.put(javaTypeStr, propertyType);
+        }
 
-        for (Map.Entry<Object, Object> propEntry : typeDefProp.entrySet()) {
-            String javaType = (String) propEntry.getKey();
-            PropertyType propertyType = new PropertyType(javaType);
+        // 加载更多类型定义(允许不定义)
+        for (Map.Entry<Object, Object> defEntry : typeDefProp.entrySet()) {
+            String javaType = (String) defEntry.getKey();
+            PropertyType propertyType = propertyTypes.get(javaType);
 
-            String typeJsonStr = (String) propEntry.getValue();
+            String typeJsonStr = (String) defEntry.getValue();
             JSONObject jsonObject = JSON.parseObject(typeJsonStr);
             for (Map.Entry<String, Object> jsonEntry : jsonObject.entrySet()) {
                 propertyType.addType(jsonEntry.getKey(), (String) jsonEntry.getValue());
             }
-
-            propertyTypes.put(javaType, propertyType);
         }
     }
 
     public static PropertyType matchPropertyType(String dbType) {
-        List<Object> keys = dbConvertProp.keysInOrder();
-        for (Object key : keys) {
-            if (key.toString().matches(dbType.trim())) {
-                String javaType = (String) dbConvertProp.get(key);
-                return propertyTypes.get(javaType);
+        String javaType = "String";
+        if (dbType == null) {
+            javaType = "String";
+        } else {
+            List<Object> keys = dbConvertProp.keysInOrder();
+            for (Object key : keys) {
+                if (dbType.trim().matches(key.toString())) {
+                    javaType = (String) dbConvertProp.get(key);
+                }
             }
         }
-        return null;
+
+        return propertyTypes.get(javaType);
     }
 
 }
