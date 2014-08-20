@@ -41,6 +41,18 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTable_constraint(@NotNull CreateTableParser.Table_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_constraint(@NotNull CreateTableParser.Table_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpr(@NotNull CreateTableParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}

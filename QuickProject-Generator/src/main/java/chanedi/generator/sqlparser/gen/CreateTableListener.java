@@ -29,6 +29,16 @@ public interface CreateTableListener extends ParseTreeListener {
 	 */
 	void exitInline_constraint(@NotNull CreateTableParser.Inline_constraintContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#table_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_constraint(@NotNull CreateTableParser.Table_constraintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#table_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_constraint(@NotNull CreateTableParser.Table_constraintContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#expr}.
 	 * @param ctx the parse tree
 	 */

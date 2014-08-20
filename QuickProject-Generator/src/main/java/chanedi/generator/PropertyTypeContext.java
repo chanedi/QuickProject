@@ -25,13 +25,12 @@ public final class PropertyTypeContext {
     private static final String DB_CONVERT_FILE_NAME = "dbToJava_";// TODO 支持用户覆盖部分值
     private static final String TYPE_DEF_FILE_NAME = "typeDefinition";// TODO 支持用户覆盖部分值
     private static final String CONFIG_FILE_SUFFIX = ".properties";
-    private static String dialect;
-    private static Map<String, PropertyType> propertyTypes; // key 为 javaType
-    private static PropertiesWithOrder dbConvertProp;
+    private static String dialect = "oracle"; // TODO 传入
+    private static Map<String, PropertyType> propertyTypes = new HashMap<String, PropertyType>(); // key 为 javaType
+    private static PropertiesWithOrder dbConvertProp = new PropertiesWithOrder();
 
     static {
         File dbConvertFile = new File(PropertyTypeContext.class.getResource(CONFIG_PATH + DB_CONVERT_FILE_NAME + dialect + CONFIG_FILE_SUFFIX).getFile());
-        PropertiesWithOrder dbConvertProp = new PropertiesWithOrder();
         try {
             dbConvertProp.load(new FileInputStream(dbConvertFile));
         } catch (IOException e) {
@@ -46,7 +45,6 @@ public final class PropertyTypeContext {
             throw new RuntimeException(e);
         }
 
-        propertyTypes = new HashMap<String, PropertyType>();
         for (Map.Entry<Object, Object> propEntry : typeDefProp.entrySet()) {
             String javaType = (String) propEntry.getKey();
             PropertyType propertyType = new PropertyType(javaType);
@@ -59,13 +57,12 @@ public final class PropertyTypeContext {
 
             propertyTypes.put(javaType, propertyType);
         }
-
     }
 
     public static PropertyType matchPropertyType(String dbType) {
         List<Object> keys = dbConvertProp.keysInOrder();
         for (Object key : keys) {
-            if (key.toString().matches(dbType)) {
+            if (key.toString().matches(dbType.trim())) {
                 String javaType = (String) dbConvertProp.get(key);
                 return propertyTypes.get(javaType);
             }

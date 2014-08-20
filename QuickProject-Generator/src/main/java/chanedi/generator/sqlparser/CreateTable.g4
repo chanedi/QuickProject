@@ -2,7 +2,7 @@ grammar CreateTable;
 sql:mdl+;
 mdl
  : K_CREATE K_TABLE ( schema '.' )? table_name
-   ( '(' column_definition ( ',' column_definition )* //( ',' table_constraint )* ')' ( K_WITHOUT IDENTIFIER )?
+   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' ';'
    )  comment*;
 comment
  : K_COMMENT K_ON
@@ -37,6 +37,12 @@ expr
  ;
 foreign_key_clause : K_REFERENCES ( schema '.' )? table_name ( '(' column_name ( ',' column_name )* ')' )? ( K_ON K_DELETE (K_CASCADE | K_SET K_NULL) )?;
 comment_value : STRING_LITERAL;
+table_constraint
+ : ( K_CONSTRAINT name )?
+   ( ( K_PRIMARY K_KEY | K_UNIQUE ) '(' column_name ( ',' column_name )* ')'
+   | K_CHECK '(' expr ')'
+   | K_FOREIGN K_KEY '(' column_name ( ',' column_name )* ')' foreign_key_clause
+   );
 
 signed_number : ( '+' | '-' )? NUMERIC_LITERAL;
 literal_value : NUMERIC_LITERAL | STRING_LITERAL | BLOB_LITERAL | K_NULL | K_CURRENT_TIME | K_CURRENT_DATE | K_CURRENT_TIMESTAMP;
@@ -67,6 +73,7 @@ K_CURRENT_TIMESTAMP : C U R R E N T '_' T I M E S T A M P;
 K_DEFAULT : D E F A U L T;
 K_DELETE : D E L E T E;
 K_DISTINCT : D I S T I N C T;
+K_FOREIGN : F O R E I G N;
 K_GLOB : G L O B;
 K_IN : I N;
 K_IS : I S;
