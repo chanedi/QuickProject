@@ -5,7 +5,7 @@ import java.util.List;
 import chanedi.exception.DataCommitException;
 import chanedi.model.Entity;
 
-public interface BaseService<T extends Entity> {
+public interface EntityService<T extends Entity> {
 	
 	public List<T> getAll();
 	

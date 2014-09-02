@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.UpdateProvider;
 /**
  * Created by Chanedi on 14-2-10.
  */
-public interface BaseDAO<T extends Entity> {
+public interface EntityDAO<T extends Entity> {
 
 	@SelectProvider(type = BaseSQLProvider.class, method = "getAll")
 	@ResultMap("getMap")
