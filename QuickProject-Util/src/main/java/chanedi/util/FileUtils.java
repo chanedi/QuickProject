@@ -21,4 +21,11 @@ public class FileUtils {
         return fileName.substring(0, indexOfFileExtension);
     }
 
+    public static String getFullPath(String rootPath, String path) {
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+        return rootPath + path;
+    }
+
 }

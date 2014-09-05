@@ -26,9 +26,8 @@ public class GeneratorTest extends TestCase {
     public void testGenerator() throws ConfigException {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-        globalConfig.setTmplPath("E:\\Chanedi\\IdeaProjects\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\tmpl");
-        globalConfig.setInputSqlPath("E:\\Chanedi\\IdeaProjects\\QuickProject\\QuickProject-Generator\\src\\test\\resources\\sql");
-        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
+        globalConfig.setOutProjectPath("E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator");
+        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$"); // TODO modelname的设置
 
         generator.process();
     }

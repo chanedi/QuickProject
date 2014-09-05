@@ -14,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jijy on 2014/7/9.
@@ -43,11 +46,7 @@ public class FilesGenerator {
     }
 
     public void parseModule() throws ConfigException {
-        String inputSqlPath = globalConfig.getInputSqlPath();
-        if (inputSqlPath == null) {
-            throw new ConfigException("inputSqlPath", "路径未配置！");
-        }
-        File sqlDir = new File(inputSqlPath);
+        File sqlDir = globalConfig.getInputSqlFile();
         if (!sqlDir.isDirectory()) {
             throw new ConfigException("inputSqlPath", "路径必须是目录！");
         }
@@ -67,7 +66,7 @@ public class FilesGenerator {
     }
 
     public void parseTmpl() throws ConfigException {
-        File tmplDir = new File(globalConfig.getTmplPath());
+        File tmplDir = globalConfig.getTmplFile();
         if (!tmplDir.isDirectory()) {
             throw new ConfigException("tmplPath", "路径必须是目录！");
         }
@@ -86,13 +85,13 @@ public class FilesGenerator {
         }
     }
 
-    public void generate() {
+    public void generate() throws ConfigException {
         Configuration cfg = new Configuration();
-        File tmplDir = new File(globalConfig.getTmplPath());
+        File tmplDir = globalConfig.getTmplFile();
         try {
             cfg.setDirectoryForTemplateLoading(tmplDir);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ConfigException("tmplPath", e);
         }
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         for (Module module : modules) {
@@ -152,6 +151,7 @@ public class FilesGenerator {
         destPath = destPath + templateName.replaceFirst("[^/]+", "");
         destPath = FileUtils.removeFileExtension(destPath);
         destPath = destPath + "." + config.getFileExtension();
+        destPath = FileUtils.getFullPath(globalConfig.getOutProjectPath(), destPath);
 
         Template template = null;
         try {

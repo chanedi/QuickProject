@@ -2,6 +2,7 @@ package chanedi.test;
 
 import chanedi.dao.UserDAO;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 
 import javax.annotation.Resource;
 
@@ -16,6 +17,5 @@ public class DaoTest extends BaseTest {
     @Test
     public void test() {
         userDAO.getAll();
-
     }
 }

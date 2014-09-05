@@ -11,6 +11,7 @@
     <modules>
         <module>QuickProject-Core</module>
         <module>QuickProject-Generator</module>
+        <module>QuickProject-Util</module>
     </modules>
 
     <url>https://github.com/chanedi/QuickProject</url>
@@ -24,14 +25,19 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+        <org.springframework.version>4.1.0.RELEASE</org.springframework.version>
         <org.apache.tiles.version>3.0.1</org.apache.tiles.version>
-        <junit.version>4.7</junit.version>
+        <junit.version>4.11</junit.version>
         <mybatis.version>3.2.3</mybatis.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>chanedi</groupId>
+                <artifactId>QuickProject-Util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>chanedi</groupId>
                 <artifactId>QuickProject-Core</artifactId>
@@ -41,28 +47,12 @@
                 <groupId>org.mobicents.commons</groupId>
                 <artifactId>commons-annotations</artifactId>
                 <version>1.0.114</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet.jsp</groupId>
-                <artifactId>javax.servlet.jsp-api</artifactId>
-                <version>2.3.1</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.12.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>1.7.3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -70,26 +60,14 @@
                 <version>3.1</version>
             </dependency>
             <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.12.2</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.1.37</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.jxls</groupId>
-                <artifactId>jxls-reader</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-
-            <!-- 自动生成代码 -->
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4</artifactId>
-                <version>4.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.20</version>
             </dependency>
 
             <!-- log -->
@@ -100,7 +78,7 @@
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
+                <artifactId>jcl-over-slf4j</artifactId><!-- 桥接apache的log接口和slf4j的接口 -->
                 <version>1.7.7</version>
             </dependency>
 
@@ -118,23 +96,32 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>6.0.37</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.3.175</version>
                 <scope>test</scope>
             </dependency>
 
-            <!-- Servlet -->
+            <!-- org.springframework -->
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.collections</groupId>
+                <artifactId>google-collections</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.7.3</version>
             </dependency>
 
             <!-- Mybatis -->
@@ -171,22 +158,53 @@
                 <version>1.0.1</version>
             </dependency>
 
-            <!-- org.springframework -->
+            <!-- 自动生成代码 -->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${org.springframework.version}</version>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4</artifactId>
+                <version>4.2.2</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${org.springframework.version}</version>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.20</version>
+            </dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.google.collections</groupId>
-                <artifactId>google-collections</artifactId>
-                <version>1.0</version>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>javax.servlet.jsp-api</artifactId>
+                <version>2.3.1</version>
+                <scope>provided</scope>
             </dependency>
+
+
+            <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+
+
+
 
             <!-- validation -->
             <dependency>

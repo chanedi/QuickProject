@@ -1,11 +1,10 @@
-package chanedi.${module.name}.model;
+package cc.oit.generate.${module.name}.model;
 
 import java.util.*;
 import lombok.Data;
-import chanedi.model.Entity;
 
 @Data
-public class ${bean.capitalizeName} extends Entity {
+public class ${bean.capitalizeName} extends Base {
 
     ${generate.serialVersionUID}
 
