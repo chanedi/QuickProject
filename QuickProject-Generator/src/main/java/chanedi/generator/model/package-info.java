@@ -1,5 +1,5 @@
 /**
  * 可以在template中使用的bean
- * Created by Chanedi on 2014/7/29.
+ * Created by Chanedi
  */
 package chanedi.generator.model;

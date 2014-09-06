@@ -20,9 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This class provides an empty implementation of {@link chanedi.generator.sqlparser.gen.CreateTableListener},
- * which can be extended to create a listener which only needs to handle a subset
- * of the available methods.
+ * Created by Chanedi
  */
 @NotThreadSafe
 public class CreateTableListenerImpl extends CreateTableBaseListener {

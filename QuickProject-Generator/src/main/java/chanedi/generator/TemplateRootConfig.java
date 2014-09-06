@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * Created by jijy on 2014/7/9.
+ * Created by Chanedi
  */
 @Data
 public class TemplateRootConfig {

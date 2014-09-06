@@ -1,7 +1,7 @@
 package chanedi.generator.exception;
 
 /**
- * Created by jijy on 2014/7/25.
+ * Created by Chanedi
  */
 public class ConfigException extends Exception {
 

@@ -10,6 +10,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Created by Chanedi
+ */
 @Transactional(rollbackFor = { Exception.class }, readOnly = true)
 public abstract class EntityServiceImpl<T extends Entity> implements EntityService<T> {
 

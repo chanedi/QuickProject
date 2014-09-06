@@ -4,6 +4,9 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
+/**
+ * Created by Chanedi
+ */
 public class ReflectUtils {
 
 	public static PropertyDescriptor[] getBeanSetters(Class<?> type) {

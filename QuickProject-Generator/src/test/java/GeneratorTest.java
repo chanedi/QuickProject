@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by jijy on 2014/7/24.
+ * Created by Chanedi
  */
 public class GeneratorTest extends TestCase {
 
@@ -27,7 +27,7 @@ public class GeneratorTest extends TestCase {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
         globalConfig.setOutProjectPath("E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator");
-        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$"); // TODO modelname的设置
+        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
 
         generator.process();
     }

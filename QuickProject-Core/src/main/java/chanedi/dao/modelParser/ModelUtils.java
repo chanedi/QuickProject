@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by Chanedi on 14-2-10.
+ * Created by Chanedi
  */
 public class ModelUtils {
 

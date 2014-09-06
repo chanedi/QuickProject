@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import javax.annotation.Resource;
 
 /**
- * Created by Chanedi on 14-3-13.
+ * Created by Chanedi
  */
 public class DaoTest extends BaseTest {
 

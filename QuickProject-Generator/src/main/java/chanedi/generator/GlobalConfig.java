@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by jijy on 2014/7/29.
+ * Created by Chanedi
  */
 public class GlobalConfig {
 

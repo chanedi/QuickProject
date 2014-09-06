@@ -37,7 +37,7 @@ import lombok.Data;
 
  }
  *
- * Created by Chanedi on 14-2-10.
+ * Created by Chanedi
  */
 @Data
 public class Entity implements Serializable {

@@ -3,7 +3,7 @@ package chanedi.generator.model;
 import java.util.UUID;
 
 /**
- * Created by jijy on 2014/7/29.
+ * Created by Chanedi
  */
 public final class Generate {
 

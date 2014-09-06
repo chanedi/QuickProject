@@ -1,7 +1,7 @@
 package chanedi.util;
 
 /**
- * Created by jijy on 2014/7/9.
+ * Created by Chanedi
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 

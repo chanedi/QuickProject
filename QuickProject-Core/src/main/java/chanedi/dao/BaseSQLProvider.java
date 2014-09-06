@@ -14,7 +14,7 @@ import chanedi.dao.modelParser.Property;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
- * Created by Chanedi on 14-2-10.
+ * Created by Chanedi
  */
 public class BaseSQLProvider<T extends Entity> {
 

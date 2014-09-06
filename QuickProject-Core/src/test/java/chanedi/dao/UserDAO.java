@@ -3,7 +3,7 @@ package chanedi.dao;
 import chanedi.model.User;
 
 /**
- * Created by Chanedi on 14-3-13.
+ * Created by Chanedi
  */
 public interface UserDAO extends EntityDAO<User> {
 

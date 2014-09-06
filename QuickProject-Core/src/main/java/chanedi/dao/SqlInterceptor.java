@@ -25,7 +25,7 @@ import org.apache.ibatis.session.RowBounds;
  * 支持物理分页。
  *
  * Created by unknown
- * Edit by chanedi on 14-2-10.
+ * Edit by Chanedi
  */
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
 public class SqlInterceptor implements Interceptor {

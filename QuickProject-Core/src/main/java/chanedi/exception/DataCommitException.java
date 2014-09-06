@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 表示数据提交失败。
  *
- * Created by Chanedi on 14-2-10.
+ * Created by Chanedi
  */
 public class DataCommitException extends Exception {
 

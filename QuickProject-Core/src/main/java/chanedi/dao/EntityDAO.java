@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 /**
- * Created by Chanedi on 14-2-10.
+ * Created by Chanedi
  */
 public interface EntityDAO<T extends Entity> {
 
