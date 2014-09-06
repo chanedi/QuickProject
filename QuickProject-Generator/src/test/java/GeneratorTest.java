@@ -28,6 +28,7 @@ public class GeneratorTest extends TestCase {
         GlobalConfig globalConfig = generator.getGlobalConfig();
         globalConfig.setOutProjectPath("E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator");
         globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
+        globalConfig.setIgnoreExists(false);
 
         generator.process();
     }
