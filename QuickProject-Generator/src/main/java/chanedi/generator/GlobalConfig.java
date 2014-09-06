@@ -1,6 +1,8 @@
 package chanedi.generator;
 
+import chanedi.enums.DBDialectType;
 import chanedi.generator.exception.ConfigException;
+import chanedi.util.ReflectUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.io.Resource;
@@ -8,13 +10,23 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Created by Chanedi
+ * 单例
  */
-public class GlobalConfig {
+public final class GlobalConfig {
 
+    @Getter
+    private static GlobalConfig instance = new GlobalConfig();
+    private ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
+    /**  */
     @Setter@Getter
     private String outProjectPath; // TODO 合适的默认值？
     @Setter
@@ -22,8 +34,17 @@ public class GlobalConfig {
     @Setter
     private String tmplPath = "classpath:/tmpl";
     @Setter@Getter
+    private String typeMatchConfigPath = "classpath:/typeMatch/";
+    @Setter@Getter
     private String beanNameRegex = "(\\w+)$";
-    private ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
+    @Setter@Getter
+    private boolean ignoreExists = true;
+    @Setter@Getter
+    private DBDialectType dbDialectType = DBDialectType.ORACLE;
+
+    private GlobalConfig() {
+        super();
+    }
 
     public File getInputSqlFile() throws ConfigException {
         return getFileByConfig("inputSqlPath", inputSqlPath);

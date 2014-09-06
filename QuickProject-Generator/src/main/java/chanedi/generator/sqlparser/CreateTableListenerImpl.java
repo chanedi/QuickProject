@@ -61,7 +61,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
         Property column = new Property();
         column.setColumnName(ctx.column_name().getText());
         String datatype = ctx.datatype().getText();
-        column.setType(PropertyTypeContext.matchPropertyType(datatype));
+        column.setType(PropertyTypeContext.getInstance().matchPropertyType(datatype));
         currentBean.addProperty(column);
     }
 

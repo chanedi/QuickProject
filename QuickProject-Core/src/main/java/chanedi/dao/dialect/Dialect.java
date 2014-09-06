@@ -5,10 +5,6 @@ package chanedi.dao.dialect;
  */
 public abstract class Dialect {
 
-	public static enum Type {
-		MYSQL, ORACLE, H2;
-	}
-
 	public abstract String getLimitString(String sql, int skipResults, int maxResults);
 
 }

@@ -33,7 +33,7 @@ public class FilesGenerator {
     private Generate generate;
 
     public FilesGenerator() {
-        globalConfig = new GlobalConfig();
+        globalConfig = GlobalConfig.getInstance();
         modules = new ArrayList<Module>();
         templateRoots = new ArrayList<TemplateRoot>();
         generate = Generate.getInstance();
@@ -126,8 +126,8 @@ public class FilesGenerator {
                     throw new RuntimeException("目标路径解析发生错误，模板名称：" + templateName, e);
                 }
                 File file = new File(destPath);
-                if (file.exists()) {
-                    continue; // TODO config
+                if (file.exists() && globalConfig.isIgnoreExists()) {
+                    continue;
                 }
                 File parentFile = file.getParentFile();
                 if (!parentFile.exists()) {

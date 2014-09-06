@@ -13,10 +13,11 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
+ * 非单例。
  * Created by Chanedi
  */
 @Data
-public class TemplateRootConfig {
+public final class TemplateRootConfig {
 
     public static final String CONFIG_FILE_NAME = "config.properties";
     private static final Logger logger = LoggerFactory.getLogger(TemplateRootConfig.class);

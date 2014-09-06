@@ -6,6 +6,7 @@ import java.util.Properties;
 import chanedi.dao.dialect.Dialect;
 import chanedi.dao.dialect.MySql5Dialect;
 import chanedi.dao.dialect.OracleDialect;
+import chanedi.enums.DBDialectType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -53,9 +54,9 @@ public class SqlInterceptor implements Interceptor {
 			rowBounds = (RowBounds) metaStatementHandler.getValue("delegate.rowBounds");
 		}
 		Configuration configuration = (Configuration) metaStatementHandler.getValue("delegate.configuration");
-		Dialect.Type databaseType = null;
+		DBDialectType databaseType = null;
 		try {
-			databaseType = Dialect.Type.valueOf(configuration.getVariables().getProperty("dialect").toUpperCase());
+			databaseType = DBDialectType.valueOf(configuration.getVariables().getProperty("dialect").toUpperCase());
 		} catch (Exception e) {
 			// ignore
 		}
