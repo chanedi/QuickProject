@@ -94,7 +94,7 @@ K_TABLE : T A B L E;
 K_UNIQUE : U N I Q U E;
 
 IDENTIFIER : '"' (~'"' | '""')* '"' | '`' (~'`' | '``')* '`' | '[' ~']'* ']'
- | [a-zA-Z_] [a-zA-Z_0-9]* // TODO check: needs more chars in set
+ | [a-zA-Z_] [a-zA-Z_0-9]*
  ;
 
 NUMERIC_LITERAL : DIGIT+ ( '.' DIGIT* )? ( E [-+]? DIGIT+ )? | '.' DIGIT+ ( E [-+]? DIGIT+ )?;

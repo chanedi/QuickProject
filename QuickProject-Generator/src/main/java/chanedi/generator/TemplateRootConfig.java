@@ -21,7 +21,7 @@ public final class TemplateRootConfig {
 
     public static final String CONFIG_FILE_NAME = "config.properties";
     private static final Logger logger = LoggerFactory.getLogger(TemplateRootConfig.class);
-    private String rootPath; // TODO 默认值
+    private String rootPath = "src";
     private String fileExtension = "java";
 
     private TemplateRootConfig() {

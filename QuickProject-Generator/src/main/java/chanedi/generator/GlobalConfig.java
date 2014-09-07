@@ -28,13 +28,13 @@ public final class GlobalConfig {
     private ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
     /**  */
     @Setter@Getter
-    private String outProjectPath; // TODO 合适的默认值？
+    private String outProjectPath = "D:/gen";
     @Setter
     private String inputSqlPath = "classpath:/sql";
     @Setter
     private String tmplPath = "classpath:/tmpl";
     @Setter@Getter
-    private String typeMatchConfigPath = "classpath:/typeMatch/";
+    private String typeMatchConfigPath = "classpath:/typeMatch";
     @Setter@Getter
     private String beanNameRegex = "(\\w+)$";
     @Setter@Getter

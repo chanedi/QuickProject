@@ -5,7 +5,7 @@
     </resultMap>
     <sql id="queryColumns">
         <#list bean.properties as prop>
-        a.${prop.columnName},
+        a.${prop.columnName}<#if prop_has_next>,</#if>
         </#list>
     </sql>
 </mapper>

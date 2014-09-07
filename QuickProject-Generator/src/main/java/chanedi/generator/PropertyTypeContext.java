@@ -28,8 +28,8 @@ public final class PropertyTypeContext {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private static PropertyTypeContext instance;
 
-    private static final String DB_CONVERT_FILE_NAME = "dbToJava_";// TODO 支持用户覆盖部分值
-    private static final String TYPE_DEF_FILE_NAME = "typeDefinition";// TODO 支持用户覆盖部分值
+    private static final String DB_CONVERT_FILE_NAME = "dbToJava_";
+    private static final String TYPE_DEF_FILE_NAME = "typeDefinition";
     private static final String CONFIG_FILE_SUFFIX = ".properties";
     private String typeMatchConfigPath = "classpath:/typeMatch/";
     private Map<String, PropertyType> propertyTypes = new HashMap<String, PropertyType>(); // key 为 javaType
@@ -72,7 +72,7 @@ public final class PropertyTypeContext {
 
     private void loadProperties(Properties properties, String propFileName) {
         GlobalConfig globalConfig = GlobalConfig.getInstance();
-        String typeMatchConfigPath = globalConfig.getTypeMatchConfigPath();
+        String typeMatchConfigPath = globalConfig.getTypeMatchConfigPath() + "/";
         File dbConvertFile = null;
         try {
             dbConvertFile = resourceLoader.getResource(typeMatchConfigPath + propFileName).getFile();
