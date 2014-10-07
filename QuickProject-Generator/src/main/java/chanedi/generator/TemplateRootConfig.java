@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * 非单例。
- * Created by Chanedi
+ * @author Chanedi
  */
 @Data
 public final class TemplateRootConfig {

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class FilesGenerator {
 

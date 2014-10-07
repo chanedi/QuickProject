@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class Module {
 

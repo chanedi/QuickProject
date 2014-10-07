@@ -1,7 +1,7 @@
-package chanedi.dao.modelParser;
+package chanedi.dao.impl.mybatis.modelParser;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public enum ColumnTarget {
 

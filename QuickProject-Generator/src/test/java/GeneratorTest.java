@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class GeneratorTest extends TestCase {
 

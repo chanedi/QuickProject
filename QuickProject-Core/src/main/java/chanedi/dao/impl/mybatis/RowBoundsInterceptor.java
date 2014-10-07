@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
- * 支持物理分页。
+ * 将分页参数加入cache条件。
  *
  * @author Chanedi
  */

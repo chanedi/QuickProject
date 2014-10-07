@@ -10,8 +10,8 @@ import chanedi.generator.sqlparser.gen.CreateTableParser;
 import chanedi.util.StringUtils;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.mobicents.commons.annotations.NotThreadSafe;
 
+import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 @NotThreadSafe
 public class CreateTableListenerImpl extends CreateTableBaseListener {

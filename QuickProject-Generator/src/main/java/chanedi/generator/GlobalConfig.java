@@ -18,7 +18,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  * 单例
  */
 public final class GlobalConfig {

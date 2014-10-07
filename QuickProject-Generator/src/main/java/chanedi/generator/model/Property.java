@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class Property {
 

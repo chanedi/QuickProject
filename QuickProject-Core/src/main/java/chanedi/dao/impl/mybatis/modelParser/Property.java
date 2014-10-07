@@ -1,4 +1,4 @@
-package chanedi.dao.modelParser;
+package chanedi.dao.impl.mybatis.modelParser;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
@@ -14,11 +14,16 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class Property {
+
+    private final static Log logger = LogFactory.getLog(Property.class);
 	
 	@Getter
 	private String name;
@@ -30,36 +35,47 @@ public class Property {
 	private Field field;
 	
 	private Column column;
-	
-	public Property(Class<?> modelClass, PropertyDescriptor propertyDescriptor) {
-		name = propertyDescriptor.getName();
-		readMethod = propertyDescriptor.getReadMethod();
 
-		// field
-		try {
-			field = modelClass.getDeclaredField(propertyDescriptor.getName());
-		} catch (NoSuchFieldException e) {
-			field = null;
-		}
-		
-		if (isTransient()) {
-			return;
-		}
-		
-		// column
-		column = (Column) getAnnotation(readMethod, Column.class);
-		if (column == null) {
-			column = (Column) getAnnotation(field, Column.class);
-		}
-		
-		// tableName
-		if (column != null) {
-			tableName = column.table();
-		}
-		if (tableName == null) {
-			tableName = modelClass.getAnnotation(Table.class).name();
-		}
-	}
+    public Property(Class<?> modelClass, PropertyDescriptor propertyDescriptor) {
+        name = propertyDescriptor.getName();
+        readMethod = propertyDescriptor.getReadMethod();
+
+        // field
+        try {
+            field = modelClass.getDeclaredField(propertyDescriptor.getName());
+        } catch (NoSuchFieldException e) {
+            field = null;
+        }
+
+        if (isTransient()) {
+            return;
+        }
+
+        // column
+        column = (Column) getAnnotation(readMethod, Column.class);
+        if (column == null) {
+            column = (Column) getAnnotation(field, Column.class);
+        }
+
+        // tableName
+        if (column != null) {
+            tableName = column.table();
+        }
+        if (tableName == null) {
+            if(modelClass.getAnnotation(Table.class) != null){
+                tableName = modelClass.getAnnotation(Table.class).name();
+            } else {
+                // 代理model类
+                String className = StringUtils.split(modelClass.getName(), "$")[0];
+                try {
+                    tableName = Class.forName(className).getAnnotation(Table.class).name();
+                } catch (ClassNotFoundException e) {
+                    logger.error(e.getMessage(), e);
+                }
+            }
+
+        }
+    }
 
 	public boolean isId() {
 		return hasAnnotation(readMethod, Id.class) || hasAnnotation(field, Id.class);

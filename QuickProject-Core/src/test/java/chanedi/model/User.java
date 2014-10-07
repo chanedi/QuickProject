@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.Table;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 @Data
 @Table(name = "USER")

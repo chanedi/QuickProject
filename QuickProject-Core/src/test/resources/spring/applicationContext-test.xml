@@ -25,7 +25,7 @@
     </bean>
 
     <!-- session工厂 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="chanedi.dao.impl.mybatis.session.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- <property name="configLocation" value="/mybatis/mybatis-config.xml"></property> -->
         <property name="mapperLocations">
@@ -41,8 +41,8 @@
         <property name="typeAliasesPackage" value="chanedi.model"/>
         <property name="plugins">
             <list>
-                <bean class="chanedi.dao.SqlInterceptor">
-                </bean>
+                <bean class="chanedi.dao.impl.mybatis.PageInterceptor" />
+                <bean class="chanedi.dao.impl.mybatis.RowBoundsInterceptor" />
             </list>
         </property>
     </bean>

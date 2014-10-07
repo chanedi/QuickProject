@@ -1,5 +1,5 @@
 /**
  * 可以在template中使用的bean
- * Created by Chanedi
+ * @author Chanedi
  */
 package chanedi.generator.model;

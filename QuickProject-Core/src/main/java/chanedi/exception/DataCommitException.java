@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * 表示数据提交失败。
  *
- * Created by Chanedi
+ * @author Chanedi
  */
-public class DataCommitException extends Exception {
+public class DataCommitException extends RuntimeException {
 
 	private static final long serialVersionUID = 1669843560642800254L;
 

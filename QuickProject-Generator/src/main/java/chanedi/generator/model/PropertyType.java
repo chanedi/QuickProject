@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class PropertyType extends HashMap {
 

@@ -3,7 +3,7 @@ package chanedi.util;
 import java.io.File;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public class FileUtils {
 

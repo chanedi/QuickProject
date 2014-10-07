@@ -1,7 +1,7 @@
 package chanedi.enums;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 public enum DBDialectType {
 

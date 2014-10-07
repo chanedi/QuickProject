@@ -10,12 +10,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Chanedi
+ * @author Chanedi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/spring/applicationContext.xml", "classpath:/spring/applicationContext*.xml" })
 @Transactional
 public abstract class BaseTest extends TestCase {
+
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 }
