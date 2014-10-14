@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chanedi.bas.dao.EventProcessDAO">
+    <resultMap type="chanedi.bas.model.EventProcess" id="getMap">
+    </resultMap>
+    <sql id="queryColumns">
+        a.MODIFY_USER_CODE,
+        a.PROCESS_TYPE,
+        a.STEP_INTERVAL,
+        a.MODIFY_TIME,
+        a.CREATE_TIME,
+        a.PROCESS_SEQ,
+        a.EVENT_TYPE_ID,
+        a.ID,
+        a.STATUS,
+        a.CREATE_USER_CODE
+    </sql>
+</mapper>
