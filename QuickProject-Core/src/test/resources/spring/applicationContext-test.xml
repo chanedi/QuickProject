@@ -9,7 +9,7 @@
 
     <!-- mybatis mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="chanedi.dao"/>
+        <property name="basePackage" value="chanedi.bas.dao"/>
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
@@ -30,7 +30,7 @@
         <!-- <property name="configLocation" value="/mybatis/mybatis-config.xml"></property> -->
         <property name="mapperLocations">
             <list>
-                <value>classpath:/mybatis/*.xml</value>
+                <value>classpath:/mapper/**/*.xml</value>
             </list>
         </property>
         <property name="configurationProperties">

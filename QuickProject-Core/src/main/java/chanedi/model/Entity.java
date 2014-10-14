@@ -40,8 +40,10 @@ import lombok.Data;
  * @author Chanedi
  */
 @Data
-public class Entity implements Serializable {
+public abstract class Entity implements Serializable {
 
     private static final long serialVersionUID = 4212679023438415647L;
+
+    public abstract Object getId();
 
 }

@@ -1,10 +1,9 @@
 package chanedi.test;
 
-import chanedi.dao.UserDAO;
-import chanedi.model.User;
+import chanedi.bas.dao.EventProcessDAO;
+import chanedi.bas.model.EventProcess;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.annotation.Resource;
@@ -19,7 +18,7 @@ import java.sql.Statement;
 public class DaoTest extends BaseTest {
 
     @Resource
-    private UserDAO userDAO;
+    private EventProcessDAO eventProcessDAO;
     @Resource
     private DataSource dataSource;
 
@@ -27,28 +26,41 @@ public class DaoTest extends BaseTest {
     public void setUp() throws SQLException {
         Connection conn = DataSourceUtils.getConnection(dataSource);
         Statement statement = conn.createStatement();
-        statement.execute("DROP TABLE USER IF EXISTS;");
-        statement.execute("CREATE TABLE USER(ID VARCHAR2(50) NOT NULL, NAME VARCHAR2(50), CONSTRAINT PK_USER PRIMARY KEY(ID));");
-        User user = new User();
-        user.setId("test");
-        user.setName("test");
-        userDAO.insert(user);
-        user.setId("test1");
-        user.setName("test");
-        userDAO.insert(user);
+        statement.execute("DROP TABLE T_EVE_EVENT_PROCESS IF EXISTS;");
+        statement.execute("create table T_EVE_EVENT_PROCESS \n" +
+                "(\n" +
+                "   ID                   VARCHAR2(50)         not null,\n" +
+                "   EVENT_TYPE_ID        VARCHAR2(50),\n" +
+                "   PROCESS_SEQ          NUMERIC(2),\n" +
+                "   PROCESS_TYPE         VARCHAR2(50),\n" +
+                "   CREATE_USER_CODE     VARCHAR2(50),\n" +
+                "   CREATE_TIME          TIMESTAMP,\n" +
+                "   MODIFY_USER_CODE     VARCHAR2(50),\n" +
+                "   MODIFY_TIME          TIMESTAMP,\n" +
+                "   STEP_INTERVAL        NUMERIC(8,2),\n" +
+                "   STATUS               VARCHAR2(50),\n" +
+                "   constraint PK_EVE_EVENT_PROCESS_ID primary key (ID)\n" +
+                ");");
+        EventProcess eventProcess = new EventProcess();
+        eventProcess.setId("test");
+        eventProcess.setProcessType("test");
+        eventProcessDAO.insert(eventProcess);
+        eventProcess.setId("test1");
+        eventProcess.setProcessType("test");
+        eventProcessDAO.insert(eventProcess);
     }
 
     @Test
     public void testGetAll() {
-        userDAO.getAll();
+        eventProcessDAO.getAll();
     }
 
     @Test
     public void testGet() {
-        User params = new User();
-        params.setName("test");
-        logger.info(userDAO.get(params, 0, 1).toString());
-        logger.info(userDAO.get(params, 0, 2).toString());
+        EventProcess params = new EventProcess();
+        params.setProcessType("test");
+        logger.info(eventProcessDAO.get(params, 0, 1).toString());
+        logger.info(eventProcessDAO.get(params, 0, 2).toString());
     }
 
 }

@@ -26,7 +26,7 @@ public class GeneratorTest extends TestCase {
     public void testGenerator() throws ConfigException {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-        globalConfig.setOutProjectPath("E:/Chanedi/IdeaProjects/QuickProject/QuickProject-Generator");
+        globalConfig.setOutProjectPath("E:/IDEA/QuickProject/QuickProject-Core"); // 注意修改此参数项
         globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
         globalConfig.setIgnoreExists(false);
 

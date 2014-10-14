@@ -2,7 +2,6 @@ package chanedi.generator;
 
 import chanedi.enums.DBDialectType;
 import chanedi.generator.exception.ConfigException;
-import chanedi.util.ReflectUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.io.Resource;
@@ -10,12 +9,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
 /**
  * @author Chanedi
@@ -26,7 +20,6 @@ public final class GlobalConfig {
     @Getter
     private static GlobalConfig instance = new GlobalConfig();
     private ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
-    /**  */
     @Setter@Getter
     private String outProjectPath = "D:/gen";
     @Setter
@@ -35,10 +28,16 @@ public final class GlobalConfig {
     private String tmplPath = "classpath:/tmpl";
     @Setter@Getter
     private String typeMatchConfigPath = "classpath:/typeMatch";
+    /** 表名命名法则（正则表达式），java类名请用"(\\w+)"表示。如："^T_(\w+)$"则表名为T_USER_INFO，java类名为UserInfo。默认为"(\\w+)$"（表名即类名，没有前缀） */
     @Setter@Getter
     private String beanNameRegex = "(\\w+)$";
+    /** 为true则已存在的文件不重新生成。默认为true。 */
     @Setter@Getter
     private boolean ignoreExists = true;
+    /**
+     * 数据库方言，默认为ORACLE。
+     * @see DBDialectType
+     */
     @Setter@Getter
     private DBDialectType dbDialectType = DBDialectType.ORACLE;
 
