@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import chanedi.model.Entity;
 
 @Data
-@Table(name = "bean.tableName")
+@Table(name = "${bean.tableName}")
 public class ${bean.capitalizeName} extends Entity {
 
     ${generate.serialVersionUID}
