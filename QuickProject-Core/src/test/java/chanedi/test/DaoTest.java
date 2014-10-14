@@ -59,8 +59,8 @@ public class DaoTest extends BaseTest {
     public void testGet() {
         EventProcess params = new EventProcess();
         params.setProcessType("test");
-        logger.info(eventProcessDAO.get(params, 0, 1).toString());
-        logger.info(eventProcessDAO.get(params, 0, 2).toString());
+        logger.info(eventProcessDAO.get(params, null, 0, 1).toString());
+        logger.info(eventProcessDAO.get(params, null, 0, 2).toString());
     }
 
 }

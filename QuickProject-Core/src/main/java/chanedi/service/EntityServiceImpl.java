@@ -41,8 +41,8 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
-    public List<T> get(T findParams, Integer start, Integer limit) {
-        return entityDAO.get(findParams, start, limit);
+    public List<T> get(T findParams, List<Sort> sortList, Integer start, Integer limit) {
+        return entityDAO.get(findParams, sortList, start, limit);
     }
 
     @Override
@@ -56,8 +56,8 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
-    public List<T> find(T findParams, Integer start, Integer limit) {
-        return entityDAO.find(findParams, start, limit);
+    public List<T> find(T findParams, List<Sort> sortList, Integer start, Integer limit) {
+        return entityDAO.find(findParams, sortList, start, limit);
     }
 
     @Override

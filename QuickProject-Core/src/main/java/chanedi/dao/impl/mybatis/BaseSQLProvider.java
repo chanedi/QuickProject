@@ -1,27 +1,26 @@
 package chanedi.dao.impl.mybatis;
 
+import chanedi.dao.complexQuery.CustomQueryParam;
+import chanedi.dao.complexQuery.NoValueQueryParam;
+import chanedi.dao.complexQuery.Sort;
+import chanedi.dao.complexQuery.WithValueQueryParam;
+import chanedi.dao.impl.mybatis.modelParser.ColumnTarget;
+import chanedi.dao.impl.mybatis.modelParser.ModelUtils;
+import chanedi.dao.impl.mybatis.modelParser.Property;
+import chanedi.model.Entity;
+import chanedi.util.ReflectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.jdbc.SQL;
+
+import javax.persistence.Table;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.persistence.Table;
-
-import chanedi.dao.complexQuery.CustomQueryParam;
-import chanedi.dao.complexQuery.NoValueQueryParam;
-import chanedi.dao.complexQuery.Sort;
-import chanedi.dao.complexQuery.WithValueQueryParam;
-import chanedi.model.Entity;
-import chanedi.dao.impl.mybatis.modelParser.ColumnTarget;
-import chanedi.dao.impl.mybatis.modelParser.ModelUtils;
-import chanedi.dao.impl.mybatis.modelParser.Property;
-import chanedi.util.ReflectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.jdbc.SQL;
 
 /**
  * @author Chanedi
@@ -260,15 +259,16 @@ public class BaseSQLProvider<T extends Entity> {
     }
 
     private SQL ORDER(SQL sql, List<Sort> sortList) {
-        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
-        for (Property property : properties.values()) {
-            sql.ORDER_BY(property.getOrder());
-        }
-        if (sortList != null) {
-            for (Sort sort : sortList) {
-                sql.ORDER_BY(sort.getProperty() + " " + sort.getDirection());
-            }
-        }
+//        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
+//        for (Property property : properties.values()) {
+//            sql.ORDER_BY(property.getOrder());
+//        }
+//        if (sortList != null) {
+//            for (Sort sort : sortList) {
+//                sql.ORDER_BY(sort.getProperty() + " " + sort.getDirection());
+//            }
+//        }
+        // 在SqlInterceptor中实现，此处不能重复
         return sql;
     }
 

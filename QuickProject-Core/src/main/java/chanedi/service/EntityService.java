@@ -25,13 +25,13 @@ public interface EntityService<T extends Entity> {
 
     public List<T> get(T findParams);
 
-    public List<T> get(T findParams, Integer start, Integer limit);
+    public List<T> get(T findParams, List<Sort> sortList, Integer start, Integer limit);
 
     public int countFind(T findParams);
 
     public List<T> find(T findParams);
 
-    public List<T> find(T findParams, Integer start, Integer limit);
+    public List<T> find(T findParams, List<Sort> sortList, Integer start, Integer limit);
 
     public int countQuery(List<CustomQueryParam> customQueryParams);
 

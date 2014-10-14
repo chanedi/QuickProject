@@ -39,9 +39,6 @@ public class RowBoundsInterceptor implements Interceptor {
 		RowBounds rowBounds = getRowBounds();
 		if (rowBounds != null) {
             args[2] = rowBounds;
-            Field argsField = invocation.getClass().getDeclaredField("args");
-            argsField.setAccessible(true);
-            argsField.set(invocation, args);
         }
 
         return invocation.proceed();

@@ -3,6 +3,10 @@ package chanedi.dao.dialect;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Created by unknown
+ * Modify by Chanedi
+ */
 public class MySql5PageHepler {
 
 	/**
@@ -33,7 +37,7 @@ public class MySql5PageHepler {
 	 */
 	public static String getCountString(String querySelect) {
 
-		querySelect = getLineSql(querySelect);
+		querySelect = SqlHelper.getLineSql(querySelect);
 		int orderIndex = getLastOrderInsertPoint(querySelect);
 
 		int formIndex = getAfterFormInsertPoint(querySelect);
@@ -89,9 +93,9 @@ public class MySql5PageHepler {
 	 *            位置。
 	 * @return 分页SQL。
 	 */
-	public static String getLimitString(String querySelect, int offset, int limit) {
+	public static String addLimitString(String querySelect, int offset, int limit) {
 
-		querySelect = getLineSql(querySelect);
+		querySelect = SqlHelper.getLineSql(querySelect);
 
 		String sql = querySelect + " limit " + offset + " ," + limit;
 
@@ -100,17 +104,6 @@ public class MySql5PageHepler {
 		// + offset + " ," + limit;
 
 		return sql;
-	}
-
-	/**
-	 * 将SQL语句变成一条语句，并且每个单词的间隔都是1个空格。
-	 * 
-	 * @param sql
-	 *            SQL语句。
-	 * @return 如果sql是NULL返回空，否则返回转化后的SQL。
-	 */
-	private static String getLineSql(String sql) {
-		return sql.replaceAll("[\r\n]", " ").replaceAll("\\s{2,}", " ");
 	}
 
 	/**

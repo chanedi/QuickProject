@@ -34,7 +34,7 @@ public interface EntityDAO<T extends Entity> {
 
     @SelectProvider(type = BaseSQLProvider.class, method = "get")
     @ResultMap("getMap")
-    public List<T> get(@Param("findParams") T findParams, @Param("start") Integer start, @Param("limit") Integer limit);
+    public List<T> get(@Param("findParams") T findParams, @Param("sortList") List<Sort> sortList, @Param("start") Integer start, @Param("limit") Integer limit);
 
     @SelectProvider(type = BaseSQLProvider.class, method = "countFind")
     public int countFind(@Param("findParams") T findParams);
@@ -45,7 +45,7 @@ public interface EntityDAO<T extends Entity> {
 
     @SelectProvider(type = BaseSQLProvider.class, method = "find")
     @ResultMap("getMap")
-    public List<T> find(@Param("findParams") T findParams, @Param("start") Integer start, @Param("limit") Integer limit);
+    public List<T> find(@Param("findParams") T findParams, @Param("sortList") List<Sort> sortList, @Param("start") Integer start, @Param("limit") Integer limit);
 
     @SelectProvider(type = BaseSQLProvider.class, method = "countQuery")
     public int countQuery(@Param("queryParams") List<CustomQueryParam> customQueryParams);

@@ -1,5 +1,6 @@
 package chanedi.dao.impl.mybatis;
 
+import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.dialect.Dialect;
 import chanedi.dao.dialect.H2Dialect;
 import chanedi.dao.dialect.MySql5Dialect;
@@ -17,18 +18,31 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Properties;
 
 /**
  * 支持物理分页。
  * Created by unknown
+ * Modify by Chanedi
  */
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
-public class PageInterceptor implements Interceptor {
+public class SqlInterceptor implements Interceptor {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
+    private static ThreadLocal<List<Sort>> sortList = new ThreadLocal<List<Sort>>();
 
-	@Override
+    public static List<Sort> getSortList() {
+        List<Sort> sortList = SqlInterceptor.sortList.get();
+        SqlInterceptor.sortList.remove();
+        return sortList;
+    }
+
+    public static void setSortList(List<Sort> sortList) {
+        SqlInterceptor.sortList.set(sortList);
+    }
+
+    @Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
 		BoundSql boundSql = statementHandler.getBoundSql();
@@ -59,7 +73,8 @@ public class PageInterceptor implements Interceptor {
 
 		String sql = (String) metaStatementHandler.getValue("delegate.boundSql.sql");
 		if ((rowBounds != null) && (rowBounds != RowBounds.DEFAULT)) {
-			sql = dialect.getLimitString(sql, rowBounds.getOffset(), rowBounds.getLimit());
+            sql = dialect.addSortString(sql, getSortList());
+			sql = dialect.addLimitString(sql, rowBounds.getOffset(), rowBounds.getLimit());
 		}
 		
 		metaStatementHandler.setValue("delegate.boundSql.sql", sql);

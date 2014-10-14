@@ -3,9 +3,12 @@ package chanedi.dao.impl.mybatis.modelParser;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
+import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.impl.mybatis.BaseSQLProvider;
 import chanedi.dao.impl.mybatis.RowBoundsInterceptor;
+import chanedi.dao.impl.mybatis.SqlInterceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.annotations.Param;
@@ -30,51 +33,9 @@ public class ParseTableNameAspect {
             throws Throwable {
         parseTableName(proceedingJoinPoint);
         parseRowBounds(proceedingJoinPoint);
+        parseSortList(proceedingJoinPoint);
 
         return proceedingJoinPoint.proceed();
-    }
-
-    private void parseRowBounds(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        if (!hasRowRounds(proceedingJoinPoint)) {
-            RowBoundsInterceptor.setRowBounds(null);
-            return;
-        }
-
-        Object[] oriArgs = proceedingJoinPoint.getArgs();
-        Integer start = (Integer) oriArgs[oriArgs.length - 2];
-        Integer limit = (Integer) oriArgs[oriArgs.length - 1];
-        if (start != null && limit != null) {
-            RowBoundsInterceptor.setRowBounds(new RowBounds(start, limit));
-        } else {
-            RowBoundsInterceptor.setRowBounds(null);
-        }
-    }
-
-    private boolean hasRowRounds(ProceedingJoinPoint proceedingJoinPoint) {
-        String signature = proceedingJoinPoint.getSignature().toString();
-        if (!signature.endsWith(",Integer,Integer)")) {
-            return false;
-        }
-        if (signature.contains(".find(")) {
-            return true;
-        }
-        if (signature.contains(".get(")) {
-            return true;
-        }
-        if (signature.contains(".query(")) {
-            return true;
-        }
-        return false;
-    }
-
-    private String getParamNameFromAnnotation(Method method, int i, String paramName) {
-        final Object[] paramAnnos = method.getParameterAnnotations()[i];
-        for (Object paramAnno : paramAnnos) {
-            if (paramAnno instanceof Param) {
-                paramName = ((Param) paramAnno).value();
-            }
-        }
-        return paramName;
     }
 
     private void parseTableName(ProceedingJoinPoint proceedingJoinPoint) {
@@ -104,6 +65,56 @@ public class ParseTableNameAspect {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
+    }
+
+    private void parseRowBounds(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        if (!hasRowRounds(proceedingJoinPoint)) {
+            RowBoundsInterceptor.setRowBounds(null);
+            return;
+        }
+
+        Object[] oriArgs = proceedingJoinPoint.getArgs();
+        Integer start = (Integer) oriArgs[oriArgs.length - 2];
+        Integer limit = (Integer) oriArgs[oriArgs.length - 1];
+        if (start != null && limit != null) {
+            RowBoundsInterceptor.setRowBounds(new RowBounds(start, limit));
+        } else {
+            RowBoundsInterceptor.setRowBounds(null);
+        }
+    }
+
+    private void parseSortList(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String signature = proceedingJoinPoint.getSignature().toString();
+        String sortListType = "List<Sort>";
+        if (!signature.contains(sortListType)) {
+            return;
+        }
+        String[] argSignatures = signature.split(",");
+        for (int i = 0; i < argSignatures.length; i++) {
+            if (!argSignatures[i].contains(sortListType)) {
+                continue;
+            }
+            Object[] oriArgs = proceedingJoinPoint.getArgs();
+            List<Sort> sortList = (List<Sort>) oriArgs[i];
+            SqlInterceptor.setSortList(sortList);
+        }
+    }
+
+    private boolean hasRowRounds(ProceedingJoinPoint proceedingJoinPoint) {
+        String signature = proceedingJoinPoint.getSignature().toString();
+        if (!signature.endsWith(",Integer,Integer)")) {
+            return false;
+        }
+        if (signature.contains(".find(")) {
+            return true;
+        }
+        if (signature.contains(".get(")) {
+            return true;
+        }
+        if (signature.contains(".query(")) {
+            return true;
+        }
+        return false;
     }
 
 }

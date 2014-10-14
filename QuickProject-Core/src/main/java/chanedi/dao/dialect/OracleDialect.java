@@ -1,9 +1,17 @@
 package chanedi.dao.dialect;
 
+import chanedi.dao.complexQuery.Sort;
+
+import java.util.List;
+
+/**
+ * Created by unknown
+ * Modify by Chanedi
+ */
 public class OracleDialect extends Dialect {
 
 	@Override
-	public String getLimitString(String sql, int offset, int limit) {
+	public String addLimitString(String sql, int offset, int limit) {
 		sql = sql.trim();
 		boolean isForUpdate = false;
 		if (sql.toLowerCase().endsWith(" FOR UPDATE")) {
@@ -25,5 +33,10 @@ public class OracleDialect extends Dialect {
 
 		return pagingSelect.toString();
 	}
+
+    @Override
+    public String addSortString(String sql, List<Sort> sortList) {
+        return SortHelper.addSortString(sql, sortList);
+    }
 
 }

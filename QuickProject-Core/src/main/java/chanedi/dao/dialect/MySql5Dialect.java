@@ -1,17 +1,30 @@
 package chanedi.dao.dialect;
 
+import chanedi.dao.complexQuery.Sort;
+
+import java.util.List;
+
+/**
+ * Created by unknown
+ * Modify by Chanedi
+ */
 public class MySql5Dialect extends Dialect {
 
 	public String getLimitString(String sql, boolean hasOffset) {
-		return MySql5PageHepler.getLimitString(sql, -1, -1);
+		return MySql5PageHepler.addLimitString(sql, -1, -1);
 	}
 
 	@Override
-	public String getLimitString(String sql, int offset, int limit) {
-		return MySql5PageHepler.getLimitString(sql, offset, limit);
+	public String addLimitString(String sql, int offset, int limit) {
+		return MySql5PageHepler.addLimitString(sql, offset, limit);
 	}
 
-	public boolean supportsLimit() {
+    @Override
+    public String addSortString(String sql, List<Sort> sortList) {
+        return SortHelper.addSortString(sql, sortList);
+    }
+
+    public boolean supportsLimit() {
 		return true;
 	}
 
