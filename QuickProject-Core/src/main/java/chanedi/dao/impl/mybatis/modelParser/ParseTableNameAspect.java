@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -107,11 +108,16 @@ public class ParseTableNameAspect {
             return;
         }
         Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.SELECT);
+        List<Sort> sorts = new ArrayList<Sort>();
         for (Sort sort : sortList) {
             Property property = properties.get(sort.getProperty());
+            if (property == null) {
+                continue;
+            }
             sort.setColumn(property.getColumnName());
+            sorts.add(sort);
         }
-        SortListInterceptor.setSortList(sortList);
+        SortListInterceptor.setSortList(sorts);
     }
 
     private boolean hasRowRounds(ProceedingJoinPoint proceedingJoinPoint) {
