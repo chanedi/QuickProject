@@ -35,4 +35,5 @@ public class ReflectUtils {
         String propName = org.apache.commons.lang3.StringUtils.uncapitalize(setterName.substring(3));
         return modelClass.getDeclaredField(propName);
     }
+
 }

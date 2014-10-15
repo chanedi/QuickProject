@@ -49,7 +49,6 @@ public class BaseSQLProvider<T extends Entity> {
 	public String getAll() {
 		initFromThreadLocal();
 		SQL sql = SELECT_FROM();
-		sql = ORDER(sql);
 		return sql.toString();
 	}
 
@@ -72,7 +71,6 @@ public class BaseSQLProvider<T extends Entity> {
         initFromThreadLocal();
         SQL sql = SELECT_FROM();
         sql = WHERE(sql, findParams, OPERATOR_EQUAL);
-        sql = ORDER(sql);
         return sql.toString();
     }
 
@@ -93,7 +91,6 @@ public class BaseSQLProvider<T extends Entity> {
 
         SQL sql = SELECT_FROM();
         sql = WHERE(sql, findParams, OPERATOR_LIKE);
-        sql = ORDER(sql);
         return sql.toString();
     }
 
@@ -109,7 +106,6 @@ public class BaseSQLProvider<T extends Entity> {
         initFromThreadLocal();
         SQL sql = SELECT_FROM();
         sql = WHERE_CUSTOM(sql, dataMap);
-        sql = ORDER(sql, sortList);
         return sql.toString();
     }
 
@@ -250,18 +246,6 @@ public class BaseSQLProvider<T extends Entity> {
                 NoValueQueryParam noValueQueryParam = (NoValueQueryParam) customQueryParam;
                 sql.WHERE(property.getColumnName() + " " + noValueQueryParam.getCondition());
             }
-        }
-        return sql;
-    }
-
-    private SQL ORDER(SQL sql) {
-        return ORDER(sql, null);
-    }
-
-    private SQL ORDER(SQL sql, List<Sort> sortList) {
-        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
-        for (Property property : properties.values()) {
-            sql.ORDER_BY(property.getOrder());
         }
         return sql;
     }

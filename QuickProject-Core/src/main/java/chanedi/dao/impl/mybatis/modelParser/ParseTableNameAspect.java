@@ -14,7 +14,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,16 +53,13 @@ public class ParseTableNameAspect {
 
         try {
             // 获取dao类
-            Field mapperInterface = MapperProxy.class
-                    .getDeclaredField("mapperInterface");
+            Field mapperInterface = MapperProxy.class.getDeclaredField("mapperInterface");
             mapperInterface.setAccessible(true);
             Class<?> cl = (Class<?>) mapperInterface.get(obj);
-
             // 获取model类
-            String modelName = cl.getName().replace(".dao.", ".model.").replace("DAO", "");
-
+            ParameterizedType type = (ParameterizedType) cl.getGenericInterfaces()[0];
+            Class<?> modelClass = (Class<?>) type.getActualTypeArguments()[0];
             // 将modelClass添加到线程变量
-            Class<?> modelClass = Class.forName(modelName);
             BaseSQLProvider.setModelClass(modelClass);
             return modelClass;
         } catch (Exception e) {
@@ -107,7 +106,7 @@ public class ParseTableNameAspect {
         if (sortList == null) {
             return;
         }
-        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.SELECT);
+        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
         List<Sort> sorts = new ArrayList<Sort>();
         for (Sort sort : sortList) {
             Property property = properties.get(sort.getProperty());
