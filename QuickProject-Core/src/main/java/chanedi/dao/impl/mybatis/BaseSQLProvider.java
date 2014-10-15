@@ -259,16 +259,10 @@ public class BaseSQLProvider<T extends Entity> {
     }
 
     private SQL ORDER(SQL sql, List<Sort> sortList) {
-//        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
-//        for (Property property : properties.values()) {
-//            sql.ORDER_BY(property.getOrder());
-//        }
-//        if (sortList != null) {
-//            for (Sort sort : sortList) {
-//                sql.ORDER_BY(sort.getProperty() + " " + sort.getDirection());
-//            }
-//        }
-        // 在SqlInterceptor中实现，此处不能重复
+        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.ORDER);
+        for (Property property : properties.values()) {
+            sql.ORDER_BY(property.getOrder());
+        }
         return sql;
     }
 

@@ -41,8 +41,9 @@
         <property name="typeAliasesPackage" value="chanedi.model"/>
         <property name="plugins">
             <list>
-                <bean class="chanedi.dao.impl.mybatis.SqlInterceptor" />
-                <bean class="chanedi.dao.impl.mybatis.RowBoundsInterceptor" />
+                <bean class="chanedi.dao.impl.mybatis.interceptor.PageInterceptor" />
+                <bean class="chanedi.dao.impl.mybatis.interceptor.SortListInterceptor" />
+                <bean class="chanedi.dao.impl.mybatis.interceptor.RowBoundsInterceptor" />
             </list>
         </property>
     </bean>

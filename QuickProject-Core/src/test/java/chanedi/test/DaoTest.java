@@ -2,6 +2,7 @@ package chanedi.test;
 
 import chanedi.bas.dao.EventProcessDAO;
 import chanedi.bas.model.EventProcess;
+import chanedi.dao.complexQuery.Sort;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -11,6 +12,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Chanedi
@@ -60,7 +63,12 @@ public class DaoTest extends BaseTest {
         EventProcess params = new EventProcess();
         params.setProcessType("test");
         logger.info(eventProcessDAO.get(params, null, 0, 1).toString());
-        logger.info(eventProcessDAO.get(params, null, 0, 2).toString());
+        List<Sort> sortList = new ArrayList<Sort>();
+        sortList.add(new Sort("id"));
+        logger.info(eventProcessDAO.get(params, sortList, 0, 2).toString());
+        sortList.remove(0);
+        sortList.add(new Sort("id", Sort.Direction.DESC));
+        logger.info(eventProcessDAO.get(params, sortList, 0, 2).toString());
     }
 
 }

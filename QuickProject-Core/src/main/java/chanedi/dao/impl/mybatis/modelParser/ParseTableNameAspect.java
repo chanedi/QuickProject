@@ -1,23 +1,22 @@
 package chanedi.dao.impl.mybatis.modelParser;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.util.List;
-
 import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.impl.mybatis.BaseSQLProvider;
-import chanedi.dao.impl.mybatis.RowBoundsInterceptor;
-import chanedi.dao.impl.mybatis.SqlInterceptor;
+import chanedi.dao.impl.mybatis.interceptor.RowBoundsInterceptor;
+import chanedi.dao.impl.mybatis.interceptor.SortListInterceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.binding.MapperProxy;
 import org.apache.ibatis.session.RowBounds;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Chanedi
@@ -31,14 +30,14 @@ public class ParseTableNameAspect {
     @Around("execution(* chanedi.dao.EntityDAO.*(..))")
     public Object invoke(ProceedingJoinPoint proceedingJoinPoint)
             throws Throwable {
-        parseTableName(proceedingJoinPoint);
+        Class<?> modelClass = parseModelClass(proceedingJoinPoint);
         parseRowBounds(proceedingJoinPoint);
-        parseSortList(proceedingJoinPoint);
+        parseSortList(proceedingJoinPoint, modelClass);
 
         return proceedingJoinPoint.proceed();
     }
 
-    private void parseTableName(ProceedingJoinPoint proceedingJoinPoint) {
+    private Class<?> parseModelClass(ProceedingJoinPoint proceedingJoinPoint) {
         // 获取代理目标对象
         Object obj = proceedingJoinPoint.getTarget();
         try {
@@ -61,10 +60,13 @@ public class ParseTableNameAspect {
             String modelName = cl.getName().replace(".dao.", ".model.").replace("DAO", "");
 
             // 将modelClass添加到线程变量
-            BaseSQLProvider.setModelClass(Class.forName(modelName));
+            Class<?> modelClass = Class.forName(modelName);
+            BaseSQLProvider.setModelClass(modelClass);
+            return modelClass;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
+        return null;
     }
 
     private void parseRowBounds(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -83,21 +85,34 @@ public class ParseTableNameAspect {
         }
     }
 
-    private void parseSortList(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        String signature = proceedingJoinPoint.getSignature().toString();
-        String sortListType = "List<Sort>";
-        if (!signature.contains(sortListType)) {
+    private void parseSortList(ProceedingJoinPoint proceedingJoinPoint, Class<?> modelClass) throws Throwable {
+        if (modelClass == null) {
             return;
         }
-        String[] argSignatures = signature.split(",");
-        for (int i = 0; i < argSignatures.length; i++) {
-            if (!argSignatures[i].contains(sortListType)) {
+        Object[] oriArgs = proceedingJoinPoint.getArgs();
+        List<Sort> sortList = null;
+        for (Object oriArg : oriArgs) {
+            if (!(oriArg instanceof List)) {
                 continue;
             }
-            Object[] oriArgs = proceedingJoinPoint.getArgs();
-            List<Sort> sortList = (List<Sort>) oriArgs[i];
-            SqlInterceptor.setSortList(sortList);
+            List list = (List) oriArg;
+            if (list == null || list.size() == 0) {
+                continue;
+            }
+            if (list.get(0) instanceof Sort) {
+                sortList = list;
+                break;
+            }
         }
+        if (sortList == null) {
+            return;
+        }
+        Map<String, Property> properties = ModelUtils.getProperties(modelClass, ColumnTarget.SELECT);
+        for (Sort sort : sortList) {
+            Property property = properties.get(sort.getProperty());
+            sort.setColumn(property.getColumnName());
+        }
+        SortListInterceptor.setSortList(sortList);
     }
 
     private boolean hasRowRounds(ProceedingJoinPoint proceedingJoinPoint) {

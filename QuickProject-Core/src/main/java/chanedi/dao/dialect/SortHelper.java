@@ -1,8 +1,12 @@
 package chanedi.dao.dialect;
 
 import chanedi.dao.complexQuery.Sort;
+import chanedi.dao.impl.mybatis.modelParser.ColumnTarget;
+import chanedi.dao.impl.mybatis.modelParser.ModelUtils;
+import chanedi.dao.impl.mybatis.modelParser.Property;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Chanedi
@@ -21,7 +25,10 @@ public class SortHelper {
         StringBuilder sb = new StringBuilder(querySelect);
         sb.append(" ORDER BY ");
         for (Sort sort : sortList) {
-            sb.append(sort.getProperty());
+            if (sort.getColumn() == null) {
+                continue;
+            }
+            sb.append(sort.getColumn());
             sb.append(" ");
             sb.append(sort.getDirection());
             sb.append(",");

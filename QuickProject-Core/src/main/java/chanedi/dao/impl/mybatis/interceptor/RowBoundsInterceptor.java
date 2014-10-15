@@ -1,4 +1,4 @@
-package chanedi.dao.impl.mybatis;
+package chanedi.dao.impl.mybatis.interceptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
- * 将分页参数加入cache条件。
+ * 将分页参数加入cache条件。不使用mybatis的cache时可不使用此拦截器。
  *
  * @author Chanedi
  */
