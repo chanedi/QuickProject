@@ -48,13 +48,12 @@ public class ParseTableNameAspect {
             logger.error(e.getMessage(), e); // 尝试使用原对象
         }
 
-        // 获取dao类
-        Class<?> cl = null;
         try {
+            // 获取dao类
             Field mapperInterface = MapperProxy.class
                     .getDeclaredField("mapperInterface");
             mapperInterface.setAccessible(true);
-            cl = (Class<?>) mapperInterface.get(obj);
+            Class<?> cl = (Class<?>) mapperInterface.get(obj);
 
             // 获取model类
             String modelName = cl.getName().replace(".dao.", ".model.").replace("DAO", "");
