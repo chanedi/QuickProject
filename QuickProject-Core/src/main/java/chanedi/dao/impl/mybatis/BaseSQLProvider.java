@@ -19,10 +19,7 @@ import javax.persistence.Table;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Chanedi
@@ -113,10 +110,13 @@ public class BaseSQLProvider<T extends Entity> {
 
 	public String insert(final T t) throws IllegalAccessException, InvocationTargetException, NoSuchFieldException {
 		initFromThreadLocal();
-		// 设置默认值
-		Date now = Calendar.getInstance().getTime();
-		
-		return new SQL() {
+        // 设置默认值
+        if (t.getId() == null) {
+            t.setId(UUID.randomUUID().toString());
+        }
+
+
+        return new SQL() {
 			{
 				INSERT_INTO(tableName);
 

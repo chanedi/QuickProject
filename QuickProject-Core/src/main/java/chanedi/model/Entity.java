@@ -1,8 +1,8 @@
 package chanedi.model;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  Example:
@@ -45,5 +45,7 @@ public abstract class Entity implements Serializable {
     private static final long serialVersionUID = 4212679023438415647L;
 
     public abstract Object getId();
+
+  public abstract Object setId(Object id);
 
 }
