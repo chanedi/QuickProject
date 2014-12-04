@@ -199,7 +199,7 @@ public class BaseSQLProvider<T extends Entity> {
     private SQL COUNT_FROM() {
         return new SQL() {
             {
-                SELECT("COUNT(ID)");
+                SELECT("COUNT(" + parseIdColumn() + ")");
                 FROM(tableName);
             }
         };
