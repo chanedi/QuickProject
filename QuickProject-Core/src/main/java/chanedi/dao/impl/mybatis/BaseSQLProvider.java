@@ -14,9 +14,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.jdbc.SQL;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +56,7 @@ public class BaseSQLProvider<T extends Entity> {
 
 	public String getById() {
 		initFromThreadLocal();
-		SQL sql = SELECT_FROM().WHERE("ID = #{id}");
+		SQL sql = SELECT_FROM().WHERE(parseIdColumn() + " = #{id}");
 		return sql.toString();
 	}
 
@@ -136,7 +138,7 @@ public class BaseSQLProvider<T extends Entity> {
 		return new SQL() {
 			{
 				DELETE_FROM(tableName);
-				WHERE("ID = #{id}");
+				WHERE(parseIdColumn() + " = #{id}");
 			}
 		}.toString();
 	}
@@ -163,7 +165,7 @@ public class BaseSQLProvider<T extends Entity> {
                 } catch (ClassNotFoundException e) {
                     logger.error(e.getMessage(), e);
                 }
-                WHERE("ID = #{id}");
+                WHERE(parseIdColumn() + " = #{id}");
 			}
 		}.toString();
 	}
@@ -248,6 +250,20 @@ public class BaseSQLProvider<T extends Entity> {
             }
         }
         return sql;
+    }
+
+    private String parseIdColumn() {
+        String idColumn = "ID";
+        try {
+            Method getIdMethod = modelClass.getMethod("getId", null);
+            Column idColumnAnnotation = getIdMethod.getAnnotation(Column.class);
+            if (idColumnAnnotation != null && idColumnAnnotation.name() != null) {
+                idColumn = idColumnAnnotation.name();
+            }
+        } catch (NoSuchMethodException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return idColumn;
     }
 
 }
