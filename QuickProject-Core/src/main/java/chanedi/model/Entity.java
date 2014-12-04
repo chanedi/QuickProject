@@ -46,6 +46,6 @@ public abstract class Entity implements Serializable {
 
     public abstract Object getId();
 
-  public abstract Object setId(Object id);
+    public abstract void setId(Object id);
 
 }
