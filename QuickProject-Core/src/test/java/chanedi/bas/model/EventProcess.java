@@ -1,9 +1,10 @@
 package chanedi.bas.model;
 
-import java.util.*;
-import lombok.Data;
-import javax.persistence.Table;
 import chanedi.model.Entity;
+import lombok.Data;
+
+import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Table(name = "T_EVE_EVENT_PROCESS")
@@ -18,7 +19,7 @@ public class EventProcess extends Entity {
     private Date createTime;
     private Integer processSeq;
     private String eventTypeId;
-    private String id;
+    private Object id;
     private String status;
     private String createUserCode;
 
