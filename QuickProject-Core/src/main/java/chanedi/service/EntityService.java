@@ -2,19 +2,15 @@ package chanedi.service;
 
 import chanedi.dao.complexQuery.CustomQueryParam;
 import chanedi.dao.complexQuery.Sort;
-import chanedi.exception.DataCommitException;
 import chanedi.model.Entity;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.OutputStream;
 import java.util.List;
 
 /**
  * Created by Chanedi
  */
-@Transactional(rollbackFor = { Exception.class }, readOnly = true)
+//@Transactional(rollbackFor = { Exception.class }, readOnly = true)
 public interface EntityService<T extends Entity> {
 
     public List<T> getAll();
