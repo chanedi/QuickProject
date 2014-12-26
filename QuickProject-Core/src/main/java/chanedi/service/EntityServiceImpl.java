@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -19,6 +20,11 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private EntityDAO<T> entityDAO;
+
+    public static Class<?> getEntityClass(EntityService entityService) {
+        ParameterizedType genericSuperclass = (ParameterizedType) entityService.getClass().getGenericSuperclass();
+        return (Class<?>) genericSuperclass.getActualTypeArguments()[0];
+    }
 
     @Override
     public List<T> getAll() {

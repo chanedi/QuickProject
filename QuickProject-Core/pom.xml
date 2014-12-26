@@ -16,10 +16,6 @@
             <groupId>chanedi</groupId>
             <artifactId>QuickProject-Util</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
 
         <!-- Test -->
         <dependency>

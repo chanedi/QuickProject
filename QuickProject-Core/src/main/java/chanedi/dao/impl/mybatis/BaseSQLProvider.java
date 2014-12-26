@@ -8,6 +8,7 @@ import chanedi.dao.impl.mybatis.modelParser.ColumnTarget;
 import chanedi.dao.impl.mybatis.modelParser.ModelUtils;
 import chanedi.dao.impl.mybatis.modelParser.Property;
 import chanedi.model.Entity;
+import chanedi.model.EntityWithTime;
 import chanedi.util.ReflectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -114,7 +115,11 @@ public class BaseSQLProvider<T extends Entity> {
         if (t.getId() == null) {
             t.setId(UUID.randomUUID().toString());
         }
-
+        if (t instanceof EntityWithTime) {
+            Date now = Calendar.getInstance().getTime();
+            ((EntityWithTime) t).setCreateTime(now);
+            ((EntityWithTime) t).setModifyTime(now);
+        }
 
         return new SQL() {
 			{
@@ -145,7 +150,13 @@ public class BaseSQLProvider<T extends Entity> {
 
 	public String update(final T t) throws NoSuchFieldException, IllegalAccessException, InvocationTargetException {
 		initFromThreadLocal();
-		
+        if (t instanceof EntityWithTime) {
+            // 设置默认值
+            ((EntityWithTime) t).setModifyTime(new Date());
+            // 过滤不允许更新的字段
+            ((EntityWithTime) t).setCreateTime(null);
+        }
+
 		return new SQL() {
 			{
                 UPDATE(tableName);
