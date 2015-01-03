@@ -96,6 +96,13 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>8.0.3</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- org.springframework -->
             <dependency>
                 <groupId>org.springframework</groupId>

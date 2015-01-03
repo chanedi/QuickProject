@@ -31,6 +31,11 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+        </dependency>
+
         <!-- org.springframework -->
         <dependency>
             <groupId>org.springframework</groupId>
