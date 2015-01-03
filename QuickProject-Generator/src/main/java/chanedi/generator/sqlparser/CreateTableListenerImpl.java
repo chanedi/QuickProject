@@ -4,7 +4,6 @@ import chanedi.generator.GlobalConfig;
 import chanedi.generator.PropertyTypeContext;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Property;
-import chanedi.generator.model.PropertyType;
 import chanedi.generator.sqlparser.gen.CreateTableBaseListener;
 import chanedi.generator.sqlparser.gen.CreateTableParser;
 import chanedi.util.StringUtils;
@@ -12,9 +11,7 @@ import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,6 +60,12 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
         String datatype = ctx.datatype().getText();
         column.setType(PropertyTypeContext.getInstance().matchPropertyType(datatype));
         currentBean.addProperty(column);
+
+        CreateTableParser.Comment_valueContext commentValue = ctx.comment_value();
+        if (commentValue != null) {
+            String comment = commentValue.getText().replaceAll("'", "");
+            column.setComment(comment);
+        }
     }
 
     @Override
@@ -78,13 +81,19 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
             String columnName = column_nameContext.getText();
             bean.getPropertyByColumnName(columnName).setComment(comment);
         }
-
     }
 
-    @Override
-    public void enterComment_value(@NotNull CreateTableParser.Comment_valueContext ctx) {
-        super.enterComment_value(ctx);
-    }
+//    @Override
+//    public void enterComment_inline(@NotNull CreateTableParser.Comment_inlineContext ctx) {
+//
+//
+//        if (column_nameContext == null) {
+//            currentBean.setComment(comment);
+//        } else {
+//            String columnName = column_nameContext.getText();
+//            currentBean.getPropertyByColumnName(columnName).setComment(comment);
+//        }
+//    }
 
     /*
 stringType : 'VARCHAR2' RANGE;

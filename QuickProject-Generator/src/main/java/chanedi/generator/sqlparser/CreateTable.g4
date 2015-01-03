@@ -10,7 +10,7 @@ comment
    | K_COLUMN ( schema '.' )? table_name '.' column_name
    ) K_IS comment_value ';';
 
-column_definition : column_name datatype inline_constraint*;
+column_definition : column_name datatype inline_constraint* (K_COMMENT comment_value)?;
 datatype : name+ ( '(' signed_number ')' | '(' signed_number ',' signed_number ')' )?;
 inline_constraint
  : ( K_CONSTRAINT name )?
