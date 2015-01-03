@@ -1,4 +1,4 @@
-package chanedi.${module.name}.model;
+package ${config.javaPackageName}${module.name}.model;
 
 import java.util.*;
 import lombok.Data;

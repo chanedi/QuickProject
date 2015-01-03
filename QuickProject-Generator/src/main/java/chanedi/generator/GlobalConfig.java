@@ -27,6 +27,10 @@ public final class GlobalConfig {
     @Setter
     private String tmplPath = "classpath:/tmpl";
     @Setter@Getter
+    private String javaPackageName = "com.";
+    @Setter@Getter
+    private String javaPackagePath = "com/";
+    @Setter@Getter
     private String typeMatchConfigPath = "classpath:/typeMatch";
     /** 表名命名法则（正则表达式），java类名请用"(\\w+)"表示。如："^T_(\w+)$"则表名为T_USER_INFO，java类名为UserInfo。默认为"(\\w+)$"（表名即类名，没有前缀） */
     @Setter@Getter

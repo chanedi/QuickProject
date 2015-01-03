@@ -2,6 +2,7 @@ package chanedi.generator;
 
 import chanedi.generator.exception.ConfigException;
 import chanedi.generator.model.Bean;
+import chanedi.generator.model.Config;
 import chanedi.generator.model.Generate;
 import chanedi.generator.model.Module;
 import chanedi.util.FileUtils;
@@ -31,6 +32,7 @@ public class FilesGenerator {
     private List<Module> modules;
     private List<TemplateRoot> templateRoots;
     private Generate generate;
+    private Config config;
 
     public FilesGenerator() {
         globalConfig = GlobalConfig.getInstance();
@@ -42,6 +44,10 @@ public class FilesGenerator {
     public void process() throws ConfigException {
         parseModule();
         parseTmpl();
+
+        config = new Config();
+        config.setJavaPackageName(globalConfig.getJavaPackageName());
+        config.setJavaPackagePath(globalConfig.getJavaPackagePath());
         generate();
     }
 
@@ -100,6 +106,7 @@ public class FilesGenerator {
                 dataMap.put("bean", bean);
                 dataMap.put("module", module);
                 dataMap.put("generate", generate);
+                dataMap.put("config", config);
 
                 generate(cfg, dataMap);
             }

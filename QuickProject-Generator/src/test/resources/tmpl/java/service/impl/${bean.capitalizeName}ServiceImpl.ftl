@@ -1,8 +1,8 @@
-package chanedi.${module.name}.service.impl;
+package ${config.javaPackageName}${module.name}.service.impl;
 
 import chanedi.service.EntityServiceImpl;
-import chanedi.${module.name}.service.${bean.capitalizeName}Service;
-import chanedi.${module.name}.model.${bean.capitalizeName};
+import ${config.javaPackageName}${module.name}.service.${bean.capitalizeName}Service;
+import ${config.javaPackageName}${module.name}.model.${bean.capitalizeName};
 import org.springframework.stereotype.Service;
 
 @Service
