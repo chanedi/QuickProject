@@ -1,11 +1,9 @@
 package chanedi.generator;
 
 import chanedi.enums.DBDialectType;
-import chanedi.generator.model.Property;
 import chanedi.generator.model.PropertyType;
 import chanedi.util.PropertiesWithOrder;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * 单例。
@@ -99,6 +100,7 @@ public final class PropertyTypeContext {
     }
 
     public PropertyType matchPropertyType(String dbType) {
+        dbType = dbType.toUpperCase();
         String javaType = "String";
         if (dbType == null) {
             javaType = "String";
