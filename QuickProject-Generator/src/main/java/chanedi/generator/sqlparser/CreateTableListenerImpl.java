@@ -69,7 +69,7 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
     }
 
     @Override
-    public void enterComment(@NotNull CreateTableParser.CommentContext ctx) {
+    public void enterComment_oracle(@NotNull CreateTableParser.Comment_oracleContext ctx) {
         String beanTableName = ctx.table_name().getText();
         Bean bean = tableMap.get(beanTableName);
         String comment = ctx.comment_value().getText().replaceAll("'", "");
@@ -83,17 +83,20 @@ public class CreateTableListenerImpl extends CreateTableBaseListener {
         }
     }
 
-//    @Override
-//    public void enterComment_inline(@NotNull CreateTableParser.Comment_inlineContext ctx) {
-//
-//
-//        if (column_nameContext == null) {
-//            currentBean.setComment(comment);
-//        } else {
-//            String columnName = column_nameContext.getText();
-//            currentBean.getPropertyByColumnName(columnName).setComment(comment);
-//        }
-//    }
+    @Override
+    public void enterComment_mysql(@NotNull CreateTableParser.Comment_mysqlContext ctx) {
+        String beanTableName = ctx.table_name().getText();
+        Bean bean = tableMap.get(beanTableName);
+        String comment = ctx.comment_value().getText().replaceAll("'", "");
+
+        CreateTableParser.Column_nameContext column_nameContext = ctx.column_name();
+        if (column_nameContext == null) {
+            bean.setComment(comment);
+        } else {
+            String columnName = column_nameContext.getText();
+            bean.getPropertyByColumnName(columnName).setComment(comment);
+        }
+    }
 
     /*
 stringType : 'VARCHAR2' RANGE;

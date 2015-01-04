@@ -3,16 +3,21 @@ package ${config.javaPackageName}${module.name}.model;
 import java.util.*;
 import lombok.Data;
 import javax.persistence.Table;
-import chanedi.model.Entity;
+import com.zhiyi.base.model.EntityWithTime;
 
+/**
+ * Created by QuickProject-Generator on ${now}
+ */
 @Data
 @Table(name = "${bean.tableName}")
-public class ${bean.capitalizeName} extends Entity {
+public class ${bean.capitalizeName} extends EntityWithTime {
 
     ${generate.serialVersionUID}
 
     <#list bean.properties as prop>
-    private ${prop.type.java} ${prop.name};
+    <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime">
+    private ${prop.type.java} ${prop.name}; <#if prop.comment??>// ${prop.comment}</#if>
+    </#if>
     </#list>
 
 }

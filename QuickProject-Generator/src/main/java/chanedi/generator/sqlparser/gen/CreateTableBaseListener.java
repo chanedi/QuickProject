@@ -29,6 +29,18 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComment_mysql(@NotNull CreateTableParser.Comment_mysqlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComment_mysql(@NotNull CreateTableParser.Comment_mysqlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterComment_value(@NotNull CreateTableParser.Comment_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -113,6 +125,18 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComment_oracle(@NotNull CreateTableParser.Comment_oracleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComment_oracle(@NotNull CreateTableParser.Comment_oracleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLiteral_value(@NotNull CreateTableParser.Literal_valueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -192,18 +216,6 @@ public class CreateTableBaseListener implements CreateTableListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitName(@NotNull CreateTableParser.NameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterComment(@NotNull CreateTableParser.CommentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComment(@NotNull CreateTableParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

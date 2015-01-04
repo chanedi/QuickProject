@@ -11,14 +11,12 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.Getter;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Chanedi
@@ -107,6 +105,7 @@ public class FilesGenerator {
                 dataMap.put("module", module);
                 dataMap.put("generate", generate);
                 dataMap.put("config", config);
+                dataMap.put("now", DateFormatUtils.ISO_DATE_FORMAT.format(new Date()));
 
                 generate(cfg, dataMap);
             }

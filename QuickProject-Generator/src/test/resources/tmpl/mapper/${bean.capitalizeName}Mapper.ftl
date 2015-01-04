@@ -3,9 +3,4 @@
 <mapper namespace="${config.javaPackageName}${module.name}.dao.${bean.capitalizeName}DAO">
     <resultMap type="${config.javaPackageName}${module.name}.model.${bean.capitalizeName}" id="getMap">
     </resultMap>
-    <sql id="queryColumns">
-        <#list bean.properties as prop>
-        a.${prop.columnName}<#if prop_has_next>,</#if>
-        </#list>
-    </sql>
 </mapper>

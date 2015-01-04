@@ -19,6 +19,16 @@ public interface CreateTableListener extends ParseTreeListener {
 	 */
 	void exitSchema(@NotNull CreateTableParser.SchemaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#comment_mysql}.
+	 * @param ctx the parse tree
+	 */
+	void enterComment_mysql(@NotNull CreateTableParser.Comment_mysqlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#comment_mysql}.
+	 * @param ctx the parse tree
+	 */
+	void exitComment_mysql(@NotNull CreateTableParser.Comment_mysqlContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#comment_value}.
 	 * @param ctx the parse tree
 	 */
@@ -89,6 +99,16 @@ public interface CreateTableListener extends ParseTreeListener {
 	 */
 	void exitSql(@NotNull CreateTableParser.SqlContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CreateTableParser#comment_oracle}.
+	 * @param ctx the parse tree
+	 */
+	void enterComment_oracle(@NotNull CreateTableParser.Comment_oracleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreateTableParser#comment_oracle}.
+	 * @param ctx the parse tree
+	 */
+	void exitComment_oracle(@NotNull CreateTableParser.Comment_oracleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#literal_value}.
 	 * @param ctx the parse tree
 	 */
@@ -158,16 +178,6 @@ public interface CreateTableListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitName(@NotNull CreateTableParser.NameContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CreateTableParser#comment}.
-	 * @param ctx the parse tree
-	 */
-	void enterComment(@NotNull CreateTableParser.CommentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CreateTableParser#comment}.
-	 * @param ctx the parse tree
-	 */
-	void exitComment(@NotNull CreateTableParser.CommentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CreateTableParser#expr}.
 	 * @param ctx the parse tree

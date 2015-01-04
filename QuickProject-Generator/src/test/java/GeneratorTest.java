@@ -13,11 +13,12 @@ public class GeneratorTest extends TestCase {
     public void testGenerator() throws ConfigException {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-        globalConfig.setOutProjectPath("F:/IDEA/QuickProject/QuickProject-Core"); // 注意修改此参数项
-        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
-        globalConfig.setJavaPackageName("com.zhiyi.");
-        globalConfig.setJavaPackagePath("com/zhiyi/");
-//        globalConfig.setIgnoreExists(false);
+        globalConfig.setOutProjectPath("F:/IDEA/massage/massage_admin"); // 注意修改此参数项
+        globalConfig.setBeanNameRegex("^TB_(\\w+)$");
+//        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
+//        globalConfig.setJavaPackageName("com.zhiyi.");
+//        globalConfig.setJavaPackagePath("com/zhiyi/");
+        globalConfig.setIgnoreExists(false);
 
         generator.process();
     }

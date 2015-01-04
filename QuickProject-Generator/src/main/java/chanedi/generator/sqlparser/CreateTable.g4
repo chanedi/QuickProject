@@ -3,12 +3,17 @@ sql:mdl+;
 mdl
  : K_CREATE K_TABLE ( schema '.' )? table_name
    ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' ';'
-   )  comment*;
-comment
+   )  (comment_oracle|comment_mysql)*;
+comment_oracle
  : K_COMMENT K_ON
    ( K_TABLE ( schema '.' )? table_name
    | K_COLUMN ( schema '.' )? table_name '.' column_name
    ) K_IS comment_value ';';
+comment_mysql
+ : K_ALTER
+   ( K_TABLE ( schema '.' )? table_name
+   | K_COLUMN ( schema '.' )? table_name '.' column_name
+   ) K_COMMENT comment_value ';';
 
 column_definition : column_name datatype inline_constraint* (K_COMMENT comment_value)?;
 datatype : name+ ( '(' signed_number ')' | '(' signed_number ',' signed_number ')' )?;
@@ -59,6 +64,7 @@ any_name
  | '(' any_name ')'
  ;
 
+K_ALTER : A L T E R;
 K_AND : A N D;
 K_BETWEEN : B E T W E E N;
 K_CASCADE : C A S C A D E;
