@@ -1,7 +1,6 @@
-QuickProject
-====
-示例说明
-----
-QuickProject-Core/src/test/下所有bas目录都可删除，并运行QuickProject-Generator/src/test/java下的GeneratorTest重新生成。<br>
-运行测试前应修改参数，使outProjectPath指向QuickProject-Core目录。<br>
-生成的代码运行QuickProject-Core/src/test/java/chanedi/test下的测试用例可执行。<br>
+#QuickProject
+##Core子项目
+提供单表的基本增删改查基础方法，所有方法可重写。<br>
+可参见项目trace-scheduler。
+##Generator子项目
+提供基于freemarker模板的的代码自动生成，test中有一些模板示例。
