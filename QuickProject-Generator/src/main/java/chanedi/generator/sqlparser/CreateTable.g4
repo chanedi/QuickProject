@@ -21,7 +21,7 @@ inline_constraint
  : ( K_CONSTRAINT name )?
    ( K_DEFAULT (signed_number | literal_value | '(' expr ')')
    | K_NOT? K_NULL | K_UNIQUE | K_PRIMARY K_KEY | foreign_key_clause
-   | K_CHECK '(' expr ')'
+   | K_CHECK '(' expr ')' | K_AUTO_INCREMENT
    );
 expr
  : literal_value
@@ -64,6 +64,7 @@ any_name
  | '(' any_name ')'
  ;
 
+K_AUTO_INCREMENT : A U T O '_' I N C R E M E N T;
 K_ALTER : A L T E R;
 K_AND : A N D;
 K_BETWEEN : B E T W E E N;
