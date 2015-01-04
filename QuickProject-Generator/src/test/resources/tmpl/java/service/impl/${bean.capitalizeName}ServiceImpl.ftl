@@ -6,6 +6,8 @@ import ${config.javaPackageName}${module.name}.dao.${bean.capitalizeName}DAO;
 import ${config.javaPackageName}${module.name}.model.${bean.capitalizeName};
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by QuickProject-Generator on ${now}
  */
