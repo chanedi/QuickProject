@@ -1,7 +1,7 @@
 package chanedi.generator;
 
 import chanedi.enums.DBDialectType;
-import chanedi.generator.exception.ConfigException;
+import chanedi.generator.exception.GlobalConfigException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.io.Resource;
@@ -49,23 +49,23 @@ public final class GlobalConfig {
         super();
     }
 
-    public File getInputSqlFile() throws ConfigException {
+    public File getInputSqlFile() throws GlobalConfigException {
         return getFileByConfig("inputSqlPath", inputSqlPath);
     }
 
-    public File getTmplFile() throws ConfigException {
+    public File getTmplFile() throws GlobalConfigException {
         return getFileByConfig("tmplPath", tmplPath);
     }
 
-    private File getFileByConfig(String configParamName, String configPath) throws ConfigException {
+    private File getFileByConfig(String configParamName, String configPath) throws GlobalConfigException {
         Resource resource = resourceLoader.getResource(configPath);
         if (!resource.exists()) {
-            throw new ConfigException(configParamName, "路径不存在");
+            throw new GlobalConfigException(configParamName, "路径不存在");
         }
         try {
             return resource.getFile();
         } catch (IOException e) {
-            throw new ConfigException(configParamName, e);
+            throw new GlobalConfigException(configParamName, e);
         }
     }
 

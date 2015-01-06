@@ -1,6 +1,7 @@
 package chanedi.generator;
 
 import chanedi.enums.DBDialectType;
+import chanedi.generator.exception.ConfigException;
 import chanedi.generator.model.PropertyType;
 import chanedi.util.PropertiesWithOrder;
 import com.alibaba.fastjson.JSON;
@@ -38,7 +39,7 @@ public final class PropertyTypeContext {
 
     private ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
 
-    private PropertyTypeContext() {
+    private PropertyTypeContext() throws ConfigException {
         super();
         GlobalConfig globalConfig = GlobalConfig.getInstance();
 
@@ -59,15 +60,35 @@ public final class PropertyTypeContext {
         }
 
         // 加载更多类型定义(允许不定义)
-        for (Map.Entry<Object, Object> defEntry : typeDefProp.entrySet()) {
-            String javaType = (String) defEntry.getKey();
-            PropertyType propertyType = propertyTypes.get(javaType);
+        // 以String作为默认值
+        String defaultTypeJsonStr = (String) typeDefProp.get("String");
+        if (defaultTypeJsonStr == null) {
+            throw new ConfigException("typeDefinition.properties文件配置错误：必须定义String");
+        }
+        JSONObject defaultTypeJson = JSON.parseObject(defaultTypeJsonStr);
+        // 遍历类型定义
+        for (Map.Entry<String, PropertyType> propertyTypeEntry : propertyTypes.entrySet()) {
+            String javaType = propertyTypeEntry.getKey();
+            PropertyType propertyType = propertyTypeEntry.getValue();
 
-            String typeJsonStr = (String) defEntry.getValue();
-            JSONObject jsonObject = JSON.parseObject(typeJsonStr);
-            for (Map.Entry<String, Object> jsonEntry : jsonObject.entrySet()) {
-                propertyType.addType(jsonEntry.getKey(), (String) jsonEntry.getValue());
+            String typeJsonStr = (String) typeDefProp.get(javaType);
+            JSONObject typeJson = null;
+            if (typeJsonStr == null) { // 使用默认值
+                typeJson = defaultTypeJson;
+            } else {
+                typeJson = JSON.parseObject(typeJsonStr);
             }
+
+            for (Map.Entry<String, Object> defaultEntry : defaultTypeJson.entrySet()) {
+                String typeKey = defaultEntry.getKey();
+                String value = (String) typeJson.get(typeKey);
+                if (value == null) { // 使用默认值
+                    propertyType.addType(typeKey, (String) defaultEntry.getValue());
+                } else {
+                    propertyType.addType(typeKey, value);
+                }
+            }
+
         }
     }
 
@@ -94,7 +115,11 @@ public final class PropertyTypeContext {
 
     public static PropertyTypeContext getInstance() {
         if (instance == null) {
-            instance = new PropertyTypeContext();
+            try {
+                instance = new PropertyTypeContext();
+            } catch (ConfigException e) {
+                throw new RuntimeException(e);
+            }
         }
         return instance;
     }

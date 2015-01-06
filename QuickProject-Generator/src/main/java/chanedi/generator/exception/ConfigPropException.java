@@ -3,9 +3,9 @@ package chanedi.generator.exception;
 /**
  * @author Chanedi
  */
-public class ConfigPropException extends Exception {
+public class ConfigPropException extends ConfigException {
 
-    private static final String errorMessage = "properties文件配置参数错误：";
+    private static final String errorMessage = "config.properties文件配置参数错误：";
 
     public ConfigPropException(String configParam) {
         super(errorMessage + configParam);

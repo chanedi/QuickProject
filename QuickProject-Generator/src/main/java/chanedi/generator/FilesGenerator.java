@@ -1,6 +1,6 @@
 package chanedi.generator;
 
-import chanedi.generator.exception.ConfigException;
+import chanedi.generator.exception.GlobalConfigException;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Config;
 import chanedi.generator.model.Generate;
@@ -39,7 +39,7 @@ public class FilesGenerator {
         generate = Generate.getInstance();
     }
 
-    public void process() throws ConfigException {
+    public void process() throws GlobalConfigException {
         parseModule();
         parseTmpl();
 
@@ -49,10 +49,10 @@ public class FilesGenerator {
         generate();
     }
 
-    public void parseModule() throws ConfigException {
+    public void parseModule() throws GlobalConfigException {
         File sqlDir = globalConfig.getInputSqlFile();
         if (!sqlDir.isDirectory()) {
-            throw new ConfigException("inputSqlPath", "路径必须是目录！");
+            throw new GlobalConfigException("inputSqlPath", "路径必须是目录！");
         }
         File[] files = sqlDir.listFiles();
         for (File sqlFile : files) {
@@ -69,10 +69,10 @@ public class FilesGenerator {
         }
     }
 
-    public void parseTmpl() throws ConfigException {
+    public void parseTmpl() throws GlobalConfigException {
         File tmplDir = globalConfig.getTmplFile();
         if (!tmplDir.isDirectory()) {
-            throw new ConfigException("tmplPath", "路径必须是目录！");
+            throw new GlobalConfigException("tmplPath", "路径必须是目录！");
         }
         File[] rootDirs = tmplDir.listFiles();
         for (File rootDir : rootDirs) {
@@ -89,13 +89,13 @@ public class FilesGenerator {
         }
     }
 
-    public void generate() throws ConfigException {
+    public void generate() throws GlobalConfigException {
         Configuration cfg = new Configuration();
         File tmplDir = globalConfig.getTmplFile();
         try {
             cfg.setDirectoryForTemplateLoading(tmplDir);
         } catch (IOException e) {
-            throw new ConfigException("tmplPath", e);
+            throw new GlobalConfigException("tmplPath", e);
         }
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         for (Module module : modules) {

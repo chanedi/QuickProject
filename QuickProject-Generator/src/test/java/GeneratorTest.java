@@ -1,6 +1,6 @@
 import chanedi.generator.FilesGenerator;
 import chanedi.generator.GlobalConfig;
-import chanedi.generator.exception.ConfigException;
+import chanedi.generator.exception.GlobalConfigException;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 public class GeneratorTest extends TestCase {
 
     @Test
-    public void testGenerator() throws ConfigException {
+    public void testGenerator() throws GlobalConfigException {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
         globalConfig.setOutProjectPath("F:/IDEA/massage/massage_admin"); // 注意修改此参数项

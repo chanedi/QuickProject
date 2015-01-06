@@ -1,26 +1,23 @@
 package chanedi.generator.exception;
 
 /**
- * @author Chanedi
+ * Created by chanedi on 2015/1/6.
  */
 public class ConfigException extends Exception {
 
-    private static final String errorMessage = "全局配置参数错误：";
-
-    public ConfigException(String configParam) {
-        super(errorMessage + configParam);
+    public ConfigException() {
     }
 
-    public ConfigException(String configParam, String message) {
-        super(errorMessage + configParam + "(" + message + ")");
+    public ConfigException(String message) {
+        super(message);
     }
 
-    public ConfigException(String configParam, Throwable cause) {
-        super(errorMessage + configParam, cause);
+    public ConfigException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public ConfigException(String configParam, String message, Throwable cause) {
-        super(errorMessage + configParam + "(" + message + ")", cause);
+    public ConfigException(Throwable cause) {
+        super(cause);
     }
 
 }
