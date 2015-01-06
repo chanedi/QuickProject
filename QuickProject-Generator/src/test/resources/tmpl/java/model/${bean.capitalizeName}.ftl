@@ -5,9 +5,6 @@ import lombok.Data;
 import javax.persistence.Table;
 import com.zhiyi.base.model.EntityWithTime;
 
-/**
- * Created by QuickProject-Generator on ${now}
- */
 @Data
 @Table(name = "${bean.tableName}")
 public class ${bean.capitalizeName} extends EntityWithTime {

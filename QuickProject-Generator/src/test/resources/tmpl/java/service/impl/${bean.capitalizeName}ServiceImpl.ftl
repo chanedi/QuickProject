@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-/**
- * Created by QuickProject-Generator on ${now}
- */
 @Service
 public class ${bean.capitalizeName}ServiceImpl extends EntityServiceImpl<${bean.capitalizeName}> implements ${bean.capitalizeName}Service {
 
