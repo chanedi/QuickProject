@@ -10,27 +10,6 @@
                 ajax: {
                     url: "${bean.name}.json",
                     data: function(data) {
-                        data.filter = [{
-                            field: "modifyTime",
-                            data: {
-                                comparison: "gt",
-                                type: "date",
-                                value: $("#${bean.name}Form input[name='earliestRunTime']").val()
-                            }
-                        },{
-                            field: "modifyTime",
-                            data: {
-                                comparison: "lt",
-                                type: "date",
-                                value: $("#${bean.name}Form input[name='latestRunTime']").val()
-                            }
-                        }, {
-                            field: "onlyFailure",
-                            data: {
-                                type: "custom",
-                                value: $("#${bean.name}Form input[name='onlyFailure']").prop('checked')
-                            }
-                        }];
                         var arr = $("#${bean.name}Form").serializeArray();
                         for(var i = 0; i < arr.length; i++) {
                             var param = arr[i];
@@ -41,7 +20,7 @@
                 order: [[ 1, "asc" ]],
                 columns: [
                     <#list bean.properties as prop>
-                    <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime">
+                    <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
                     { data: "${prop.name}", title: "${prop.comment!}" },
                     </#if>
                     </#list>
@@ -58,13 +37,13 @@
 <div id="page-content" class="page-content">
     <div class="page-header">
         <h1>
-            技师管理
+            ${bean.comment!}管理
         </h1>
     </div>
     <form id="${bean.name}Form" table="#${bean.name}Table">
         <div class="row">
             <#list bean.properties as prop>
-            <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime">
+            <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
             <div class="col-sm-4" style="text-align: center;">
                 <label>${prop.comment!}</label>
                 <input name="${prop.name}" type="${prop.type.input}" />

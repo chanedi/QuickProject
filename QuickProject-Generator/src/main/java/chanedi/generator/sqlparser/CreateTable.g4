@@ -2,7 +2,7 @@ grammar CreateTable;
 sql:mdl+;
 mdl
  : K_CREATE K_TABLE ( schema '.' )? table_name
-   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' ';'
+   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' (K_ENGINE '=' K_INNODB)? ';'
    )  (comment_oracle|comment_mysql)*;
 comment_oracle
  : K_COMMENT K_ON
@@ -50,7 +50,7 @@ table_constraint
    );
 
 signed_number : ( '+' | '-' )? NUMERIC_LITERAL;
-literal_value : NUMERIC_LITERAL | STRING_LITERAL | BLOB_LITERAL | K_NULL | K_CURRENT_TIME | K_CURRENT_DATE | K_CURRENT_TIMESTAMP;
+literal_value : NUMERIC_LITERAL | STRING_LITERAL | BLOB_LITERAL | K_NULL | K_CURRENT_TIME | K_CURRENT_DATE | K_CURRENT_TIMESTAMP | K_TRUE | K_FALSE;
 
 name : any_name;
 schema : any_name;
@@ -80,9 +80,12 @@ K_CURRENT_TIMESTAMP : C U R R E N T '_' T I M E S T A M P;
 K_DEFAULT : D E F A U L T;
 K_DELETE : D E L E T E;
 K_DISTINCT : D I S T I N C T;
+K_ENGINE : E N G I N E;
+K_FALSE : F A L S E;
 K_FOREIGN : F O R E I G N;
 K_GLOB : G L O B;
 K_IN : I N;
+K_INNODB : I N N O D B;
 K_IS : I S;
 K_ISNULL : I S N U L L;
 K_KEY : K E Y;
@@ -98,6 +101,7 @@ K_REFERENCES : R E F E R E N C E S;
 K_REGEXP : R E G E X P;
 K_SET : S E T;
 K_TABLE : T A B L E;
+K_TRUE : T R U E;
 K_UNIQUE : U N I Q U E;
 
 IDENTIFIER : '"' (~'"' | '""')* '"' | '`' (~'`' | '``')* '`' | '[' ~']'* ']'
