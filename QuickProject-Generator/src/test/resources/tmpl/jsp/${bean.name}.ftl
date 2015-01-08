@@ -17,7 +17,7 @@
                         }
                     }
                 },
-                order: [[ 1, "asc" ]],
+                order: [[ 0, "asc" ]],
                 columns: [
                     <#list bean.properties as prop>
                     <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
@@ -44,9 +44,9 @@
         <div class="row">
             <#list bean.properties as prop>
             <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
-            <div class="col-sm-4" style="text-align: center;">
-                <label>${prop.comment!}</label>
-                <input name="${prop.name}" type="${prop.type.input}" />
+            <div class="col-sm-2">
+                <label class="col-sm-3">${prop.comment!}:</label>
+                <input class="col-sm-9" name="${prop.name}" type="${prop.type.input}" />
             </div>
             </#if>
             </#list>

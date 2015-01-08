@@ -28,13 +28,8 @@ public class JSONUtils {
 	 * @param enumClass
 	 * @return JSONArray
 	 */
-	public static JSONObject enumToJSONArray(Class<? extends Enum<?>> enumClass) {
-		JSONObject jsonObject = new JSONObject();
-		Enum<?>[] constants = enumClass.getEnumConstants();
-		for (Enum<?> constant : constants) {
-			jsonObject.put(constant.name(), constant.toString());
-		}
-		return jsonObject;
+	public static JSONArray enumToJSONArray(Class<? extends Enum<?>> enumClass) {
+		return enumToJSONArray(enumClass, null, null);
 	}
 
 	/**

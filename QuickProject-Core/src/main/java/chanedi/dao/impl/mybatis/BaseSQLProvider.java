@@ -117,8 +117,12 @@ public class BaseSQLProvider<T extends Entity> {
         }
         if (t instanceof EntityWithTime) {
             Date now = Calendar.getInstance().getTime();
-            ((EntityWithTime) t).setCreateTime(now);
-            ((EntityWithTime) t).setModifyTime(now);
+            if (((EntityWithTime) t).getCreateTime() == null) {
+                ((EntityWithTime) t).setCreateTime(now);
+            }
+            if (((EntityWithTime) t).getModifyTime() == null) {
+                ((EntityWithTime) t).setModifyTime(now);
+            }
         }
 
         return new SQL() {
@@ -152,9 +156,9 @@ public class BaseSQLProvider<T extends Entity> {
 		initFromThreadLocal();
         if (t instanceof EntityWithTime) {
             // 设置默认值
-            ((EntityWithTime) t).setModifyTime(new Date());
-            // 过滤不允许更新的字段
-            ((EntityWithTime) t).setCreateTime(null);
+            if (((EntityWithTime) t).getModifyTime() == null) {
+                ((EntityWithTime) t).setModifyTime(new Date());
+            }
         }
 
 		return new SQL() {
@@ -168,6 +172,9 @@ public class BaseSQLProvider<T extends Entity> {
                     for (Property property : properties.values()) {
                         // 过滤不允许更新的字段
                         if (isIgnoreUpdate(property, t)) {
+                            continue;
+                        }
+                        if (property.getName().equals("createTime")) {
                             continue;
                         }
 

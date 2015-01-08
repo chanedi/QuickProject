@@ -93,7 +93,7 @@ public abstract class EntityController {
                 continue;
             }
             try {
-                builder.addWithValueQueryParam(propName, "LIKE", URLDecoder.decode(value, "utf-8"));
+                builder.addWithValueQueryParam(propName, "LIKE", "%" + URLDecoder.decode(value, "utf-8") + "%");
             } catch (UnsupportedEncodingException e) {
             }
         }
