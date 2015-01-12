@@ -1,12 +1,12 @@
 package chanedi.dao;
 
-import java.util.List;
-
 import chanedi.dao.complexQuery.CustomQueryParam;
 import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.impl.mybatis.BaseSQLProvider;
 import chanedi.model.Entity;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * @author Chanedi
@@ -59,7 +59,6 @@ public interface EntityDAO<T extends Entity> {
     public List<T> query(@Param("queryParams") List<CustomQueryParam> customQueryParams, @Param("sortList") List<Sort> sortList,  @Param("start") Integer start,  @Param("limit") Integer limit);
 
     @InsertProvider(type = BaseSQLProvider.class, method = "insert")
-    @Options(keyProperty = "id")
     public int insert(T t);
 
     @DeleteProvider(type = BaseSQLProvider.class, method = "delete")

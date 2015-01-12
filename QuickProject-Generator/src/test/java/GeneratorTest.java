@@ -2,11 +2,13 @@ import chanedi.generator.FilesGenerator;
 import chanedi.generator.GlobalConfig;
 import chanedi.generator.exception.GlobalConfigException;
 import junit.framework.TestCase;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author Chanedi
  */
+@Ignore
 public class GeneratorTest extends TestCase {
 
     @Test

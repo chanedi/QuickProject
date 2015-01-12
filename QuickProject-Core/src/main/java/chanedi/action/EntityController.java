@@ -7,7 +7,6 @@ import chanedi.action.view.UpdateResult;
 import chanedi.dao.complexQuery.CustomQueryParam;
 import chanedi.dao.complexQuery.QueryParamBuilder;
 import chanedi.dao.complexQuery.Sort;
-import chanedi.exception.MessageException;
 import chanedi.model.Entity;
 import chanedi.service.EntityService;
 import chanedi.util.ReflectUtils;
@@ -15,11 +14,11 @@ import chanedi.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.MutablePropertyValues;
+import org.springframework.validation.DataBinder;
+import org.springframework.web.bind.ServletRequestParameterPropertyValues;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyDescriptor;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -65,15 +64,11 @@ public abstract class EntityController {
         return "[data][comparison]";
     }
 
-    @RequestMapping
-    public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String index() {
         return getIndexTilesName();
     }
 
-    @RequestMapping(produces="application/json")
-    @ResponseBody
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public TableView list(HttpServletRequest request, HttpServletResponse response) {
+    public TableView list(HttpServletRequest request) {
         EntityService entityService = getEntityService();
 
         QueryParamBuilder builder = QueryParamBuilder.newBuilder();
@@ -117,75 +112,6 @@ public abstract class EntityController {
         return tableView;
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes="application/json", produces="application/json")
-    @ResponseBody
-    public UpdateResult save(HttpServletRequest request, HttpServletResponse response, @RequestBody String jsonText)  {
-        EntityService<Entity> entityService = getEntityService();
-        UpdateResult updateResult = new UpdateResult();
-
-        if (jsonText.startsWith("[")) {
-            List<Entity> objects = parseModels(jsonText);
-            entityService.insert(objects);
-            updateResult.addResult(objects);
-        } else {
-            Entity object = parseModel(jsonText);
-            entityService.insert(object);
-            updateResult.addResult(object);
-        }
-
-        return updateResult;
-    }
-
-
-    @RequestMapping(value="/{id}", method = RequestMethod.PUT, consumes="application/json", produces="application/json")
-    @ResponseBody
-    public UpdateResult update(HttpServletRequest request, HttpServletResponse response, @RequestBody String jsonText)  {
-        EntityService<Entity> entityService = getEntityService();
-        UpdateResult updateResult = new UpdateResult();
-
-        if (jsonText.startsWith("[")) {
-            List<Entity> objects = parseModels(jsonText);
-            entityService.update(objects);
-            updateResult.addResult(objects);
-        } else {
-            Entity object = parseModel(jsonText);
-            entityService.update(object);
-            updateResult.addResult(object);
-        }
-
-        return updateResult;
-    }
-
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces="application/json")
-    @ResponseBody
-    public UpdateResult delete(HttpServletRequest request, HttpServletResponse response, @PathVariable String id, @RequestBody String jsonText) {
-        EntityService<Entity> entityService = getEntityService();
-        UpdateResult updateResult = new UpdateResult();
-
-        if (jsonText.startsWith("[")) {
-            // 删除多条记录
-            JSONArray jsonArray = JSON.parseArray(jsonText);
-            List<String> list = new ArrayList<String>();
-            for (Object object : jsonArray) {
-                JSONObject jsonObject = (JSONObject) object;
-                list.add((String) jsonObject.get("id"));
-            }
-            entityService.deleteById(list);
-        } else {
-            entityService.deleteById(id);
-        }
-
-        return updateResult;
-    }
-
-    private List<Entity> parseModels(String jsonText) {
-        return (List<Entity>) JSON.parseArray(jsonText, getEntityClass());
-    }
-
-    private Entity parseModel(String jsonText)  {
-        return (Entity) JSON.parseObject(jsonText, getEntityClass());
-    }
-
     /**
      * example request params
      * [{"field":"visible","data":{"type":"boolean","value":true}},
@@ -226,7 +152,7 @@ public abstract class EntityController {
                     try {
                         value = df.parse(value.toString());
                     } catch (ParseException e) {
-                        throw new MessageException("日期格式不正确");
+                        throw new RuntimeException("日期格式不正确");
                     }
                 }
                 builder.addWithValueQueryParam(field, ComparisonTranslator.translate(comparison), value);
@@ -279,6 +205,126 @@ public abstract class EntityController {
 
     protected void buildCustomQueryParam(QueryParamBuilder builder, HttpServletRequest request, String prefix) {
         // template
+    }
+
+    public UpdateResult save(HttpServletRequest request) {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        Entity object = parseModel(request);
+        if (object.getId() == null) {
+            entityService.insert(object);
+        } else {
+            entityService.update(object);
+        }
+        updateResult.addResult(object);
+
+        return updateResult;
+    }
+
+    public UpdateResult update(HttpServletRequest request) {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        Entity object = parseModel(request);
+        entityService.update(object);
+        updateResult.addResult(object);
+
+        return updateResult;
+    }
+
+    public UpdateResult delete(String id) {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        entityService.deleteById(id);
+
+        return updateResult;
+    }
+
+    protected Entity parseModel(HttpServletRequest request) {
+        Object o = null;
+        try {
+            o = getEntityClass().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("无法创建类的实例：" + getEntityClass());
+        }
+        DataBinder dataBinder = new DataBinder(o);
+        MutablePropertyValues mpvs = new ServletRequestParameterPropertyValues(request);
+        dataBinder.bind(mpvs);
+
+        return (Entity) o;
+    }
+
+    /**
+     * for ext
+     */
+    public UpdateResult save(String jsonText)  {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        if (jsonText.startsWith("[")) {
+            List<Entity> objects = parseModels(jsonText);
+            entityService.insert(objects);
+            updateResult.addResult(objects);
+        } else {
+            Entity object = parseModel(jsonText);
+            entityService.insert(object);
+            updateResult.addResult(object);
+        }
+
+        return updateResult;
+    }
+
+    /**
+     * for ext
+     */
+    public UpdateResult update(String jsonText)  {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        if (jsonText.startsWith("[")) {
+            List<Entity> objects = parseModels(jsonText);
+            entityService.update(objects);
+            updateResult.addResult(objects);
+        } else {
+            Entity object = parseModel(jsonText);
+            entityService.update(object);
+            updateResult.addResult(object);
+        }
+
+        return updateResult;
+    }
+
+    /**
+     * for ext
+     */
+    public UpdateResult delete(String id, String jsonText) {
+        EntityService<Entity> entityService = getEntityService();
+        UpdateResult updateResult = new UpdateResult();
+
+        if (jsonText.startsWith("[")) {
+            // 删除多条记录
+            JSONArray jsonArray = JSON.parseArray(jsonText);
+            List<String> list = new ArrayList<String>();
+            for (Object object : jsonArray) {
+                JSONObject jsonObject = (JSONObject) object;
+                list.add((String) jsonObject.get("id"));
+            }
+            entityService.deleteById(list);
+        } else {
+            entityService.deleteById(id);
+        }
+
+        return updateResult;
+    }
+
+    private List<Entity> parseModels(String jsonText) {
+        return (List<Entity>) JSON.parseArray(jsonText, getEntityClass());
+    }
+
+    private Entity parseModel(String jsonText)  {
+        return (Entity) JSON.parseObject(jsonText, getEntityClass());
     }
 
 }
