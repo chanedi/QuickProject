@@ -142,7 +142,7 @@ public class BaseSQLProvider<T extends Entity> {
 		}.toString();
 	}
 
-	public String delete(String id) {
+	public String delete(Object id) {
 		initFromThreadLocal();
 		return new SQL() {
 			{

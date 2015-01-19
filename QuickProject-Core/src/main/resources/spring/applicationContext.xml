@@ -12,5 +12,13 @@
 
 	<!-- enable @AspectJ support with XML based configuration -->
 	<aop:aspectj-autoproxy />
+
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+		<!--<property name="customEditors">-->
+			<!--<map>-->
+				<!--<entry key="java.sql.Time" value="com.zhiyi.base.editor.TimeEditor"/>-->
+			<!--</map>-->
+		<!--</property>-->
+	<!--</bean>-->
 	
 </beans>

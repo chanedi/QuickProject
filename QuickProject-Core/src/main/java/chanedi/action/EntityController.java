@@ -4,6 +4,7 @@ import chanedi.action.view.ComparisonTranslator;
 import chanedi.action.view.DefaultTableView;
 import chanedi.action.view.TableView;
 import chanedi.action.view.UpdateResult;
+import chanedi.bean.editor.TimeEditor;
 import chanedi.dao.complexQuery.CustomQueryParam;
 import chanedi.dao.complexQuery.QueryParamBuilder;
 import chanedi.dao.complexQuery.Sort;
@@ -14,6 +15,7 @@ import chanedi.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.ServletRequestParameterPropertyValues;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyDescriptor;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -250,6 +253,7 @@ public abstract class EntityController {
             throw new RuntimeException("无法创建类的实例：" + getEntityClass());
         }
         DataBinder dataBinder = new DataBinder(o);
+        dataBinder.registerCustomEditor(Time.class, new TimeEditor());
         MutablePropertyValues mpvs = new ServletRequestParameterPropertyValues(request);
         dataBinder.bind(mpvs);
 
