@@ -15,7 +15,6 @@ import chanedi.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.ServletRequestParameterPropertyValues;
@@ -90,6 +89,7 @@ public abstract class EntityController {
             if (StringUtils.isEmpty(value.toString())) { // 空值
                 continue;
             }
+//            builder.addWithValueQueryParam(propName, "LIKE", "%" + value + "%");
             try {
                 builder.addWithValueQueryParam(propName, "LIKE", "%" + URLDecoder.decode(value, "utf-8") + "%");
             } catch (UnsupportedEncodingException e) {
@@ -245,7 +245,7 @@ public abstract class EntityController {
         return updateResult;
     }
 
-    protected Entity parseModel(HttpServletRequest request) {
+    public Entity parseModel(HttpServletRequest request) {
         Object o = null;
         try {
             o = getEntityClass().newInstance();
