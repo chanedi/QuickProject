@@ -216,7 +216,7 @@ public abstract class EntityController {
     }
 
     /**
-     * 自定义的查询条件。
+     * 自定义的查询条件。适用于不规则的参数。
      *<p>
      *  例如：
      * <pre>
