@@ -122,12 +122,15 @@ public abstract class EntityController {
     }
 
     /**
-     * example request params
+     * 适用于前端框架自动生成的过滤条件。
+     * <p>前端发送数据示例：
+     * <pre>
      * [{"field":"visible","data":{"type":"boolean","value":true}},
      * {"field":"company","data":{"type":"string","value":"e"}},
      * {"field":"price","data":{"type":"numeric","comparison":"lt","value":34}},
      * {"field":"price","data":{"type":"numeric","comparison":"gt","value":3}},
-     * {"field":"size","data":{"type":"list","value":["medium","extra large"]}}]
+     * {"field":"size","data":{"type":"list","value":["medium","extra large"]}}]</pre>
+     * </p>
      */
     private void buildFilterQueryParams(QueryParamBuilder builder, HttpServletRequest request) {
         for (int i = 0; ; i++) {
@@ -212,10 +215,33 @@ public abstract class EntityController {
         }
     }
 
+    /**
+     * 自定义的查询条件。
+     *<p>
+     *  例如：
+     * <pre>
+     *  protected void buildCustomQueryParam(QueryParamBuilder builder, HttpServletRequest request) {
+     *      String hasUserHead = request.getParameter("hasHead");
+     *      if (StringUtils.isNotEmpty(hasHead)) {
+     *          if (new Boolean(hasUserHead)) {
+     *              builder.addNoValueQueryParam("headPath", "is not null");
+     *          } else {
+     *              builder.addNoValueQueryParam("headPath", "is null");
+     *          }
+     *      }
+     *  }
+     * </pre></p>
+     */
     protected void buildCustomQueryParam(QueryParamBuilder builder, HttpServletRequest request) {
         // template
     }
 
+    /**
+     * 适用于前端框架自动生成的过滤条件，type应为custom。
+     * <p>前端发送数据示例：<pre>
+     * [{"field":"visible","data":{"type":"custom","value":true}},
+     * {"field":"size","data":{"type":"custom","value":["medium","extra large"]}}]</pre></p>
+     */
     protected void buildCustomFilterQueryParam(QueryParamBuilder builder, HttpServletRequest request, String prefix) {
         // template
     }
