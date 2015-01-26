@@ -74,7 +74,7 @@ public abstract class EntityController {
         EntityService entityService = getEntityService();
 
         QueryParamBuilder builder = QueryParamBuilder.newBuilder();
-        // 设置findParams属性 TODO 太多多余字段，待优化
+        // 设置findParams属性
         Map<String, String[]> parameterMap = request.getParameterMap();
         Class<?> modelClass = getEntityClass();
         PropertyDescriptor[] propDescriptors = ReflectUtils.getBeanGetters(modelClass);
