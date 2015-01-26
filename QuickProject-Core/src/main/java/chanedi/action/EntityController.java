@@ -91,13 +91,19 @@ public abstract class EntityController {
             }
 //            builder.addWithValueQueryParam(propName, "LIKE", "%" + value + "%");
             try {
-                builder.addWithValueQueryParam(propName, "LIKE", "%" + URLDecoder.decode(value, "utf-8") + "%");
+                if (propDescriptor.getPropertyType() == Boolean.class) {
+                    builder.addWithValueQueryParam(propName, "=", new Boolean(value));
+                } else {
+                    builder.addWithValueQueryParam(propName, "LIKE", "%" + URLDecoder.decode(value, "utf-8") + "%");
+                }
             } catch (UnsupportedEncodingException e) {
             }
         }
 
         // 根据filter设置findParams属性
         buildFilterQueryParams(builder, request);
+        // 自定义的参数
+        buildCustomQueryParam(builder, request);
 
         // 查询
         List<CustomQueryParam> queryParams = builder.build();
@@ -142,7 +148,7 @@ public abstract class EntityController {
             }
             String type = request.getParameter(prefix + getQueryFilterTypeName());
             if ("custom".equals(type)) {
-                buildCustomQueryParam(builder, request, prefix);
+                buildCustomFilterQueryParam(builder, request, prefix);
                 continue;
             }
             String comparison = request.getParameter(prefix + getQueryFilterComparisonName());
@@ -206,7 +212,11 @@ public abstract class EntityController {
         }
     }
 
-    protected void buildCustomQueryParam(QueryParamBuilder builder, HttpServletRequest request, String prefix) {
+    protected void buildCustomQueryParam(QueryParamBuilder builder, HttpServletRequest request) {
+        // template
+    }
+
+    protected void buildCustomFilterQueryParam(QueryParamBuilder builder, HttpServletRequest request, String prefix) {
         // template
     }
 
