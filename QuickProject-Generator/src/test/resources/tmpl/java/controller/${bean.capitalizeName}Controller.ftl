@@ -15,26 +15,40 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/" + ${bean.capitalizeName}Controller.NAME)
-public class ${bean.capitalizeName}Controller extends BaseController {
+public class ${bean.capitalizeName}Controller {
 
     public static final String NAME = "${bean.name}";
 
     @Resource
     private ${bean.capitalizeName}Service ${bean.name}Service;
 
-    @Override
-    public String getIndexTilesName() {
-        return NAME;
+    private BaseController baseController = new BaseController() {
+        @Override
+        public String getIndexTilesName() {
+            return NAME;
+        }
+
+        @Override
+        public EntityService getEntityService() {
+            return ${bean.name}Service;
+        }
+
+        @Override
+        public Class<?> getEntityClass() {
+            return ${bean.capitalizeName}.class;
+        }
+    };
+
+    @RequestMapping
+    public String index(Model model) {
+        return baseController.index();
     }
 
-    @Override
-    public EntityService getEntityService() {
-        return ${bean.name}Service;
+    @RequestMapping(produces="application/json")
+    @ResponseBody
+    public TableView list(HttpServletRequest request) {
+        return baseController.list(request);
     }
 
-    @Override
-    public Class<?> getEntityClass() {
-        return ${bean.capitalizeName}.class;
-    }
 
 }
