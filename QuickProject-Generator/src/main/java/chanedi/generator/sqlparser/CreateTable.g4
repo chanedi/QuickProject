@@ -2,7 +2,8 @@ grammar CreateTable;
 sql:mdl+;
 mdl
  : K_CREATE K_TABLE ( schema '.' )? table_name
-   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')' (K_ENGINE '=' K_INNODB)? ';'
+   ( '(' column_definition ( ',' column_definition )* ( ',' table_constraint )* ')'
+   (K_ENGINE '=' K_INNODB)? (K_DEFAULT)? (K_CHARSET '=' K_UTF8)? (K_COMMENT '=' comment_value)? ';'
    )  (comment_oracle|comment_mysql)*;
 comment_oracle
  : K_COMMENT K_ON
@@ -70,6 +71,7 @@ K_AND : A N D;
 K_BETWEEN : B E T W E E N;
 K_CASCADE : C A S C A D E;
 K_CHECK : C H E C K;
+K_CHARSET : C H A R S E T;
 K_CREATE : C R E A T E;
 K_COLUMN : C O L U M N;
 K_COMMENT : C O M M E N T;
@@ -103,6 +105,7 @@ K_SET : S E T;
 K_TABLE : T A B L E;
 K_TRUE : T R U E;
 K_UNIQUE : U N I Q U E;
+K_UTF8 : U T F '8';
 
 IDENTIFIER : '"' (~'"' | '""')* '"' | '`' (~'`' | '``')* '`' | '[' ~']'* ']'
  | [a-zA-Z_] [a-zA-Z_0-9]*

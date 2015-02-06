@@ -99,7 +99,9 @@ public class FilesGenerator {
         }
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         for (Module module : modules) {
+            logger.debug("module:" + module.getName());
             for (Bean bean : module.getBeans()) {
+                logger.debug("bean:" + bean.getName());
                 Map dataMap = new HashMap();
                 dataMap.put("bean", bean);
                 dataMap.put("module", module);

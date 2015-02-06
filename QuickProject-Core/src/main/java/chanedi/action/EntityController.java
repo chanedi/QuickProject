@@ -359,6 +359,15 @@ public abstract class EntityController {
         return updateResult;
     }
 
+    public boolean checkNotExist(Object id, String prop, Object value) {
+        QueryParamBuilder builder = QueryParamBuilder.newBuilder();
+        builder.addWithValueQueryParam(prop, "=", value);
+        if (id != null) {
+            builder.addWithValueQueryParam("id", "<>", id);
+        }
+        return getEntityService().countQuery(builder.build()) == 0;
+    }
+
     private List<Entity> parseModels(String jsonText) {
         return (List<Entity>) JSON.parseArray(jsonText, getEntityClass());
     }
