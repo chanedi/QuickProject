@@ -29,6 +29,14 @@
                 } }
             ]
         });
+
+        $('#edit${bean.capitalizeName}Dialog').dialog({
+            width: 800,
+            refreshTitleTarget : "${bean.comment!}",
+            autoOpen: false
+        });
+
+        $('#edit${bean.capitalizeName}Form').validate();
     });
 
 </script>
@@ -76,7 +84,7 @@
             <div class="col-xs-6 form-row">
                 <#list bean.properties as prop>
                 <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
-                <div class="col-sm-2">
+                <div>
                     <label>${prop.comment!}:</label>
                     <input name="${prop.name}" type="${prop.type.input}" />
                 </div>

@@ -1,5 +1,6 @@
 package ${config.javaPackageName}${module.name}.controller;
 
+import chanedi.action.view.TableView;
 import chanedi.service.EntityService;
 import chanedi.util.JSONUtils;
 import ${config.javaPackageName}${module.name}.base.controller.BaseController;
