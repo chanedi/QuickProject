@@ -9,6 +9,7 @@ import ${config.javaPackageName}${module.name}.service.${bean.capitalizeName}Ser
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +46,23 @@ public class ${bean.capitalizeName}Controller {
         return baseController.index();
     }
 
-    @RequestMapping(produces="application/json")
+    @RequestMapping(produces = "application/json")
     @ResponseBody
     public TableView list(HttpServletRequest request) {
         return baseController.list(request);
     }
 
+    @RequestMapping(value = "/checkNotExist")
+    @ResponseBody
+    public Boolean checkNotExist(@RequestParam(required = false) Integer id, @RequestParam String prop, @RequestParam String value) {
+        return baseController.checkNotExist(id, prop, value);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Boolean save(HttpServletRequest request) {
+        baseController.save(request);
+        return true;
+    }
 
 }

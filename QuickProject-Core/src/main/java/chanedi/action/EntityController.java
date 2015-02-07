@@ -164,7 +164,12 @@ public abstract class EntityController {
                     try {
                         value = df.parse(value.toString());
                     } catch (ParseException e) {
-                        throw new RuntimeException("日期格式不正确");
+                        df = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            value = df.parse(value.toString());
+                        } catch (ParseException e1) {
+                            throw new RuntimeException("日期格式不正确");
+                        }
                     }
                 }
                 builder.addWithValueQueryParam(field, ComparisonTranslator.translate(comparison), value);

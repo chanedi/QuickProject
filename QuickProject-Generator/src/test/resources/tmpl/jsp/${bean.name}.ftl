@@ -25,7 +25,8 @@
                 </#if>
                 </#list>
                 { data: null, title: "操作", render : function(data, type, full, meta) {
-                    return '<button class="btn-common" type="button" onclick="openEditDialog(\'#edit${bean.capitalizeName}Dialog\', \''+ data.id +'\')">编辑</button>';
+                    $("#edit${bean.capitalizeName}Dialog").data("" + data.id, data);
+                    return '<button class="btn btn-warning btn-xs" type="button" onclick="openEditDialog(\'#edit${bean.capitalizeName}Dialog\', \''+ data.id +'\')">编辑</button>';
                 } }
             ]
         });
@@ -58,8 +59,8 @@
             <#list bean.properties as prop>
             <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
             <div class="col-xs-2 form-group">
-                <label class="col-sm-5">${prop.comment!}:</label>
-                <input class="col-sm-7" name="${prop.name}" type="${prop.type.input}" />
+                <label class="col-xs-5">${prop.comment!}:</label>
+                <input class="col-xs-7" name="${prop.name}" type="${prop.type.input}" />
             </div>
             </#if>
             </#list>

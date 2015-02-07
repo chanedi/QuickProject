@@ -1,7 +1,6 @@
 package chanedi.bean.editor;
 
 import java.beans.PropertyEditorSupport;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,14 +9,14 @@ import java.util.Date;
 /**
  * Created by chanedi on 2015/1/19.
  */
-public class TimeEditor extends PropertyEditorSupport {
+public class CustomDateEditor extends PropertyEditorSupport {
 
-    private String format = "H:mm";
+    private String format = "yyyy-MM-dd";
 
-    public TimeEditor() {
+    public CustomDateEditor() {
     }
 
-    public TimeEditor(String format) {
+    public CustomDateEditor(String format) {
         this.format = format;
     }
 
@@ -25,8 +24,7 @@ public class TimeEditor extends PropertyEditorSupport {
         DateFormat df = new SimpleDateFormat(format);
         try {
             Date date = df.parse(text);
-            Time time = new Time(date.getTime());
-            setValue(time);
+            setValue(date);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
