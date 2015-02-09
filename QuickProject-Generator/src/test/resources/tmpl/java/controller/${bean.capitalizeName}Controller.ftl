@@ -52,7 +52,7 @@ public class ${bean.capitalizeName}Controller {
         return baseController.list(request);
     }
 
-    @RequestMapping(value = "/checkNotExist")
+    @RequestMapping(value = "/checkNotExist", produces = "application/json")
     @ResponseBody
     public Boolean checkNotExist(@RequestParam(required = false) Integer id, @RequestParam String prop, @RequestParam String value) {
         return baseController.checkNotExist(id, prop, value);

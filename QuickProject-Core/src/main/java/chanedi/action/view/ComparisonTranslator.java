@@ -9,9 +9,9 @@ public class ComparisonTranslator {
         if ("eq".equals(comparison)) {
             return "=";
         } else if ("lt".equals(comparison)) {
-            return "<";
+            return "<=";
         } else if ("gt".equals(comparison)) {
-            return ">";
+            return ">=";
         }
         return "=";
     }
