@@ -83,6 +83,7 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void insert(T t) {
+        validate(t);
         if (entityDAO.insert(t) != 1) {
             throw new DataCommitException();
         }
@@ -123,6 +124,7 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void update(T t) {
+        validate(t);
         if (entityDAO.update(t) != 1) {
             throw new DataCommitException();
         }
@@ -133,6 +135,14 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
         for (T t : list) {
             update(t);
         }
+    }
+
+    /**
+     * 模板方法
+     * @param t
+     */
+    protected void validate(T t) {
+
     }
 
 }

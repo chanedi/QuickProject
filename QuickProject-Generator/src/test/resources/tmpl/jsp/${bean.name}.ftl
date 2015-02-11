@@ -26,7 +26,7 @@
                 </#list>
                 { data: null, title: "操作", render : function(data, type, full, meta) {
                     $("#edit${bean.capitalizeName}Dialog").data("" + data.id, data);
-                    return '<button class="btn btn-warning btn-xs" type="button" onclick="openEditDialog(\'#edit${bean.capitalizeName}Dialog\', \''+ data.id +'\')">编辑</button>';
+                    return '<button name="edit" class="btn btn-warning btn-xs" type="button" onclick="openEditDialog(\'#edit${bean.capitalizeName}Dialog\', \''+ data.id +'\')">编辑</button>';
                 } }
             ]
         });

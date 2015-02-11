@@ -91,7 +91,9 @@ public abstract class EntityController {
             }
 //            builder.addWithValueQueryParam(propName, "LIKE", "%" + value + "%");
             try {
-                if (propDescriptor.getPropertyType() == Boolean.class) {
+                if (propDescriptor.getPropertyType().isEnum()) {
+                    builder.addWithValueQueryParam(propName, "=", value);
+                } else if (propDescriptor.getPropertyType() == Boolean.class) {
                     builder.addWithValueQueryParam(propName, "=", new Boolean(value));
                 } else {
                     builder.addWithValueQueryParam(propName, "LIKE", "%" + URLDecoder.decode(value, "utf-8") + "%");
