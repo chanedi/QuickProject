@@ -207,7 +207,9 @@ public class BaseSQLProvider<T extends Entity> {
 
             try {
                 Object value = propertyDescriptor.getReadMethod().invoke(findParams);
-                propertyDescriptor.getWriteMethod().invoke(findParams, "%" + value + "%");
+                if (value != null) {
+                    propertyDescriptor.getWriteMethod().invoke(findParams, "%" + value + "%");
+                }
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }

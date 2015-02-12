@@ -74,7 +74,31 @@ public abstract class EntityController {
         EntityService entityService = getEntityService();
 
         QueryParamBuilder builder = QueryParamBuilder.newBuilder();
+
         // 设置findParams属性
+        buildQueryParams(builder, request);
+        // 根据filter设置findParams属性
+        buildFilterQueryParams(builder, request);
+        // 自定义的参数
+        buildCustomQueryParam(builder, request);
+
+        // 查询
+        List<CustomQueryParam> queryParams = builder.build();
+        Integer start = parseStart(request);
+        Integer limit = parseLimit(request);
+        List<?> list = entityService.query(queryParams, parseSort(request), start, limit);
+        TableView tableView = null;
+        try {
+            tableView = (TableView) getTableViewClass().newInstance();
+        } catch (Exception e) {
+            tableView = new DefaultTableView();
+        }
+        tableView.setRows(list);
+        tableView.setTotal(entityService.countQuery(queryParams));
+        return tableView;
+    }
+
+    private void buildQueryParams(QueryParamBuilder builder, HttpServletRequest request) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         Class<?> modelClass = getEntityClass();
         PropertyDescriptor[] propDescriptors = ReflectUtils.getBeanGetters(modelClass);
@@ -101,26 +125,6 @@ public abstract class EntityController {
             } catch (UnsupportedEncodingException e) {
             }
         }
-
-        // 根据filter设置findParams属性
-        buildFilterQueryParams(builder, request);
-        // 自定义的参数
-        buildCustomQueryParam(builder, request);
-
-        // 查询
-        List<CustomQueryParam> queryParams = builder.build();
-        Integer start = parseStart(request);
-        Integer limit = parseLimit(request);
-        List<?> list = entityService.query(queryParams, parseSort(request), start, limit);
-        TableView tableView = null;
-        try {
-            tableView = (TableView) getTableViewClass().newInstance();
-        } catch (Exception e) {
-            tableView = new DefaultTableView();
-        }
-        tableView.setRows(list);
-        tableView.setTotal(entityService.countQuery(queryParams));
-        return tableView;
     }
 
     /**
