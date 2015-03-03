@@ -83,10 +83,19 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void insert(T t) {
-        validate(t);
-        if (entityDAO.insert(t) != 1) {
-            throw new DataCommitException();
+        if (validate(t)) {
+            if (entityDAO.insert(t) != 1) {
+                throw new DataCommitException();
+            }
         }
+    }
+
+    @Override
+    public int insertIgnoreDataCommitException(T t) {
+        if (validate(t)) {
+            return entityDAO.insert(t);
+        }
+        return 0;
     }
 
     @Override
@@ -104,6 +113,11 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
+    public int deleteByIdIgnoreDataCommitException(Object id) {
+        return entityDAO.delete(id);
+    }
+
+    @Override
     public void deleteById(List<Object> list) {
         for (Object id : list) {
             deleteById(id);
@@ -111,8 +125,20 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
+    public void deleteByIdIgnoreDataCommitException(List<Object> list) {
+        for (Object id : list) {
+            deleteByIdIgnoreDataCommitException(id);
+        }
+    }
+
+    @Override
     public void delete(T t) {
         deleteById(t.getId());
+    }
+
+    @Override
+    public int deleteIgnoreDataCommitException(T t) {
+        return deleteByIdIgnoreDataCommitException(t.getId());
     }
 
     @Override
@@ -123,11 +149,27 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
-    public void update(T t) {
-        validate(t);
-        if (entityDAO.update(t) != 1) {
-            throw new DataCommitException();
+    public void deleteIgnoreDataCommitException(List<T> list) {
+        for (T t : list) {
+            deleteIgnoreDataCommitException(t);
         }
+    }
+
+    @Override
+    public void update(T t) {
+        if (validate(t)) {
+            if (entityDAO.update(t) != 1) {
+                throw new DataCommitException();
+            }
+        }
+    }
+
+    @Override
+    public int updateIgnoreDataCommitException(T t) {
+        if (validate(t)) {
+            return entityDAO.update(t);
+        }
+        return 0;
     }
 
     @Override
@@ -137,12 +179,19 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
         }
     }
 
+    @Override
+    public void updateIgnoreDataCommitException(List<T> list) {
+        for (T t : list) {
+            update(t);
+        }
+    }
+
     /**
      * 模板方法
      * @param t
      */
-    protected void validate(T t) {
-
+    protected boolean validate(T t) {
+        return true;
     }
 
 }
