@@ -79,7 +79,7 @@
     <table id="${bean.name}Table" class="dataTable"></table>
 </div>
 <div id="edit${bean.capitalizeName}Dialog" style="display: none">
-    <form id="edit${bean.capitalizeName}Form" model="${bean.name}" table="#${bean.name}Table" class="form-horizontal" action="${'$'}{ctx}/${bean.name}/save" enctype="multipart/form-data" method="post">
+    <form id="edit${bean.capitalizeName}Form" model="${bean.name}" table="#${bean.name}Table" class="form-horizontal" action="${'$'}{ctx}/${bean.name}/save.json" enctype="multipart/form-data" method="post">
         <input name="id" type="hidden"/>
         <div class="row">
             <div class="col-xs-6 form-row">

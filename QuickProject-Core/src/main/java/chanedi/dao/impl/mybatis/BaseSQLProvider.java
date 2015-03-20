@@ -249,25 +249,38 @@ public class BaseSQLProvider<T extends Entity> {
     }
 
     private SQL WHERE_CUSTOM(SQL sql, Map<String, Object> dataMap) {
-        Map<String, Property> properties = ModelUtils.getProperties(modelClass, null);
         List<CustomQueryParam> customQueryParams = (List<CustomQueryParam>) dataMap.get("queryParams");
         if (customQueryParams == null) {
             return sql;
         }
         dataMap.clear();
+        return WHERE_CUSTOM(sql, modelClass, dataMap, customQueryParams, null);
+    }
+
+    public static SQL WHERE_CUSTOM(SQL sql, Class modelClass, Map<String, Object> dataMap, List<CustomQueryParam> customQueryParams, String tableAlias) {
+        Map<String, Property> properties = ModelUtils.getProperties(modelClass, null);
+
         int i = 0;
         for (CustomQueryParam customQueryParam : customQueryParams) {
             String key = customQueryParam.getProperty();
             Property property = properties.get(key);
+            if (property == null) {
+                continue;
+            }
+            String condition = "";
+            if (StringUtils.isNotEmpty(tableAlias)) {
+                condition = tableAlias + "." + condition;
+            }
             if (customQueryParam instanceof WithValueQueryParam) {
                 WithValueQueryParam withValueQueryParam = (WithValueQueryParam) customQueryParam;
                 dataMap.put(i + "", withValueQueryParam.getValue());
-                sql.WHERE(property.getColumnName() + " " + withValueQueryParam.getOperator() + " #{" + i + "}");
+                condition = condition + property.getColumnName() + " " + withValueQueryParam.getOperator() + " #{" + i + "}";
                 i++;
-            } else if (customQueryParam instanceof  NoValueQueryParam) {
+            } else if (customQueryParam instanceof NoValueQueryParam) {
                 NoValueQueryParam noValueQueryParam = (NoValueQueryParam) customQueryParam;
-                sql.WHERE(property.getColumnName() + " " + noValueQueryParam.getCondition());
+                condition = condition + property.getColumnName() + " " + noValueQueryParam.getCondition();
             }
+            sql.WHERE(condition);
         }
         return sql;
     }
