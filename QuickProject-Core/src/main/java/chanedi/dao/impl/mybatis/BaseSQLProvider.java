@@ -29,34 +29,34 @@ public class BaseSQLProvider<T extends Entity> {
 
     private final static Log logger = LogFactory.getLog(BaseSQLProvider.class);
 
-	private String tableName;
-	private Class<?> modelClass;
-	private static ThreadLocal<Class<?>> threadModelClass = new ThreadLocal<Class<?>>();
-	private static final String OPERATOR_EQUAL = " = ";
-	private static final String OPERATOR_LIKE = " like ";
+    private String tableName;
+    private Class<?> modelClass;
+    private static ThreadLocal<Class<?>> threadModelClass = new ThreadLocal<Class<?>>();
+    private static final String OPERATOR_EQUAL = " = ";
+    private static final String OPERATOR_LIKE = " like ";
 
-	private void initFromThreadLocal() {
-		modelClass = BaseSQLProvider.threadModelClass.get();
-		tableName = modelClass.getAnnotation(Table.class).name();
+    private void initFromThreadLocal() {
+        modelClass = BaseSQLProvider.threadModelClass.get();
+        tableName = modelClass.getAnnotation(Table.class).name();
 
-		BaseSQLProvider.threadModelClass.remove();
-	}
+        BaseSQLProvider.threadModelClass.remove();
+    }
 
-	public static void setModelClass(Class<?> modelClass) {
-		BaseSQLProvider.threadModelClass.set(modelClass);
-	}
+    public static void setModelClass(Class<?> modelClass) {
+        BaseSQLProvider.threadModelClass.set(modelClass);
+    }
 
-	public String getAll() {
-		initFromThreadLocal();
-		SQL sql = SELECT_FROM();
-		return sql.toString();
-	}
+    public String getAll() {
+        initFromThreadLocal();
+        SQL sql = SELECT_FROM();
+        return sql.toString();
+    }
 
-	public String getById() {
-		initFromThreadLocal();
-		SQL sql = SELECT_FROM().WHERE(parseIdColumn() + " = #{id}");
-		return sql.toString();
-	}
+    public String getById() {
+        initFromThreadLocal();
+        SQL sql = SELECT_FROM().WHERE(parseIdColumn() + " = #{id}");
+        return sql.toString();
+    }
 
     public String countGet(Map<String, Object> dataMap) {
         T findParams = (T) dataMap.get("findParams");
@@ -109,8 +109,8 @@ public class BaseSQLProvider<T extends Entity> {
         return sql.toString();
     }
 
-	public String insert(final T t) throws IllegalAccessException, InvocationTargetException, NoSuchFieldException {
-		initFromThreadLocal();
+    public String insert(final T t) throws IllegalAccessException, InvocationTargetException, NoSuchFieldException {
+        initFromThreadLocal();
         // 设置默认值
         if (t.getId() == null) {
             t.setId(UUID.randomUUID().toString());
@@ -126,8 +126,8 @@ public class BaseSQLProvider<T extends Entity> {
         }
 
         return new SQL() {
-			{
-				INSERT_INTO(tableName);
+            {
+                INSERT_INTO(tableName);
 
                 Map<String, Property> properties = ModelUtils.getProperties(t, ColumnTarget.INSERT);
                 for (Property property : properties.values()) {
@@ -138,22 +138,22 @@ public class BaseSQLProvider<T extends Entity> {
 
                     VALUES(property.getColumnName(), "#{" + property.getName() + "}");
                 }
-			}
-		}.toString();
-	}
+            }
+        }.toString();
+    }
 
-	public String delete(Object id) {
-		initFromThreadLocal();
-		return new SQL() {
-			{
-				DELETE_FROM(tableName);
-				WHERE(parseIdColumn() + " = #{id}");
-			}
-		}.toString();
-	}
+    public String delete(Object id) {
+        initFromThreadLocal();
+        return new SQL() {
+            {
+                DELETE_FROM(tableName);
+                WHERE(parseIdColumn() + " = #{id}");
+            }
+        }.toString();
+    }
 
-	public String update(final T t) throws NoSuchFieldException, IllegalAccessException, InvocationTargetException {
-		initFromThreadLocal();
+    public String update(final T t) throws NoSuchFieldException, IllegalAccessException, InvocationTargetException {
+        initFromThreadLocal();
         if (t instanceof EntityWithTime) {
             // 设置默认值
             if (((EntityWithTime) t).getModifyTime() == null) {
@@ -161,8 +161,8 @@ public class BaseSQLProvider<T extends Entity> {
             }
         }
 
-		return new SQL() {
-			{
+        return new SQL() {
+            {
                 UPDATE(tableName);
 
                 String className = StringUtils.split(modelClass.getName(), "$")[0];
@@ -184,9 +184,9 @@ public class BaseSQLProvider<T extends Entity> {
                     logger.error(e.getMessage(), e);
                 }
                 WHERE(parseIdColumn() + " = #{id}");
-			}
-		}.toString();
-	}
+            }
+        }.toString();
+    }
 
     private boolean isIgnoreUpdate(Property property, T t) {
         boolean isIgnore;
@@ -260,7 +260,7 @@ public class BaseSQLProvider<T extends Entity> {
     public static SQL WHERE_CUSTOM(SQL sql, Class modelClass, Map<String, Object> dataMap, List<CustomQueryParam> customQueryParams, String tableAlias) {
         Map<String, Property> properties = ModelUtils.getProperties(modelClass, null);
 
-        int i = 0;
+//        int i = 0;
         for (CustomQueryParam customQueryParam : customQueryParams) {
             String key = customQueryParam.getProperty();
             Property property = properties.get(key);
@@ -273,9 +273,10 @@ public class BaseSQLProvider<T extends Entity> {
             }
             if (customQueryParam instanceof WithValueQueryParam) {
                 WithValueQueryParam withValueQueryParam = (WithValueQueryParam) customQueryParam;
-                dataMap.put(i + "", withValueQueryParam.getValue());
-                condition = condition + property.getColumnName() + " " + withValueQueryParam.getOperator() + " #{" + i + "}";
-                i++;
+                dataMap.put(dataMap.size() + "", withValueQueryParam.getValue());
+                // 不能以property为key放入dataMap，因为可能有相同的property，如> & <
+                condition = condition + property.getColumnName() + " " + withValueQueryParam.getOperator() + " #{" + (dataMap.size() - 1) + "}";
+//                i++;
             } else if (customQueryParam instanceof NoValueQueryParam) {
                 NoValueQueryParam noValueQueryParam = (NoValueQueryParam) customQueryParam;
                 condition = condition + property.getColumnName() + " " + noValueQueryParam.getCondition();
