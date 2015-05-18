@@ -238,6 +238,10 @@ public class BaseSQLProvider<T extends Entity> {
     }
 
     private SQL WHERE(SQL sql, T findParams, String operator) {
+        if (findParams == null) {
+            return sql;
+        }
+
         Map<String, Property> properties = ModelUtils.getProperties(findParams, ColumnTarget.WHERE);
 
         for (Property property : properties.values()) {
@@ -249,6 +253,10 @@ public class BaseSQLProvider<T extends Entity> {
     }
 
     private SQL WHERE_CUSTOM(SQL sql, Map<String, Object> dataMap) {
+        if (dataMap == null) {
+            return sql;
+        }
+
         List<CustomQueryParam> customQueryParams = (List<CustomQueryParam>) dataMap.get("queryParams");
         if (customQueryParams == null) {
             return sql;

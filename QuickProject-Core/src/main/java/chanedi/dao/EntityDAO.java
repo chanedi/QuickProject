@@ -13,6 +13,10 @@ import java.util.List;
  */
 public interface EntityDAO<T extends Entity> {
 
+    /**
+     * 默认获取单表所有数据。可通过mapper.xml覆盖默认sql。
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "getAll")
     @ResultMap("getMap")
     public List<T> getAll();
@@ -25,9 +29,17 @@ public interface EntityDAO<T extends Entity> {
     @ResultMap("getMap")
     public T getOne(@Param("findParams") T findParams);
 
+    /**
+     * 见{@link chanedi.dao.EntityDAO#get}
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "countGet")
     public int countGet(@Param("findParams") T findParams);
 
+    /**
+     * 根据当前表中的属性精确查询。模糊查询可用{@link chanedi.dao.EntityDAO#find}，复杂查询可用{@link chanedi.dao.EntityDAO#query}
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "get")
     @ResultMap("getMap")
     public List<T> get(@Param("findParams") T findParams);
@@ -36,9 +48,17 @@ public interface EntityDAO<T extends Entity> {
     @ResultMap("getMap")
     public List<T> get(@Param("findParams") T findParams, @Param("sortList") List<Sort> sortList, @Param("start") Integer start, @Param("limit") Integer limit);
 
+    /**
+     * 见{@link chanedi.dao.EntityDAO#find}
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "countFind")
     public int countFind(@Param("findParams") T findParams);
 
+    /**
+     * 根据当前表中的属性模糊查询。精确查询可用{@link chanedi.dao.EntityDAO#get}，复杂查询可用{@link chanedi.dao.EntityDAO#query}
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "find")
     @ResultMap("getMap")
     public List<T> find(@Param("findParams") T findParams);
@@ -47,9 +67,26 @@ public interface EntityDAO<T extends Entity> {
     @ResultMap("getMap")
     public List<T> find(@Param("findParams") T findParams, @Param("sortList") List<Sort> sortList, @Param("start") Integer start, @Param("limit") Integer limit);
 
+    /**
+     * 见{@link chanedi.dao.EntityDAO#query}
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "countQuery")
     public int countQuery(@Param("queryParams") List<CustomQueryParam> customQueryParams);
 
+    /**
+     * 复杂查询。另见{@link chanedi.dao.EntityDAO#get}、{@link chanedi.dao.EntityDAO#find}。例：
+     * <pre><code>
+     * QueryParamBuilder queryParamBuilder = QueryParamBuilder.newBuilder();
+     * queryParamBuilder.addWithValueQueryParam("city", "=", city);
+     * queryParamBuilder.addWithValueQueryParam("name", "LIKE", "%" + name + "%");
+     * queryParamBuilder.addWithValueQueryParam("date", ">", time1);
+     * queryParamBuilder.addWithValueQueryParam("date", "<=", time2);
+     * List<CustomQueryParam> queryParams = queryParamBuilder.build();
+     * </code></pre>
+     *
+     * @return
+     */
     @SelectProvider(type = BaseSQLProvider.class, method = "query")
     @ResultMap("getMap")
     public List<T> query(@Param("queryParams") List<CustomQueryParam> customQueryParams, @Param("sortList") List<Sort> sortList);

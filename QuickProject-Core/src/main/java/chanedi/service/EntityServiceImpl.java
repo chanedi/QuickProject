@@ -8,6 +8,7 @@ import chanedi.model.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -83,6 +84,9 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void insert(T t) {
+        if (t == null) {
+            return;
+        }
         if (validate(t)) {
             if (entityDAO.insert(t) != 1) {
                 throw new DataCommitException();
@@ -92,6 +96,9 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public int insertIgnoreDataCommitException(T t) {
+        if (t == null) {
+            return 0;
+        }
         if (validate(t)) {
             return entityDAO.insert(t);
         }
@@ -107,6 +114,9 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void deleteById(Object id) {
+        if (id == null) {
+            return;
+        }
         if (entityDAO.delete(id) != 1) {
             throw new DataCommitException();
         }
@@ -114,6 +124,9 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public int deleteByIdIgnoreDataCommitException(Object id) {
+        if (id == null) {
+            return 0;
+        }
         return entityDAO.delete(id);
     }
 
@@ -157,6 +170,10 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public void update(T t) {
+        if (t == null) {
+            return;
+        }
+        Assert.notNull(t.getId());
         if (validate(t)) {
             if (entityDAO.update(t) != 1) {
                 throw new DataCommitException();
@@ -166,6 +183,10 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
 
     @Override
     public int updateIgnoreDataCommitException(T t) {
+        if (t == null) {
+            return 0;
+        }
+        Assert.notNull(t.getId());
         if (validate(t)) {
             return entityDAO.update(t);
         }
