@@ -1,4 +1,5 @@
 #QuickProject
+运行请安装lombok插件，见necessity/lombok plugin。
 ##Core子项目
 提供单表的基本增删改查基础方法，所有方法可重写。<br>
 可参见项目trace-scheduler。

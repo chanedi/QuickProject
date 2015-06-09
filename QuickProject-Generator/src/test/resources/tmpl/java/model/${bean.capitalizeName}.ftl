@@ -3,7 +3,7 @@ package ${config.javaPackageName}${module.name}.model;
 import java.util.*;
 import lombok.Data;
 import javax.persistence.Table;
-import com.zhiyi.base.model.EntityWithTime;
+import com.zhiyi.common.model.EntityWithTime;
 
 @Data
 @Table(name = "${bean.tableName}")
