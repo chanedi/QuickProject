@@ -4,7 +4,9 @@ import chanedi.dao.EntityDAO;
 import chanedi.dao.complexQuery.CustomQueryParam;
 import chanedi.dao.complexQuery.Sort;
 import chanedi.exception.DataCommitException;
+import chanedi.exception.LogicDeleteNotSupportException;
 import chanedi.model.Entity;
+import chanedi.model.ILogicDeletable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +168,34 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
         for (T t : list) {
             deleteIgnoreDataCommitException(t);
         }
+    }
+
+    @Override
+    public void logicDeleteById(Object id) {
+        logicDelete(getById(id));
+    }
+
+    @Override
+    public void logicDelete(T t) {
+        if (!(t instanceof ILogicDeletable)) {
+            throw new LogicDeleteNotSupportException();
+        }
+        ((ILogicDeletable) t).setDelete();
+        update(t);
+    }
+
+    @Override
+    public void logicDeleteByIdIgnoreDataCommitException(Object id) {
+        logicDeleteIgnoreDataCommitException(getById(id));
+    }
+
+    @Override
+    public void logicDeleteIgnoreDataCommitException(T t) {
+        if (!(t instanceof ILogicDeletable)) {
+            throw new LogicDeleteNotSupportException();
+        }
+        ((ILogicDeletable) t).setDelete();
+        updateIgnoreDataCommitException(t);
     }
 
     @Override

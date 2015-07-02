@@ -78,6 +78,14 @@ public interface EntityService<T extends Entity> {
 
     void deleteIgnoreDataCommitException(List<T> list);
 
+    public void logicDeleteById(Object id);
+
+    public void logicDelete(T t);
+
+    public void logicDeleteByIdIgnoreDataCommitException(Object id);
+
+    public void logicDeleteIgnoreDataCommitException(T t);
+
     @Transactional(readOnly = false)
     public void update(T t);
 
