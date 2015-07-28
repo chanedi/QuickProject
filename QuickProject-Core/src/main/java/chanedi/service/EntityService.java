@@ -38,53 +38,11 @@ public interface EntityService<T extends Entity> {
     @Transactional(readOnly = false)
     public void insert(T t);
 
-    /**
-     * 忽略了DataCommitException，自行处理数据变更数为0的情况
-     * @param t
-     * @return 数据变更数
-     */
-    int insertIgnoreDataCommitException(T t);
-
-    @Transactional(readOnly = false)
-    public void insert(List<T> list);
-
     @Transactional(readOnly = false)
     public void deleteById(Object id);
 
-    /**
-     * 忽略了DataCommitException，自行处理数据变更数为0的情况
-     * @param id
-     * @return 数据变更数
-     */
-    int deleteByIdIgnoreDataCommitException(Object id);
-
     @Transactional(readOnly = false)
-    public void deleteById(List<Object> list);
-
-    void deleteByIdIgnoreDataCommitException(List<Object> list);
-
-    @Transactional(readOnly = false)
-    public void delete(T t);
-
-    /**
-     * 忽略了DataCommitException，自行处理数据变更数为0的情况
-     * @param t
-     * @return 数据变更数
-     */
-    int deleteIgnoreDataCommitException(T t);
-
-    @Transactional(readOnly = false)
-    public void delete(List<T> list);
-
-    void deleteIgnoreDataCommitException(List<T> list);
-
-    public void logicDeleteById(Object id);
-
-    public void logicDelete(T t);
-
-    public void logicDeleteByIdIgnoreDataCommitException(Object id);
-
-    public void logicDeleteIgnoreDataCommitException(T t);
+    void logicDelete(T t);
 
     @Transactional(readOnly = false)
     public void update(T t);
@@ -94,11 +52,7 @@ public interface EntityService<T extends Entity> {
      * @param t
      * @return 数据变更数
      */
-    int updateIgnoreDataCommitException(T t);
-
     @Transactional(readOnly = false)
-    public void update(List<T> list);
-
-    void updateIgnoreDataCommitException(List<T> list);
+    int updateIgnoreDataCommitException(T t);
 
 }

@@ -97,24 +97,6 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
-    public int insertIgnoreDataCommitException(T t) {
-        if (t == null) {
-            return 0;
-        }
-        if (validate(t)) {
-            return entityDAO.insert(t);
-        }
-        return 0;
-    }
-
-    @Override
-    public void insert(List<T> list) {
-        for (T t : list) {
-            insert(t);
-        }
-    }
-
-    @Override
     public void deleteById(Object id) {
         if (id == null) {
             return;
@@ -125,77 +107,12 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
     }
 
     @Override
-    public int deleteByIdIgnoreDataCommitException(Object id) {
-        if (id == null) {
-            return 0;
-        }
-        return entityDAO.delete(id);
-    }
-
-    @Override
-    public void deleteById(List<Object> list) {
-        for (Object id : list) {
-            deleteById(id);
-        }
-    }
-
-    @Override
-    public void deleteByIdIgnoreDataCommitException(List<Object> list) {
-        for (Object id : list) {
-            deleteByIdIgnoreDataCommitException(id);
-        }
-    }
-
-    @Override
-    public void delete(T t) {
-        deleteById(t.getId());
-    }
-
-    @Override
-    public int deleteIgnoreDataCommitException(T t) {
-        return deleteByIdIgnoreDataCommitException(t.getId());
-    }
-
-    @Override
-    public void delete(List<T> list) {
-        for (T t : list) {
-            delete(t);
-        }
-    }
-
-    @Override
-    public void deleteIgnoreDataCommitException(List<T> list) {
-        for (T t : list) {
-            deleteIgnoreDataCommitException(t);
-        }
-    }
-
-    @Override
-    public void logicDeleteById(Object id) {
-        logicDelete(getById(id));
-    }
-
-    @Override
     public void logicDelete(T t) {
         if (!(t instanceof ILogicDeletable)) {
             throw new LogicDeleteNotSupportException();
         }
         ((ILogicDeletable) t).setDelete();
         update(t);
-    }
-
-    @Override
-    public void logicDeleteByIdIgnoreDataCommitException(Object id) {
-        logicDeleteIgnoreDataCommitException(getById(id));
-    }
-
-    @Override
-    public void logicDeleteIgnoreDataCommitException(T t) {
-        if (!(t instanceof ILogicDeletable)) {
-            throw new LogicDeleteNotSupportException();
-        }
-        ((ILogicDeletable) t).setDelete();
-        updateIgnoreDataCommitException(t);
     }
 
     @Override
@@ -221,20 +138,6 @@ public abstract class EntityServiceImpl<T extends Entity> implements EntityServi
             return entityDAO.update(t);
         }
         return 0;
-    }
-
-    @Override
-    public void update(List<T> list) {
-        for (T t : list) {
-            update(t);
-        }
-    }
-
-    @Override
-    public void updateIgnoreDataCommitException(List<T> list) {
-        for (T t : list) {
-            update(t);
-        }
     }
 
     /**

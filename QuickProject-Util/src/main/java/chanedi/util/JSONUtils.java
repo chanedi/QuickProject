@@ -23,6 +23,39 @@ public class JSONUtils {
 	private JSONUtils() {}
 
 	/**
+	 * 将枚举类中的几个值转换为JSONArray。
+	 *
+	 * @return JSONArray
+	 */
+	public static JSONArray enumToJSONArray(Enum<?>[] constants) {
+		return enumToJSONArray(constants, null, null);
+	}
+
+	/**
+	 * 将枚举类中的几个值转换为JSONArray。
+	 *
+	 * @return JSONArray
+	 */
+	public static JSONArray enumToJSONArray(Enum<?>[] constants, String keyName, String valueName) {
+		if (StringUtils.isEmpty(keyName)) {
+			keyName = KEY_NAME;
+		}
+		if (StringUtils.isEmpty(valueName)) {
+			valueName = VALUE_NAME;
+		}
+
+		JSONArray jsonArray = new JSONArray();
+		for (Enum<?> constant : constants) {
+			JSONObject o = new JSONObject();
+			o.put(keyName, constant.name());
+			o.put(valueName, constant.toString());
+			jsonArray.add(o);
+		}
+
+		return jsonArray;
+	}
+
+	/**
 	 * 将枚举类转换为JSONArray。
 	 *
 	 * @param enumClass
@@ -42,23 +75,7 @@ public class JSONUtils {
 	 */
 	public static JSONArray enumToJSONArray(Class<? extends Enum<?>> enumClass, String keyName,
 											String valueName) {
-		if (StringUtils.isEmpty(keyName)) {
-			keyName = KEY_NAME;
-		}
-		if (StringUtils.isEmpty(valueName)) {
-			valueName = VALUE_NAME;
-		}
-
-		JSONArray jsonArray = new JSONArray();
-		Enum<?>[] constants = enumClass.getEnumConstants();
-		for (Enum<?> constant : constants) {
-			JSONObject o = new JSONObject();
-			o.put(keyName, constant.name());
-			o.put(valueName, constant.toString());
-			jsonArray.add(o);
-		}
-
-		return jsonArray;
+		return enumToJSONArray(enumClass.getEnumConstants(), keyName, valueName);
 	}
 
 	/**
