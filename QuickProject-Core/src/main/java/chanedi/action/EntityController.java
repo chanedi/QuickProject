@@ -316,7 +316,9 @@ public abstract class EntityController {
 
         if (jsonText.startsWith("[")) {
             List<Entity> objects = parseModels(jsonText);
-            entityService.insert(objects);
+            for (Entity object : objects) {
+                entityService.insert(object);
+            }
             updateResult.addResult(objects);
         } else {
             Entity object = parseModel(jsonText);
@@ -336,7 +338,9 @@ public abstract class EntityController {
 
         if (jsonText.startsWith("[")) {
             List<Entity> objects = parseModels(jsonText);
-            entityService.update(objects);
+            for (Entity object : objects) {
+                entityService.update(object);
+            }
             updateResult.addResult(objects);
         } else {
             Entity object = parseModel(jsonText);

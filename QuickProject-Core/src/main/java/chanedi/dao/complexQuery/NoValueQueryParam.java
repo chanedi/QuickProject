@@ -7,6 +7,7 @@ import lombok.Getter;
  */
 public class NoValueQueryParam extends CustomQueryParam {
 
+    private static final long serialVersionUID = 6470464711594746413L;
     @Getter
     private String condition;
 

@@ -7,6 +7,7 @@ import lombok.Getter;
  */
 public class WithValueQueryParam extends CustomQueryParam {
 
+    private static final long serialVersionUID = 551700614254917419L;
     @Getter
     private Object value;
     @Getter
