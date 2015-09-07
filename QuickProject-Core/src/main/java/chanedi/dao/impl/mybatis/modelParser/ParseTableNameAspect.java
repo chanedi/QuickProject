@@ -4,8 +4,7 @@ import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.impl.mybatis.BaseSQLProvider;
 import chanedi.dao.impl.mybatis.interceptor.RowBoundsInterceptor;
 import chanedi.dao.impl.mybatis.interceptor.SortListInterceptor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.MapperProxy;
 import org.apache.ibatis.session.RowBounds;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,12 +24,11 @@ import java.util.Map;
  */
 @Aspect
 @Component
+@Slf4j
 public class ParseTableNameAspect {
 
-    private final static Log logger = LogFactory.getLog(ParseTableNameAspect.class);
-
     public ParseTableNameAspect() {
-        logger.info("ParseTableNameAspect 已构造");
+        log.info("ParseTableNameAspect 已构造");
     }
 
     @Around("execution(* chanedi.dao.EntityDAO.*(..))")
@@ -51,7 +49,7 @@ public class ParseTableNameAspect {
             h.setAccessible(true);
             obj = h.get(proceedingJoinPoint.getTarget());
         } catch (Exception e) {
-            logger.error(e.getMessage(), e); // 尝试使用原对象
+            log.error(e.getMessage(), e); // 尝试使用原对象
         }
 
         try {
@@ -66,7 +64,7 @@ public class ParseTableNameAspect {
             BaseSQLProvider.setModelClass(modelClass);
             return modelClass;
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
         return null;
     }

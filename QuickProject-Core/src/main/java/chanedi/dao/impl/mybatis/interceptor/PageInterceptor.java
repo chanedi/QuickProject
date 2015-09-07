@@ -1,14 +1,8 @@
 package chanedi.dao.impl.mybatis.interceptor;
 
-import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.dialect.Dialect;
-import chanedi.dao.dialect.H2Dialect;
-import chanedi.dao.dialect.MySql5Dialect;
-import chanedi.dao.dialect.OracleDialect;
 import chanedi.dao.impl.mybatis.DialectParser;
-import chanedi.enums.DBDialectType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
@@ -19,7 +13,6 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 
 import java.sql.Connection;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -28,10 +21,9 @@ import java.util.Properties;
  * Modify by Chanedi
  */
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
+@Slf4j
 public class PageInterceptor implements Interceptor {
 	
-	protected final Log logger = LogFactory.getLog(getClass());
-
     @Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
@@ -49,7 +41,7 @@ public class PageInterceptor implements Interceptor {
             metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 		}
 
-		logger.debug("SQL : " + boundSql.getSql());
+		log.debug("SQL : " + boundSql.getSql());
 		return invocation.proceed();
 	}
 

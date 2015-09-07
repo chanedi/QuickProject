@@ -3,12 +3,9 @@ package chanedi.dao.impl.mybatis.interceptor;
 import chanedi.dao.complexQuery.Sort;
 import chanedi.dao.dialect.Dialect;
 import chanedi.dao.impl.mybatis.DialectParser;
-import chanedi.dao.impl.mybatis.session.Configuration;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
-import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
@@ -27,9 +24,9 @@ import java.util.Properties;
  * @author Chanedi
  */
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}) })
+@Slf4j
 public class SortListInterceptor implements Interceptor {
 	
-	protected final Log logger = LogFactory.getLog(getClass());
     private static ThreadLocal<List<Sort>> sortList = new ThreadLocal<List<Sort>>();
 
     public static List<Sort> getSortList() {

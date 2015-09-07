@@ -1,5 +1,10 @@
 package chanedi.dao.impl.mybatis.modelParser;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.*;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
@@ -7,24 +12,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author Chanedi
  */
+@Slf4j
 public class Property {
 
-    private final static Log logger = LogFactory.getLog(Property.class);
-	
 	@Getter
 	private String name;
 	
@@ -70,7 +63,7 @@ public class Property {
                 try {
                     tableName = Class.forName(className).getAnnotation(Table.class).name();
                 } catch (ClassNotFoundException e) {
-                    logger.error(e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
 

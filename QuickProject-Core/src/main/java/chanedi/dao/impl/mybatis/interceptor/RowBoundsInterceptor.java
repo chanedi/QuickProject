@@ -1,14 +1,12 @@
 package chanedi.dao.impl.mybatis.interceptor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
-import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
@@ -17,9 +15,9 @@ import java.util.Properties;
  * @author Chanedi
  */
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}) })
+@Slf4j
 public class RowBoundsInterceptor implements Interceptor {
 	
-	protected final Log logger = LogFactory.getLog(getClass());
 	private static ThreadLocal<RowBounds> rowBounds = new ThreadLocal<RowBounds>();
 	
 	public static RowBounds getRowBounds() {

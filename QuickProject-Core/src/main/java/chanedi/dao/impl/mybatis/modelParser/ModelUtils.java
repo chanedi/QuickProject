@@ -1,20 +1,18 @@
 package chanedi.dao.impl.mybatis.modelParser;
 
+import chanedi.model.Entity;
+import chanedi.util.ReflectUtils;
+import lombok.extern.slf4j.Slf4j;
+
 import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 
-import chanedi.model.Entity;
-import chanedi.util.ReflectUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author Chanedi
  */
+@Slf4j
 public class ModelUtils {
-
-    private final static Log logger = LogFactory.getLog(ModelUtils.class);
 
     public static Map<String, Property> getProperties(Entity entity, ColumnTarget columnTarget) {
         Class<?> modelClass = entity.getClass();

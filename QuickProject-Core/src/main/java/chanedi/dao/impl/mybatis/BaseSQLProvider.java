@@ -10,9 +10,8 @@ import chanedi.dao.impl.mybatis.modelParser.Property;
 import chanedi.model.Entity;
 import chanedi.model.EntityWithTime;
 import chanedi.util.ReflectUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.jdbc.SQL;
 
 import javax.persistence.Column;
@@ -25,9 +24,8 @@ import java.util.*;
 /**
  * @author Chanedi
  */
+@Slf4j
 public class BaseSQLProvider<T extends Entity> {
-
-    private final static Log logger = LogFactory.getLog(BaseSQLProvider.class);
 
     private String tableName;
     private Class<?> modelClass;
@@ -181,7 +179,7 @@ public class BaseSQLProvider<T extends Entity> {
                         SET(property.getColumnName() + " = #{" + property.getName() + "}");
                     }
                 } catch (ClassNotFoundException e) {
-                    logger.error(e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 }
                 WHERE(parseIdColumn() + " = #{id}");
             }
@@ -211,7 +209,7 @@ public class BaseSQLProvider<T extends Entity> {
                     propertyDescriptor.getWriteMethod().invoke(findParams, "%" + value + "%");
                 }
             } catch (Exception e) {
-                logger.error(e.getMessage(), e);
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -303,7 +301,7 @@ public class BaseSQLProvider<T extends Entity> {
                 idColumn = idColumnAnnotation.name();
             }
         } catch (NoSuchMethodException e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
         return idColumn;
     }

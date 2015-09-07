@@ -1,14 +1,12 @@
 package chanedi.context;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 
+@Slf4j
 public class ContextUtils {
 
 	private static ApplicationContext applicationContext;
-
-	private static final Logger logger = LoggerFactory.getLogger(ContextUtils.class);
 
 	public static ApplicationContext getApplicationContext() {
 		synchronized (ContextUtils.class) {
@@ -16,10 +14,10 @@ public class ContextUtils {
 				try {
 					ContextUtils.class.wait(60000);
 					if (applicationContext == null) {
-						logger.warn("Have been waiting for ApplicationContext to be set for 1 minute", new Exception());
+						log.warn("Have been waiting for ApplicationContext to be set for 1 minute", new Exception());
 					}
 				} catch (InterruptedException ex) {
-					logger.debug("getApplicationContext, wait interrupted");
+					log.debug("getApplicationContext, wait interrupted");
 				}
 			}
 			return applicationContext;
