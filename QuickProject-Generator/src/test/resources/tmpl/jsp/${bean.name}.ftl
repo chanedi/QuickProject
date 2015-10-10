@@ -1,12 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="hero" uri="http://www.xiaoquwuyou.com/zhiyi/tags" %>
 <c:set var="ctx" value="${'$'}{pageContext.request.contextPath}"/>
 <script type="application/javascript">
     $(function() {
         $("#${bean.name}Table").DataTable({
-            processing: true,
-            serverSide: true,
-            searching: false,
             ajax: {
                 url: "${bean.name}.json",
                 data: function(data) {
@@ -17,8 +15,9 @@
                     }
                 }
             },
-            order: [[ 0, "asc" ]],
+            order: [[ 1, "asc" ]],
             columns: [
+                { data: "id", "orderable": false, sortable: false, title: '<input type="checkbox" class="ace" onclick="$.dataTableSelectAll(this)"/><span class="lbl"></span>', "sWidth": "2%"},
                 <#list bean.properties as prop>
                 <#if prop.name!="id"&&prop.name!="createTime"&&prop.name!="modifyTime"&&prop.name!="operator">
                 { data: "${prop.name}", title: "${prop.comment!}" },
@@ -28,7 +27,16 @@
                     $("#edit${bean.capitalizeName}Dialog").data("" + data.id, data);
                     return '<button name="edit" class="btn btn-warning btn-xs" type="button" onclick="openEditDialog(\'#edit${bean.capitalizeName}Dialog\', \''+ data.id +'\')">编辑</button>';
                 } }
-            ]
+            ],
+            createdRow: function (row, data, dataIndex) {
+                $(row).dblclick(function () {
+                    openEditDialog("#edit${bean.capitalizeName}Dialog", data.id + "");
+                });
+            },
+            fnRowCallback: function (nRow, aData, iDisplayIndex) {
+                $('td:eq(0)', nRow).html("<label><input type='checkbox' class='ace' macode='" + aData["code"] + "'  mastatus='" + aData["status"] + "' " +
+                "hasBinding=" + aData["hasBinding"] + " value=\"" + aData["id"] + "\"" + "/><span class='lbl'></span></label>");
+            }
         });
 
         $('#edit${bean.capitalizeName}Dialog').dialog({
@@ -38,6 +46,17 @@
         });
 
         $('#edit${bean.capitalizeName}Form').validate();
+        
+        $("#add${bean.capitalizeName}Btn").click(function () {
+            openNewDialog('#edit${bean.capitalizeName}Dialog');
+        });
+        
+        $("#update${bean.capitalizeName}Btn").click(function () {
+            var items = $.dataTableCheckedOneItem("${bean.name}Table", "请选择一个推拿师", "只能选择一个推拿师");
+            if (items) {
+                openEditDialog("#edit${bean.capitalizeName}Dialog", items[0].value);
+            }
+        });
     });
 
 </script>
@@ -46,11 +65,8 @@
         <h1>
             ${bean.comment!}管理
             <span class="pull-right">
-                <span class="pull-right">
-                    <button class="btn-common" onclick="openNewDialog('#edit${bean.capitalizeName}Dialog')" type="button">
-                        <i class="icon-edit"></i>新增
-                    </button>
-                </span>
+                <hero:button permission='${r'${permissionList}'}' id="add${bean.capitalizeName}Btn" className="btn btn-sm" authorize="${bean.name}:add"/>
+                <hero:button permission='${r'${permissionList}'}' id="update${bean.capitalizeName}Btn" className="btn btn-primary btn-sm" authorize="${bean.name}:update"/>
             </span>
         </h1>
     </div>

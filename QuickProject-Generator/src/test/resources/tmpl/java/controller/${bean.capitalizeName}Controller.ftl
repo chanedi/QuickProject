@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +23,7 @@ public class ${bean.capitalizeName}Controller {
 
     public static final String NAME = "${bean.name}";
 
-    @Resource
+    @Autowired
     private ${bean.capitalizeName}Service ${bean.name}Service;
 
     private BaseController baseController = new BaseController() {
