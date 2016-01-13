@@ -14,8 +14,8 @@ import java.util.Set;
  */
 public class JSONUtils {
 
-	private static String KEY_NAME = "value";
-	private static String VALUE_NAME = "text";
+	public static final String KEY_NAME = "value";
+	public static final String VALUE_NAME = "text";
 
 	/**
 	 * 不允许创建实例。

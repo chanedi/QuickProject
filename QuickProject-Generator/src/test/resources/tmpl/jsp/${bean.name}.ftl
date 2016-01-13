@@ -15,7 +15,7 @@
                     }
                 }
             },
-            order: [[ 1, "asc" ]],
+            order: [ 1, "asc" ],
             columns: [
                 { data: "id", "orderable": false, sortable: false, title: '<input type="checkbox" class="ace" onclick="$.dataTableSelectAll(this)"/><span class="lbl"></span>', "sWidth": "2%"},
                 <#list bean.properties as prop>
@@ -32,6 +32,7 @@
                 $(row).dblclick(function () {
                     openEditDialog("#edit${bean.capitalizeName}Dialog", data.id + "");
                 });
+                $("#edit${bean.capitalizeName}Dialog").data("" + data.id, data);
             },
             fnRowCallback: function (nRow, aData, iDisplayIndex) {
                 $('td:eq(0)', nRow).html("<label><input type='checkbox' class='ace' macode='" + aData["code"] + "'  mastatus='" + aData["status"] + "' " +
