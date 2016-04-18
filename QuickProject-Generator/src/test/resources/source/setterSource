@@ -1,0 +1,2 @@
+    private String userName;
+    private String remark; //test
