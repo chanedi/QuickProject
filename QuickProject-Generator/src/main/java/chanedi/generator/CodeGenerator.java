@@ -9,19 +9,21 @@ import java.io.*;
  */
 public class CodeGenerator {
 
-    public static void generateSetter(String filePath) throws IOException {
-        BufferedReader fileReader = new BufferedReader(new FileReader(filePath));
+    public static void generateSetter(File file) throws IOException {
+        BufferedReader fileReader = new BufferedReader(new FileReader(file));
 
-        String line = null;
-        do {
-            line = fileReader.readLine();
+        while (true) {
+            String line = fileReader.readLine();
+            if (line == null) {
+                break;
+            }
             if (!line.contains(";")) {
                 continue;
             }
 
             String[] splits = line.split(";")[0].split(" ");
             String attrName = splits[splits.length - 1];
-            System.out.println("set" + StringUtils.capitalize(attrName));
-        } while (line != null);
+            System.out.println("set" + StringUtils.capitalize(attrName) + "(\"\")");
+        };
     }
 }
