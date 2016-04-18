@@ -23,7 +23,7 @@ public class CodeGenerator {
 
             String[] splits = line.split(";")[0].split(" ");
             String attrName = splits[splits.length - 1];
-            System.out.println("set" + StringUtils.capitalize(attrName) + "(\"\")");
-        };
+            System.out.println("set" + StringUtils.capitalize(attrName) + "(\"\");");
+        }
     }
 }
