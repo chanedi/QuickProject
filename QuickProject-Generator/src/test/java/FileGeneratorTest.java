@@ -5,7 +5,7 @@ import chanedi.generator.exception.GlobalConfigException;
 /**
  * @author Chanedi
  */
-public class GeneratorTest {
+public class FileGeneratorTest {
 
     public static void main(String[] args) throws GlobalConfigException {
         FilesGenerator generator = new FilesGenerator();
