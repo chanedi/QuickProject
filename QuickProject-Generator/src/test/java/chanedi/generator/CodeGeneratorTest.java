@@ -13,6 +13,6 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateSetter() throws Exception {
-        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile());
+        CodeGenerator.generateSetter("test", resourceLoader.getResource("classpath:/source/setterSource").getFile());
     }
 }

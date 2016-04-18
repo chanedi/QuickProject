@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class CodeGenerator {
 
-    public static void generateSetter(File file) throws IOException {
+    public static void generateSetter(String obj, File file) throws IOException {
         BufferedReader fileReader = new BufferedReader(new FileReader(file));
 
         while (true) {
@@ -23,7 +23,7 @@ public class CodeGenerator {
 
             String[] splits = line.split(";")[0].split(" ");
             String attrName = splits[splits.length - 1];
-            System.out.println("set" + StringUtils.capitalize(attrName) + "(" + attrName + ");");
+            System.out.println(obj + ".set" + StringUtils.capitalize(attrName) + "(" + attrName + ");");
         }
     }
 }
