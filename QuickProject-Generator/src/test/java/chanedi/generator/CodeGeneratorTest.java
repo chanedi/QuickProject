@@ -13,6 +13,11 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateSetter() throws Exception {
-        CodeGenerator.generateSetter("test", resourceLoader.getResource("classpath:/source/setterSource").getFile());
+        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "test");
+    }
+
+    @Test
+    public void generateDAOGetMethod() throws Exception {
+        CodeGenerator.generateDaoGetMethod("cn.pack.", "TEST_TABLE", "User", "String userName", "String remark");
     }
 }

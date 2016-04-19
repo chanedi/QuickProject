@@ -5,7 +5,19 @@
     </resultMap>
     <sql id="queryColumns">
         <#list bean.properties as prop>
-        a.${prop.columnName}<#if prop_has_next>,</#if>
+        ${prop.columnName} ${prop.name}<#if prop_has_next>,</#if>
+        </#list>
+    </sql>
+    <sql id="queryColumns">
+        <#list bean.properties as prop>
+        ${prop.columnName} <#if prop_has_next>,</#if>
+        </#list>
+    </sql>
+    <sql id="queryColumns">
+        <#list bean.properties as prop>
+            <isNotEmpty property="${prop.name}">
+                ${prop.columnName} = #${prop.name}#,
+            </isNotEmpty>
         </#list>
     </sql>
 </mapper>

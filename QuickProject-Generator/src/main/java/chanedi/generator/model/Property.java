@@ -1,5 +1,6 @@
 package chanedi.generator.model;
 
+import chanedi.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,8 @@ public class Property {
     @Getter
     private String name;
     @Getter
+    private String capitalizeName;
+    @Getter
     private String columnName;
     @Getter@Setter
     private String comment;
@@ -19,7 +22,14 @@ public class Property {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
-        this.name = chanedi.util.StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
+        this.name = StringUtils.uncapitalizeCamelBySeparator(columnName, "_");
+        this.capitalizeName = StringUtils.capitalize(name);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        this.columnName = StringUtils.capitalizeCamelBySeparator(name, "_");
+        this.capitalizeName = StringUtils.capitalize(name);
     }
 
 }

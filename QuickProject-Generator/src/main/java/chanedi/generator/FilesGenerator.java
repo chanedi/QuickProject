@@ -111,7 +111,6 @@ public class FilesGenerator {
 
                 generate(cfg, dataMap);
             }
-
         }
     }
 
