@@ -18,6 +18,6 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateDAOGetMethod() throws Exception {
-        CodeGenerator.generateDaoGetMethod("cn.pack.", "TEST_TABLE", "User", "String userName", "String remark");
+        CodeGenerator.generateDaoGetMethod(false, "cn.pack.", "TEST_TABLE", "User", "String userName", "String remark");
     }
 }

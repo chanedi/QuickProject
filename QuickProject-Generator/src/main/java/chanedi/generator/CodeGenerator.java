@@ -40,7 +40,7 @@ public class CodeGenerator {
         }
     }
 
-    public static void generateDaoGetMethod(String packageName, String tableName, String beanName, String... attrs) throws IOException, TemplateException {
+    public static void generateDaoGetMethod(boolean isReturnList, String packageName, String tableName, String beanName, String... attrs) throws IOException, TemplateException {
         File dir = resourceLoader.getResource("classpath:/tmpl").getFile();
 
         Bean bean = new Bean();
@@ -61,7 +61,7 @@ public class CodeGenerator {
         Configuration cfg = new Configuration();
         cfg.setDirectoryForTemplateLoading(dir);
         cfg.setObjectWrapper(new DefaultObjectWrapper());
-        Template temp = cfg.getTemplate("daoGetForObjMethodTmpl.ftl");
+        Template temp = cfg.getTemplate(isReturnList ? "daoGetForListMethodTmpl.ftl" : "daoGetForObjMethodTmpl.ftl");
         Map dataMap = new HashMap();
         dataMap.put("bean", bean);
         dataMap.put("packageName", packageName);
