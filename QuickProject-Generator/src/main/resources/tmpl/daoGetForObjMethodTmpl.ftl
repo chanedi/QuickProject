@@ -11,6 +11,3 @@ ${bean.capitalizeName}.xml
 </select>
 
 
-
-
-
