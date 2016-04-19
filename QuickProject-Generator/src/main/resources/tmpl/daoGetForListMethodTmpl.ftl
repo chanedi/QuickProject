@@ -7,6 +7,6 @@ return queryForList("${bean.capitalizeName}.getBy<#list bean.properties as prop>
 ${bean.capitalizeName}.xml
 <select id="getBy<#list bean.properties as prop>${prop.capitalizeName}<#if prop_has_next>And</#if></#list>" parameterClass="map"  resultClass="${dtoPackageName}${bean.capitalizeName}">
     <include refid="selectAll"/>
-    <![CDATA[from BUS_FUND_BUY_REQUEST WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
+    <![CDATA[WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
 </select>
 
