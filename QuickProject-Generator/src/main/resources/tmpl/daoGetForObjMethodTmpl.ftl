@@ -10,4 +10,3 @@ ${bean.capitalizeName}.xml
     <![CDATA[from BUS_FUND_BUY_REQUEST WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
 </select>
 
-
