@@ -44,7 +44,7 @@ public class CodeGenerator {
         File dir = resourceLoader.getResource("classpath:/tmpl").getFile();
 
         Bean bean = new Bean();
-        bean.setName(beanName);
+        bean.setCapitalizeName(beanName);
 
         for (String attr : attrs) {
             try {

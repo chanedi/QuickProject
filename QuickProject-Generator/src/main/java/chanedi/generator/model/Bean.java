@@ -4,9 +4,7 @@ import chanedi.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Chanedi
@@ -15,16 +13,18 @@ public class Bean {
 
     @Getter@Setter
     private String name;
-    @Getter
+    @Getter@Setter
     private String capitalizeName;
     @Getter
     private String tableName;
     @Getter@Setter
     private String comment;
-    private Map<String, Property> propertyColumnNameMap = new HashMap<String, Property>();
+    private Map<String, Property> propertyColumnNameMap = new HashMap<String, Property>(); // 乱序
+    private List<Property> propertyList = new ArrayList<Property>(); // 按加入的顺序
 
     public void addProperty(Property property) {
         propertyColumnNameMap.put(property.getColumnName(), property);
+        propertyList.add(property);
     }
 
     public Property getPropertyByColumnName(String columnName) {
@@ -32,7 +32,7 @@ public class Bean {
     }
 
     public Collection<Property> getProperties() {
-        return propertyColumnNameMap.values();
+        return propertyList;
     }
 
     public void setTableName(String tableName) {
@@ -43,6 +43,11 @@ public class Bean {
     public void setName(String name) {
         this.name = name;
         this.capitalizeName = StringUtils.capitalize(name);
+    }
+
+    public void setCapitalizeName(String capitalizeName) {
+        this.capitalizeName = capitalizeName;
+        this.name = StringUtils.uncapitalize(capitalizeName);;
     }
 
 }
