@@ -5,7 +5,7 @@ public ${bean.capitalizeName}DTO getBy<#list bean.properties as prop>${prop.capi
 }
 
 ${bean.capitalizeName}.xml
-<select id="getBy<#list bean.properties as prop>${prop.capitalizeName}<#if prop_has_next>And</#if></#list>" parameterClass="map"  resultClass="${dtoPackageName}${bean.capitalizeName}">
+<select id="getBy<#list bean.properties as prop>${prop.capitalizeName}<#if prop_has_next>And</#if></#list>" parameterClass="map"  resultClass="${dtoPackageName}${bean.capitalizeName}DTO">
     <include refid="selectAll"/>
     <![CDATA[WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
 </select>
