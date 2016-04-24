@@ -1,0 +1,1 @@
+        Logger.info(this, String.format("end call method ${methodName}, the result is [${returnValue}: %s]", <#if returnList>${returnValue}.size()<#else>${returnValue}</#if>));
