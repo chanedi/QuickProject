@@ -1,7 +1,7 @@
-package chanedi.generator;
+package chanedi.generator.file;
 
 import chanedi.enums.DBDialectType;
-import chanedi.generator.exception.GlobalConfigException;
+import chanedi.generator.file.exception.GlobalConfigException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.io.Resource;

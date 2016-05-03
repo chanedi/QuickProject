@@ -1,7 +1,7 @@
-package chanedi.generator;
+package chanedi.generator.file;
 
 import chanedi.enums.DBDialectType;
-import chanedi.generator.exception.ConfigException;
+import chanedi.generator.file.exception.ConfigException;
 import chanedi.generator.model.PropertyType;
 import chanedi.util.PropertiesWithOrder;
 import com.alibaba.fastjson.JSON;

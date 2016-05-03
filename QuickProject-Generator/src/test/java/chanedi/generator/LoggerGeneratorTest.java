@@ -1,5 +1,6 @@
 package chanedi.generator;
 
+import chanedi.generator.log.LoggerGenerator;
 import org.junit.Test;
 
 import java.io.File;
@@ -11,7 +12,7 @@ public class LoggerGeneratorTest {
 
     @Test
     public void generateLogger() throws Exception {
-        File file = new File("xxx.java");
+        File file = new File("D:\\IdeaProjects\\xxx.java");
         LoggerGenerator.generateLogger(file);
     }
 

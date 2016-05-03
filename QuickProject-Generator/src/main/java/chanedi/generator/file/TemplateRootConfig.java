@@ -1,4 +1,4 @@
-package chanedi.generator;
+package chanedi.generator.file;
 
 import chanedi.util.ReflectUtils;
 import lombok.Data;

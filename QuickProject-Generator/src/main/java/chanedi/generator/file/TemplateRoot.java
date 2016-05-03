@@ -1,6 +1,5 @@
-package chanedi.generator;
+package chanedi.generator.file;
 
-import chanedi.generator.TemplateRootConfig;
 import lombok.Getter;
 
 import java.io.File;

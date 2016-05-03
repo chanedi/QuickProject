@@ -1,4 +1,4 @@
-package chanedi.generator;
+package chanedi.generator.log;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -8,9 +8,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by jijingyu625 on 2016/4/18.
@@ -26,9 +25,7 @@ public class LoggerGenerator {
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         Template logTmplIn = cfg.getTemplate("logTmplIn.ftl");
         Template logTmplOut = cfg.getTemplate("logTmplOut.ftl");
-        Pattern methodSignaturePattern = Pattern.compile("\\s+public (\\S+) ([^\\(]+)\\((.+)\\) \\{");
-        Pattern privateMethodSignaturePattern = Pattern.compile("\\s+private (\\S+) ([^\\(]+)\\((.+)\\) \\{");
-        Pattern returnPattern = Pattern.compile("\\s+return (.+);");
+        Template logTmplDaoResult = cfg.getTemplate("logTmplDaoResult.ftl");
 
         String filePath = file.getPath();
         File tempFile = new File(filePath + ".tmp");
@@ -40,45 +37,46 @@ public class LoggerGenerator {
             fileReader = new BufferedReader(new FileReader(file));
 
             MethodToLog methodToLog = null;
-            boolean methodIn = false;
-            String lastLine = "";
+            LineMatcher lastLineMatcher = null;
             while (true) {
                 String line = fileReader.readLine();
                 if (line == null) {
                     break;
                 }
-                boolean methodInLogLine = methodIn;
-                if (methodIn) { // 方法入口
-                    if (!line.contains("Log")) {
+
+                LineMatcher currentLineMatcher = LineMatcher.matcher(line);
+
+                if (lastLineMatcher != null && methodToLog != null && (currentLineMatcher == null || currentLineMatcher.getMatcherType() != LineMatcher.MatcherType.LOG)) {
+                    if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.PUBLIC_METHOD) { // 方法入口
                         logTmplIn.process(methodToLog, fileWriter);
                         fileWriter.newLine();
+                    } else if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.DAO_RESULT) {
+                        MatchResult matcher = lastLineMatcher.getMatcher();
+                        logTmplDaoResult.process(new DaoReturnToLog(matcher.group(1), matcher.group(2), methodToLog.getMethodName()), fileWriter);
+                        fileWriter.newLine();
                     }
-                    methodIn = false;
                 }
 
-                Matcher methodMather = methodSignaturePattern.matcher(line);
-                if (methodMather.matches()) {
-                    methodToLog = new MethodToLog(methodMather.group(1), methodMather.group(2), methodMather.group(3));
-                    methodIn = true;
-                } else {
-                    Matcher privateMethodMatcher = privateMethodSignaturePattern.matcher(line);
-                    if (privateMethodMatcher.matches()) {
+                if (currentLineMatcher != null) {
+                    Matcher matcher = currentLineMatcher.getMatcher();
+                    if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.PUBLIC_METHOD) {
+                        methodToLog = new MethodToLog(matcher.group(1), matcher.group(2), matcher.group(3));
+                    } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.METHOD) {
                         methodToLog = null;
+                    } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.DAO_RESULT) {
+                    } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.RETURN) { // 方法出口
+                        if (methodToLog != null) {
+                            methodToLog.setReturnValue(matcher.group(1));
+                            logTmplOut.process(methodToLog, fileWriter);
+                            fileWriter.newLine();
+                        }
                     }
-                }
-                Matcher returnMather = returnPattern.matcher(line);
-                if (returnMather.matches() && !lastLine.contains("Log") && methodToLog != null) { // 方法出口
-                    methodToLog.setReturnValue(returnMather.group(1));
-                    logTmplOut.process(methodToLog, fileWriter);
-                    fileWriter.newLine();
                 }
 
                 fileWriter.write(line);
                 fileWriter.newLine();
 
-                if (!methodInLogLine) {
-                    lastLine = line;
-                }
+                lastLineMatcher = currentLineMatcher;
             }
         } finally {
             if (fileWriter != null) {
@@ -98,28 +96,6 @@ public class LoggerGenerator {
         }
         file.delete();
         tempFile.renameTo(file);
-    }
-
-    private static class MethodToLog extends HashMap {
-
-        public MethodToLog(String returnType, String methodName, String argStr) {
-            if (returnType.contains("List")) {
-                put("returnList", true);
-            } else {
-                put("returnList", false);
-            }
-            put("methodName", methodName);
-            String[] argNames = argStr.split(",");
-            for (int i = 0; i < argNames.length; i++) {
-                String[] arg = argNames[i].split(" ");
-                argNames[i] = arg[arg.length - 1];
-            }
-            put("argNames", argNames);
-        }
-
-        public void setReturnValue(String returnValue) {
-            put("returnValue", returnValue);
-        }
     }
 
 }

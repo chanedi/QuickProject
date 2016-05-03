@@ -1,11 +1,11 @@
-package chanedi.generator.sqlparser;
+package chanedi.generator.file.sqlparser;
 
-import chanedi.generator.GlobalConfig;
-import chanedi.generator.PropertyTypeContext;
+import chanedi.generator.file.GlobalConfig;
+import chanedi.generator.file.PropertyTypeContext;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Property;
-import chanedi.generator.sqlparser.gen.CreateTableBaseListener;
-import chanedi.generator.sqlparser.gen.CreateTableParser;
+import chanedi.generator.file.sqlparser.gen.CreateTableBaseListener;
+import chanedi.generator.file.sqlparser.gen.CreateTableParser;
 import chanedi.util.StringUtils;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;

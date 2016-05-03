@@ -1,4 +1,4 @@
-package chanedi.generator.exception;
+package chanedi.generator.file.exception;
 
 /**
  * Created by chanedi on 2015/1/6.

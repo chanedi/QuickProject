@@ -13,11 +13,11 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateSetter() throws Exception {
-        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "test");
+        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "rechargeParams");
     }
 
     @Test
     public void generateDAOGetMethod() throws Exception {
-        CodeGenerator.generateDaoGetMethod(false, "cn.pack.", "TEST_TABLE", "User", "String userName", "String remark");
+        CodeGenerator.generateDaoGetMethod(false, "com.xx.xx.dto.", "XXX_XXX", "XXX", "Status status, int limit");
     }
 }

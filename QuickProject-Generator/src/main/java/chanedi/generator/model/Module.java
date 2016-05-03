@@ -1,9 +1,9 @@
 package chanedi.generator.model;
 
-import chanedi.generator.GlobalConfig;
-import chanedi.generator.sqlparser.CreateTableListenerImpl;
-import chanedi.generator.sqlparser.gen.CreateTableLexer;
-import chanedi.generator.sqlparser.gen.CreateTableParser;
+import chanedi.generator.file.GlobalConfig;
+import chanedi.generator.file.sqlparser.CreateTableListenerImpl;
+import chanedi.generator.file.sqlparser.gen.CreateTableLexer;
+import chanedi.generator.file.sqlparser.gen.CreateTableParser;
 import chanedi.util.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author Chanedi

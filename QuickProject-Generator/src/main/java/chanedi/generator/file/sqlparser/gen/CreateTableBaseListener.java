@@ -1,5 +1,5 @@
 // Generated from F:/IDEA/QuickProject/QuickProject-Generator/src/main/java/chanedi/generator/sqlparser\CreateTable.g4 by ANTLR 4.5
-package chanedi.generator.sqlparser.gen;
+package chanedi.generator.file.sqlparser.gen;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;

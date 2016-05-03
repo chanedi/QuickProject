@@ -1,6 +1,6 @@
-package chanedi.generator;
+package chanedi.generator.file;
 
-import chanedi.generator.exception.GlobalConfigException;
+import chanedi.generator.file.exception.GlobalConfigException;
 import chanedi.generator.model.Bean;
 import chanedi.generator.model.Config;
 import chanedi.generator.model.Generate;

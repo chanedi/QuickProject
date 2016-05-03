@@ -1,5 +1,7 @@
 package chanedi.generator;
 
+import chanedi.generator.file.FilesGenerator;
+import chanedi.generator.file.GlobalConfig;
 import org.junit.Test;
 
 /**
@@ -11,11 +13,11 @@ public class FilesGeneratorTest {
     public void generate() throws Exception {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-        globalConfig.setOutProjectPath("F:/IDEA/massage"); // 注意修改此参数项
-        globalConfig.setBeanNameRegex("^TB_(\\w+)$");
+        globalConfig.setOutProjectPath("D:/"); // 注意修改此参数项
+        globalConfig.setBeanNameRegex("^XXX_XXX_(\\w+)$");
 //        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
-        globalConfig.setJavaPackageName("com.zhiyi.");
-        globalConfig.setJavaPackagePath("com/zhiyi/");
+        globalConfig.setJavaPackageName("com.xx");
+        globalConfig.setJavaPackagePath("com/xx");
         globalConfig.setIgnoreExists(true);
 
         generator.process();

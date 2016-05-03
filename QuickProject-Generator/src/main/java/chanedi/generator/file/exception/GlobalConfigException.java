@@ -1,4 +1,4 @@
-package chanedi.generator.exception;
+package chanedi.generator.file.exception;
 
 /**
  * @author Chanedi
