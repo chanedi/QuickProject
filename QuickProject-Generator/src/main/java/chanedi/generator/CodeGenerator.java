@@ -22,7 +22,9 @@ public class CodeGenerator {
 
     private static ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
 
-    public static void generateSetter(File file, String obj) throws IOException {
+    public static void generateSetter(File file, String className) throws IOException {
+        String variableName = StringUtils.uncapitalize(className);
+        System.out.println(className + " " + variableName + " = new " + className + "();");
         BufferedReader fileReader = new BufferedReader(new FileReader(file));
 
         while (true) {
@@ -36,7 +38,7 @@ public class CodeGenerator {
 
             String[] splits = line.split(";")[0].split(" ");
             String attrName = splits[splits.length - 1];
-            System.out.println(obj + ".set" + StringUtils.capitalize(attrName) + "(" + attrName + ");");
+            System.out.println(variableName + ".set" + StringUtils.capitalize(attrName) + "(" + attrName + ");");
         }
     }
 

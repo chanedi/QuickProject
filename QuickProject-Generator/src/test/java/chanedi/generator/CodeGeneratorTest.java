@@ -13,7 +13,7 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateSetter() throws Exception {
-        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "rechargeParams");
+        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "BusJobToBatchDTO");
     }
 
     @Test
