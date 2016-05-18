@@ -51,7 +51,8 @@ public class CodeGenerator {
         String dtoPackageName = beanClass.substring(0, lastIndexOfDot);
         bean.setCapitalizeName(beanName);
 
-        for (String attr : attrs.split(",")) {
+        String[] attrArray = attrs.replace(", ", ",").split(",");
+        for (String attr : attrArray) {
             try {
                 String[] splits = attr.split(" ");
                 Property property = new Property();
