@@ -18,6 +18,6 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateDAOGetMethod() throws Exception {
-        CodeGenerator.generateDaoGetMethod(false, "XXX_XXX", "XXX", "Status status, int limit");
+        CodeGenerator.generateDaoGetMethod(false, "BUS_JIETI_ENFORCE_TRADE", "com.lufax.jieti.dto.BusJietiEnforceTradeDTO", "String thirdAccount, String prodCode");
     }
 }

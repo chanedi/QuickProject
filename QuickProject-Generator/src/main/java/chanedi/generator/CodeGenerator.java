@@ -47,8 +47,8 @@ public class CodeGenerator {
 
         Bean bean = new Bean();
         int lastIndexOfDot = beanClass.lastIndexOf(".");
-        String beanName = beanClass.substring(lastIndexOfDot);
-        String dtoPackageName = beanClass.substring(0, lastIndexOfDot - 1);
+        String beanName = beanClass.substring(lastIndexOfDot + 1).replace("DTO", "");
+        String dtoPackageName = beanClass.substring(0, lastIndexOfDot);
         bean.setCapitalizeName(beanName);
 
         for (String attr : attrs) {
