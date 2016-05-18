@@ -42,7 +42,7 @@ public class CodeGenerator {
         }
     }
 
-    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String beanClass, String... attrs) throws IOException, TemplateException {
+    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String beanClass, String attrs) throws IOException, TemplateException {
         File dir = resourceLoader.getResource("classpath:/tmpl").getFile();
 
         Bean bean = new Bean();
@@ -51,7 +51,7 @@ public class CodeGenerator {
         String dtoPackageName = beanClass.substring(0, lastIndexOfDot);
         bean.setCapitalizeName(beanName);
 
-        for (String attr : attrs) {
+        for (String attr : attrs.split(",")) {
             try {
                 String[] splits = attr.split(" ");
                 Property property = new Property();
