@@ -42,10 +42,13 @@ public class CodeGenerator {
         }
     }
 
-    public static void generateDaoGetMethod(boolean isReturnList, String dtoPackageName, String tableName, String beanName, String... attrs) throws IOException, TemplateException {
+    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String beanClass, String... attrs) throws IOException, TemplateException {
         File dir = resourceLoader.getResource("classpath:/tmpl").getFile();
 
         Bean bean = new Bean();
+        int lastIndexOfDot = beanClass.lastIndexOf(".");
+        String beanName = beanClass.substring(lastIndexOfDot);
+        String dtoPackageName = beanClass.substring(0, lastIndexOfDot - 1);
         bean.setCapitalizeName(beanName);
 
         for (String attr : attrs) {

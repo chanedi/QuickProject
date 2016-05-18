@@ -32,9 +32,11 @@
         /*${bean.capitalizeName}.update*/
         update ${bean.tableName} t set
         <#list bean.properties as prop>
+            <#if prop.name!="id"&&prop.name!="createdAt"&&prop.name!="updatedAt"&&prop.name!="createdBy"&&prop.name!="updatedBy">
             <isNotEmpty property="${prop.name}">
                 t.${prop.columnName} = #${prop.name}#,
             </isNotEmpty>
+            </#if>
         </#list>
         t.updated_at=sysdate
         where t.id = #id#
