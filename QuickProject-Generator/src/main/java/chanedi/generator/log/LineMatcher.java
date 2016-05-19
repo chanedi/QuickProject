@@ -21,13 +21,13 @@ class LineMatcher {
     }
 
     public static LineMatcher matcher(String line) {
-        Matcher matcher = publicMethodSignatureMatcher(line);
-        if (matcher != null) {
-            return new LineMatcher(MatcherType.PUBLIC_METHOD, matcher);
-        }
-        matcher = methodSignatureMatcher(line);
+        Matcher matcher = methodSignatureMatcher(line);
         if (matcher != null) {
             return new LineMatcher(MatcherType.METHOD, matcher);
+        }
+        matcher = endMethodSignatureMatcher(line);
+        if (matcher != null) {
+            return new LineMatcher(MatcherType.END_METHOD, matcher);
         }
         matcher = daoResultMatcher(line);
         if (matcher != null) {
@@ -44,13 +44,13 @@ class LineMatcher {
         return null;
     }
 
-    private static Matcher publicMethodSignatureMatcher(String line) {
-        Pattern publicMethodSignaturePattern = Pattern.compile("\\s+public (\\S+) ([^\\(]+)\\((.*)\\) \\{");
+    private static Matcher methodSignatureMatcher(String line) {
+        Pattern publicMethodSignaturePattern = Pattern.compile("\\s+\\S* (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         Matcher matcher = publicMethodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
-        publicMethodSignaturePattern = Pattern.compile("\\s+public static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
+        publicMethodSignaturePattern = Pattern.compile("\\s+\\S* static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         matcher = publicMethodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
@@ -58,24 +58,9 @@ class LineMatcher {
         return null;
     }
 
-    private static Matcher methodSignatureMatcher(String line) {
-        Pattern methodSignaturePattern = Pattern.compile("\\s+protected (\\S+) ([^\\(]+)\\((.*)\\) \\{");
-        Matcher matcher = methodSignaturePattern.matcher(line);
-        if (matcher.matches()) {
-            return matcher;
-        }
-        methodSignaturePattern = Pattern.compile("\\s+protected static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
-        matcher = methodSignaturePattern.matcher(line);
-        if (matcher.matches()) {
-            return matcher;
-        }
-        methodSignaturePattern = Pattern.compile("\\s+private (\\S+) ([^\\(]+)\\((.*)\\) \\{");
-        matcher = methodSignaturePattern.matcher(line);
-        if (matcher.matches()) {
-            return matcher;
-        }
-        methodSignaturePattern = Pattern.compile("\\s+private static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
-        matcher = methodSignaturePattern.matcher(line);
+    private static Matcher endMethodSignatureMatcher(String line) {
+        Pattern returnPattern = Pattern.compile("    }");
+        Matcher matcher = returnPattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
@@ -110,7 +95,7 @@ class LineMatcher {
     }
 
     public static enum MatcherType {
-        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN
+        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD
     }
 
 }

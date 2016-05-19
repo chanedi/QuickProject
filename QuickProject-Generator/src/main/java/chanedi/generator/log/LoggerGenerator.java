@@ -47,7 +47,7 @@ public class LoggerGenerator {
                 LineMatcher currentLineMatcher = LineMatcher.matcher(line);
 
                 if (lastLineMatcher != null && methodToLog != null && (currentLineMatcher == null || currentLineMatcher.getMatcherType() != LineMatcher.MatcherType.LOG)) {
-                    if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.PUBLIC_METHOD) { // 方法入口
+                    if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.METHOD) { // 方法入口
                         logTmplIn.process(methodToLog, fileWriter);
                         fileWriter.newLine();
                     } else if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.DAO_RESULT) {
@@ -59,7 +59,7 @@ public class LoggerGenerator {
 
                 if (currentLineMatcher != null) {
                     Matcher matcher = currentLineMatcher.getMatcher();
-                    if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.PUBLIC_METHOD) {
+                    if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.METHOD) {
                         methodToLog = new MethodToLog(matcher.group(1), matcher.group(2), matcher.group(3));
                     } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.METHOD) {
                         methodToLog = null;
@@ -67,6 +67,11 @@ public class LoggerGenerator {
                     } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.RETURN) { // 方法出口
                         if (methodToLog != null) {
                             methodToLog.setReturnValue(matcher.group(1));
+                            logTmplOut.process(methodToLog, fileWriter);
+                            fileWriter.newLine();
+                        }
+                    } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.END_METHOD) { // 方法出口
+                        if (methodToLog != null) {
                             logTmplOut.process(methodToLog, fileWriter);
                             fileWriter.newLine();
                         }
