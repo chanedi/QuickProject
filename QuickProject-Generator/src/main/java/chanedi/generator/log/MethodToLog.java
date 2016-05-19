@@ -1,5 +1,7 @@
 package chanedi.generator.log;
 
+import chanedi.util.StringUtils;
+
 import java.util.HashMap;
 
 /**
@@ -21,6 +23,7 @@ class MethodToLog extends HashMap {
             String[] arg = argNames[i].split(" ");
             argNames[i] = arg[arg.length - 1];
         }
+        put("isEmptyArgs", StringUtils.isEmpty(argStr));
         put("argNames", argNames);
     }
 

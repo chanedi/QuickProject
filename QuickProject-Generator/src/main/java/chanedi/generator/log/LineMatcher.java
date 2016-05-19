@@ -45,12 +45,12 @@ class LineMatcher {
     }
 
     private static Matcher publicMethodSignatureMatcher(String line) {
-        Pattern publicMethodSignaturePattern = Pattern.compile("\\s+public (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        Pattern publicMethodSignaturePattern = Pattern.compile("\\s+public (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         Matcher matcher = publicMethodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
-        publicMethodSignaturePattern = Pattern.compile("\\s+public static (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        publicMethodSignaturePattern = Pattern.compile("\\s+public static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         matcher = publicMethodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
@@ -59,22 +59,22 @@ class LineMatcher {
     }
 
     private static Matcher methodSignatureMatcher(String line) {
-        Pattern methodSignaturePattern = Pattern.compile("\\s+protected (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        Pattern methodSignaturePattern = Pattern.compile("\\s+protected (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         Matcher matcher = methodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
-        methodSignaturePattern = Pattern.compile("\\s+protected static (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        methodSignaturePattern = Pattern.compile("\\s+protected static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         matcher = methodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
-        methodSignaturePattern = Pattern.compile("\\s+private (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        methodSignaturePattern = Pattern.compile("\\s+private (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         matcher = methodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
-        methodSignaturePattern = Pattern.compile("\\s+private static (\\S+) ([^\\(]+)\\((.+)\\) \\{");
+        methodSignaturePattern = Pattern.compile("\\s+private static (\\S+) ([^\\(]+)\\((.*)\\) \\{");
         matcher = methodSignaturePattern.matcher(line);
         if (matcher.matches()) {
             return matcher;

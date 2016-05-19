@@ -1,1 +1,1 @@
-        Logger.info(this, String.format("start call method ${methodName}, the param is <#list argNames as argName>[${argName}: %s]</#list>", <#list argNames as argName>${argName}<#if argName_has_next>, </#if></#list>));
+        Logger.info(this, String.format("start call method ${methodName}<#if !isEmptyArgs>, the param is <#list argNames as argName>[${argName}: %s]</#list></#if>"<#if !isEmptyArgs>, <#list argNames as argName>${argName}<#if argName_has_next>, </#if></#list></#if>));
