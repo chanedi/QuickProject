@@ -33,7 +33,7 @@
         </#list>
         )
     </insert>
-    <update id="update" parameterClass="${config.javaPackageName}${module.name}.dto.${bean.capitalizeName}DTO">
+    <update id="update" parameterClass="${config.javaPackageName}${module.name}.dto.${bean.capitalizeName}">
         /*${bean.capitalizeName}.update*/
         update ${bean.tableName} t set
         <#list bean.properties as prop>
