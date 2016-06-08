@@ -76,29 +76,6 @@ public class CodeGenerator {
         temp.process(dataMap, out);
         out.flush();
         out.close();
-
-//        String methodName = "getBy";
-//        for (int i = 0; i < attrNames.length - 2; i++) {
-//            methodName = methodName + StringUtils.capitalize(attrNames[i]) + "And";
-//        }
-//        methodName = methodName + StringUtils.capitalize(attrNames[attrNames.length - 1]);
-//
-//        System.out.print("public " + returnType + " " + methodName);
-//
-//        System.out.print("(");
-//        for (int i = 0; i < attrNames.length - 2; i++) {
-//            System.out.print("String " + attrNames[i] + ", ");
-//        }
-//        System.out.print("String " + attrNames[attrNames.length - 1]);
-//        System.out.println(") {");
-//
-//        System.out.print("    Map map = MapUtils.buildKeyValueMap(");
-//        for (String attrName : attrNames) {
-//            System.out.print("\"" + attrName + "\", " + attrName);
-//        }
-//        System.out.println(");");
-//
-//        System.out.println("    return queryForObject(\"" + returnType.replace("DAO", "") + "." + methodName + "\", sellRequestId, bizType);");
     }
 
 }
