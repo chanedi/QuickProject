@@ -19,13 +19,13 @@ public class LoggerGenerator {
     private static ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
 
     public static void generateLogger(File file) throws IOException, TemplateException {
-        File tmplDir = resourceLoader.getResource("classpath:/tmpl").getFile();
+        File tmplDir = resourceLoader.getResource("classpath:/tmpl/log").getFile();
         Configuration cfg = new Configuration();
         cfg.setDirectoryForTemplateLoading(tmplDir);
         cfg.setObjectWrapper(new DefaultObjectWrapper());
-        Template logTmplIn = cfg.getTemplate("logTmplIn.ftl");
-        Template logTmplOut = cfg.getTemplate("logTmplOut.ftl");
-        Template logTmplDaoResult = cfg.getTemplate("logTmplDaoResult.ftl");
+        Template logTmplIn = cfg.getTemplate("methodId.ftl");
+        Template logTmplOut = cfg.getTemplate("methodOut.ftl");
+        Template logTmplDaoResult = cfg.getTemplate("daoResult.ftl");
 
         String filePath = file.getPath();
         File tempFile = new File(filePath + ".tmp");

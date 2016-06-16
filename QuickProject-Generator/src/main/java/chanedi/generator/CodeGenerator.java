@@ -43,7 +43,7 @@ public class CodeGenerator {
     }
 
     public static void generateDaoGetMethod(boolean isReturnList, String tableName, String beanClass, String attrs) throws IOException, TemplateException {
-        File dir = resourceLoader.getResource("classpath:/tmpl").getFile();
+        File dir = resourceLoader.getResource("classpath:/tmpl/code").getFile();
 
         Bean bean = new Bean();
         int lastIndexOfDot = beanClass.lastIndexOf(".");
