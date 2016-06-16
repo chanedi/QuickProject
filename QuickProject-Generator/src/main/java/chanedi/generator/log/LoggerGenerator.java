@@ -23,7 +23,7 @@ public class LoggerGenerator {
         Configuration cfg = new Configuration();
         cfg.setDirectoryForTemplateLoading(tmplDir);
         cfg.setObjectWrapper(new DefaultObjectWrapper());
-        Template logTmplIn = cfg.getTemplate("methodId.ftl");
+        Template logTmplIn = cfg.getTemplate("methodIn.ftl");
         Template logTmplOut = cfg.getTemplate("methodOut.ftl");
         Template logTmplDaoResult = cfg.getTemplate("daoResult.ftl");
 

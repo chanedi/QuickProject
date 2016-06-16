@@ -13,11 +13,11 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateSetter() throws Exception {
-        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "BusJobToBatchDTO");
+        CodeGenerator.generateSetter(resourceLoader.getResource("classpath:/source/setterSource").getFile(), "XXXDTO");
     }
 
     @Test
     public void generateDAOGetMethod() throws Exception {
-        CodeGenerator.generateDaoGetMethod(false, "BUS_JIETI_ENFORCE_TRADE", "com.lufax.jieti.dto.BusJietiEnforceTradeDTO", "String thirdAccount, String prodCode");
+        CodeGenerator.generateDaoGetMethod(false, "BUS_XX", "com.xx.dto.XXDTO", "String userId, String test");
     }
 }
