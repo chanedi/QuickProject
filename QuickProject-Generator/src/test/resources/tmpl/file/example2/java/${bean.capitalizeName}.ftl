@@ -1,3 +1,5 @@
+package ${config.javaPackageName}.dto;
+
 @Data
 @Table(name = "${bean.tableName}")
 public class ${bean.capitalizeName}DTO extends FundBaseDTO {
