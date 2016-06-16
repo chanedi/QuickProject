@@ -1,7 +1,9 @@
 package chanedi.generator;
 
+import chanedi.enums.DBDialectType;
 import chanedi.generator.file.FilesGenerator;
 import chanedi.generator.file.GlobalConfig;
+import org.antlr.v4.runtime.atn.SemanticContext;
 import org.junit.Test;
 
 /**
@@ -16,9 +18,11 @@ public class FilesGeneratorTest {
 //        globalConfig.setOutProjectPath("D:/"); // 注意修改此参数项
         globalConfig.setBeanNameRegex("^BUS_(\\w+)$");
 //        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
-        globalConfig.setJavaPackageName("com.xx");
-        globalConfig.setJavaPackagePath("com/xx");
-        globalConfig.setIgnoreExists(true);
+        globalConfig.setJavaPackageName("com.lufax.common.file");
+        globalConfig.setJavaPackagePath("com");
+        globalConfig.setDbDialectType(DBDialectType.ORACLE);
+        globalConfig.setTmplPath("classpath:/tmpl/file/example2");
+        globalConfig.setIgnoreExists(false);
 
         generator.process();
     }
