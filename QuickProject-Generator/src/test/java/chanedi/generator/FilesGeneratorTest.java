@@ -13,8 +13,8 @@ public class FilesGeneratorTest {
     public void generate() throws Exception {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-        globalConfig.setOutProjectPath("D:/"); // 注意修改此参数项
-        globalConfig.setBeanNameRegex("^XXX_XXX_(\\w+)$");
+//        globalConfig.setOutProjectPath("D:/"); // 注意修改此参数项
+        globalConfig.setBeanNameRegex("^BUS_(\\w+)$");
 //        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
         globalConfig.setJavaPackageName("com.xx");
         globalConfig.setJavaPackagePath("com/xx");
