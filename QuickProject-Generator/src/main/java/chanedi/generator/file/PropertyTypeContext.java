@@ -134,6 +134,7 @@ public final class PropertyTypeContext {
             for (Object key : keys) {
                 if (dbType.trim().matches(key.toString())) {
                     javaType = (String) dbConvertProp.get(key);
+                    break;
                 }
             }
         }

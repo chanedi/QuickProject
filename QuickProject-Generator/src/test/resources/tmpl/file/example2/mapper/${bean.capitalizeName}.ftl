@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="${bean.capitalizeName}">
-    <resultMap id="resultMap" type="${config.javaPackageName}.dto.${bean.capitalizeName}">
+    <resultMap id="resultMap" class="${config.javaPackageName}.dto.${bean.capitalizeName}DTO">
     </resultMap>
 
     <sql id="allColumn">
@@ -31,7 +31,7 @@
         </#list>
         )
     </insert>
-    <update id="update" parameterClass="${config.javaPackageName}.dto.${bean.capitalizeName}">
+    <update id="update" parameterClass="${config.javaPackageName}.dto.${bean.capitalizeName}DTO">
         /*${bean.capitalizeName}.update*/
         update ${bean.tableName} t set
         <#list bean.properties as prop>
