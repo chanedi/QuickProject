@@ -25,6 +25,8 @@
             sysdate<#if prop_has_next>,</#if>
             <#elseif prop.name=="createdBy"||prop.name=="updatedBy">
             'SYS'<#if prop_has_next>,</#if>
+            <#elseif prop.name=="version">
+            0
             <#else>
             #${prop.name}#<#if prop_has_next>,</#if>
             </#if>
