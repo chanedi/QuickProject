@@ -25,7 +25,7 @@ public final class GlobalConfig {
     @Setter
     private String inputSqlPath = "classpath:/sql";
     @Setter
-    private String tmplPath = "classpath:/tmpl/file";
+    private String tmplPath = "classpath:/tmpl/file/example2";
     @Setter@Getter
     private String javaPackageName = "com.";
     @Setter@Getter
