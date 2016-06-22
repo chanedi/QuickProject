@@ -7,7 +7,7 @@ public List<${bean.capitalizeName}> getBy<#list bean.properties as prop>${prop.c
 
 ${bean.capitalizeName}.xml
 <select id="getBy<#list bean.properties as prop>${prop.capitalizeName}<#if prop_has_next>And</#if></#list>" parameterClass="map" resultMap="resultMap">
-    <include refid="selectAll"/>
+    select <include refid="allColumn"/> from ${bean.tableName}
     <![CDATA[WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
 </select>
 
