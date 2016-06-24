@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="${bean.capitalizeName}">
-    <resultMap id="resultMap" class="${config.javaPackageName}.dto.${bean.capitalizeName}DTO">
-    </resultMap>
 
     <sql id="allColumn">
         <#list bean.properties as prop>
@@ -49,7 +47,7 @@
         AND t.VERSION = #version#
     </update>
 
-    <select id ="getById" parameterClass="long" resultMap="resultMap">
+    <select id ="getById" parameterClass="long" resultClass="${config.javaPackageName}.dto.${bean.capitalizeName}DTO">
         /*${bean.capitalizeName}.getById*/
         select <include refid="allColumn"/> from ${bean.tableName} where ID=#id#
     </select>

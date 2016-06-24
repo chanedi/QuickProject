@@ -49,8 +49,8 @@ public class CodeGenerator {
         int lastIndexOfDot = beanClass.lastIndexOf(".");
         String beanName = beanClass.substring(lastIndexOfDot + 1);
         String dtoPackageName = beanClass.substring(0, lastIndexOfDot);
-        bean.setCapitalizeName(beanName);
         bean.setTableName(tableName);
+        bean.setCapitalizeName(beanName);
 
         String[] attrArray = attrs.replace(", ", ",").split(",");
         for (String attr : attrArray) {
@@ -72,7 +72,7 @@ public class CodeGenerator {
         Map dataMap = new HashMap();
         dataMap.put("bean", bean);
         dataMap.put("dtoPackageName", dtoPackageName);
-        dataMap.put("tableName", tableName);
+        dataMap.put("beanNameRemoveDTO", beanName.replace("DTO", ""));
         Writer out = new OutputStreamWriter(System.out);
         temp.process(dataMap, out);
         out.flush();
