@@ -12,7 +12,7 @@ public class LoggerGeneratorTest {
 
     @Test
     public void generateLogger() throws Exception {
-        File file = new File("D:\\IdeaProjects\\xxx.java");
+        File file = new File("D:\\IdeaProjects\\yeb-app\\src\\main\\java\\com\\lufax\\common\\file\\batch\\validate\\validator\\fileinfo\\FileInfoFileRecordCountValidator.java");
         LoggerGenerator.generateLogger(file);
     }
 
