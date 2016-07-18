@@ -8,8 +8,8 @@ import java.util.HashMap;
 class ConditionToLog extends HashMap {
 
     public ConditionToLog(String condition, String methodName) {
-        put("methodName", methodName);
         put("condition", condition);
+        put("methodName", methodName);
     }
 
 }

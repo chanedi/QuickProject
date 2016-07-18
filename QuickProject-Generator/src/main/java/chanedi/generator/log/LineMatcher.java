@@ -41,9 +41,13 @@ class LineMatcher {
         if (matcher != null) {
             return new LineMatcher(MatcherType.RETURN, matcher);
         }
-        matcher = conditionMatcher(line);
+        matcher = conditionIfMatcher(line);
         if (matcher != null) {
-            return new LineMatcher(MatcherType.CONDITION, matcher);
+            return new LineMatcher(MatcherType.CONDITION_IF, matcher);
+        }
+        matcher = conditionElseMatcher(line);
+        if (matcher != null) {
+            return new LineMatcher(MatcherType.CONDITION_ELSE, matcher);
         }
         return null;
     }
@@ -118,9 +122,18 @@ class LineMatcher {
         return null;
     }
 
-    private static Matcher conditionMatcher(String line) {
-        Pattern returnPattern = Pattern.compile("\\s+if \\((.+)\\) \\{");
-        Matcher matcher = returnPattern.matcher(line);
+    private static Matcher conditionIfMatcher(String line) {
+        Pattern conditionPattern = Pattern.compile("\\s+(else)? if \\((.+)\\) \\{");
+        Matcher matcher = conditionPattern.matcher(line);
+        if (matcher.matches()) {
+            return matcher;
+        }
+        return null;
+    }
+
+    private static Matcher conditionElseMatcher(String line) {
+        Pattern conditionPattern = Pattern.compile("\\s+else \\{");
+        Matcher matcher = conditionPattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
         }
@@ -128,7 +141,7 @@ class LineMatcher {
     }
 
     public static enum MatcherType {
-        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD, CONDITION
+        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD, CONDITION_IF, CONDITION_ELSE
     }
 
 }
