@@ -1,1 +1,1 @@
-        Logger.info(this, String.format("in call method ${methodName}, [${variable}: %s]", <#if isList>${variable}.size()<#else>${variable}</#if>));
+        Logger.info(this, "in call method ${methodName}, [${variable}: " + ${variable} + "]");

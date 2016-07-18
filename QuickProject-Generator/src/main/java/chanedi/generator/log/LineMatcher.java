@@ -41,6 +41,10 @@ class LineMatcher {
         if (matcher != null) {
             return new LineMatcher(MatcherType.RETURN, matcher);
         }
+        matcher = conditionMatcher(line);
+        if (matcher != null) {
+            return new LineMatcher(MatcherType.CONDITION, matcher);
+        }
         return null;
     }
 
@@ -114,8 +118,17 @@ class LineMatcher {
         return null;
     }
 
+    private static Matcher conditionMatcher(String line) {
+        Pattern returnPattern = Pattern.compile("\\s+if \\((.+)\\) \\{");
+        Matcher matcher = returnPattern.matcher(line);
+        if (matcher.matches()) {
+            return matcher;
+        }
+        return null;
+    }
+
     public static enum MatcherType {
-        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD
+        PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD, CONDITION
     }
 
 }

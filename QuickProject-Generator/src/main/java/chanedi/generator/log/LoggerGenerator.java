@@ -26,6 +26,7 @@ public class LoggerGenerator {
         Template logTmplIn = cfg.getTemplate("methodIn.ftl");
         Template logTmplOut = cfg.getTemplate("methodOut.ftl");
         Template logTmplDaoResult = cfg.getTemplate("daoResult.ftl");
+        Template logTmplCondition = cfg.getTemplate("condition.ftl");
 
         String filePath = file.getPath();
         File tempFile = new File(filePath + ".tmp");
@@ -54,6 +55,10 @@ public class LoggerGenerator {
                         MatchResult matcher = lastLineMatcher.getMatcher();
                         logTmplDaoResult.process(new DaoReturnToLog(matcher.group(1), matcher.group(2), methodToLog.getMethodName()), fileWriter);
                         fileWriter.newLine();
+                    } else if (lastLineMatcher.getMatcherType() == LineMatcher.MatcherType.CONDITION) {
+                        MatchResult matcher = lastLineMatcher.getMatcher();
+                        logTmplCondition.process(new ConditionToLog(matcher.group(1), methodToLog.getMethodName()), fileWriter);
+                        fileWriter.newLine();
                     }
                 }
 
@@ -63,7 +68,6 @@ public class LoggerGenerator {
                         methodToLog = new MethodToLog(matcher.group(1), matcher.group(2), matcher.group(3));
                     } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.METHOD) {
                         methodToLog = null;
-                    } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.DAO_RESULT) {
                     } else if (currentLineMatcher.getMatcherType() == LineMatcher.MatcherType.RETURN) { // 方法出口
                         if (methodToLog != null) {
                             methodToLog.setReturnValue(matcher.group(1));
