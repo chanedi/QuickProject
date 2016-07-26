@@ -72,7 +72,8 @@ public class CodeGenerator {
         Map dataMap = new HashMap();
         dataMap.put("bean", bean);
         dataMap.put("dtoPackageName", dtoPackageName);
-        dataMap.put("beanNameRemoveDTO", beanName.replace("DTO", ""));
+        dataMap.put("beanCapNameRemoveDTO", beanName.replace("DTO", ""));
+        dataMap.put("beanNameRemoveDTO", StringUtils.uncapitalize(beanName.replace("DTO", "")));
         Writer out = new OutputStreamWriter(System.out);
         temp.process(dataMap, out);
         out.flush();
