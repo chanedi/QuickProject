@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="${bean.capitalizeName}">
 
-    <sql id="allColumn">
+    <sql id="Base_Column_List">
         <#list bean.properties as prop>
         ${prop.columnName} ${prop.name}<#if prop_has_next>,</#if>
         </#list>
@@ -49,6 +49,6 @@
 
     <select id ="getById" parameterClass="long" resultClass="${config.javaPackageName}.dto.${bean.capitalizeName}DTO">
         /*${bean.capitalizeName}.getById*/
-        select <include refid="allColumn"/> from ${bean.tableName} where ID=#id#
+        select <include refid="Base_Column_List"/> from ${bean.tableName} where ID=#id#
     </select>
 </sqlMap>

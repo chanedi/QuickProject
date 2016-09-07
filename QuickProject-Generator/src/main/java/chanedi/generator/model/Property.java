@@ -28,7 +28,7 @@ public class Property {
 
     public void setName(String name) {
         this.name = name;
-        this.columnName = name.replaceAll("([A-Z])", "_$0").toUpperCase();;
+        this.columnName = name.replaceAll("([A-Z])", "_$0").toUpperCase();
         this.capitalizeName = StringUtils.capitalize(name);
     }
 

@@ -1,7 +1,7 @@
 package ${config.javaPackageName}.dao;
 
 @Repository
-public class ${bean.capitalizeName}DAO extends BusdataBaseDAO {
+public class ${bean.capitalizeName}DAO extends YebdataBaseDAO {
 
     public Object insert(${bean.capitalizeName}DTO ${bean.name}DTO) {
         Object insert = super.insert("${bean.capitalizeName}.insert", ${bean.name}DTO);
