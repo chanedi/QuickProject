@@ -1,1 +1,1 @@
-        Logger.info(this, "in call method ${methodName}, in condition: ${condition}");
+        Logger.info(this, "[method ${methodName} in - condition] ${condition}");
