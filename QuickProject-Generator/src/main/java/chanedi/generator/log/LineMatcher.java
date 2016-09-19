@@ -123,7 +123,7 @@ class LineMatcher {
     }
 
     private static Matcher conditionIfMatcher(String line) {
-        Pattern conditionPattern = Pattern.compile("\\s+(else)? if \\((.+)\\) \\{.*");
+        Pattern conditionPattern = Pattern.compile("\\s+.*(else)? if \\((.+)\\) \\{.*");
         Matcher matcher = conditionPattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
