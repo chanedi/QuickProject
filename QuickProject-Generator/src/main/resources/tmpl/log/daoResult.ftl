@@ -1,1 +1,1 @@
-        Logger.info(this, "in call method ${methodName}, [${variable}: " + ${variable} + "]");
+        Logger.info(this, "[method ${methodName} in - dao result] ${variable}: " + ${variable});
