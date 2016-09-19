@@ -1,1 +1,1 @@
-        Logger.info(this, "end call method ${methodName}<#if returnValue??>, the result is [${returnValue}: " + ${returnValue} + "]</#if>");
+        Logger.info(this, "[method ${methodName} end] <#if returnValue??>${returnValue}: " + ${returnValue}<#else>"</#if>);
