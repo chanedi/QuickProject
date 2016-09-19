@@ -7,7 +7,7 @@ public ${bean.capitalizeName} getBy<#list bean.properties as prop>${prop.capital
 
 ${beanCapNameRemoveDTO}.xml
 <select id="getBy<#list bean.properties as prop>${prop.capitalizeName}<#if prop_has_next>And</#if></#list>" parameterClass="map" resultClass="${dtoPackageName}.${bean.capitalizeName}">
-    select <include refid="allColumn"/> from ${bean.tableName}
+    select <include refid="Base_Column_List"/> from ${bean.tableName}
     <![CDATA[WHERE <#list bean.properties as prop>${prop.columnName}=#${prop.name}# <#if prop_has_next>AND </#if></#list>]]>
 </select>
 
