@@ -123,7 +123,7 @@ class LineMatcher {
     }
 
     private static Matcher conditionIfMatcher(String line) {
-        Pattern conditionPattern = Pattern.compile("\\s+(else)? if \\((.+)\\) \\{");
+        Pattern conditionPattern = Pattern.compile("\\s+(else)? if \\((.+)\\) \\{.*");
         Matcher matcher = conditionPattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
@@ -132,7 +132,7 @@ class LineMatcher {
     }
 
     private static Matcher conditionElseMatcher(String line) {
-        Pattern conditionPattern = Pattern.compile("\\s+else \\{");
+        Pattern conditionPattern = Pattern.compile("\\s+else \\{.*");
         Matcher matcher = conditionPattern.matcher(line);
         if (matcher.matches()) {
             return matcher;
@@ -140,7 +140,7 @@ class LineMatcher {
         return null;
     }
 
-    public static enum MatcherType {
+    public enum MatcherType {
         PUBLIC_METHOD, METHOD, DAO_RESULT, LOG, RETURN, END_METHOD, CONDITION_IF, CONDITION_ELSE
     }
 
