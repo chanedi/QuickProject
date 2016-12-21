@@ -5,17 +5,14 @@ import chanedi.generator.file.FilesGenerator;
 import chanedi.generator.file.GlobalConfig;
 import org.junit.Test;
 
-/**
- * Created by jijingyu625 on 2016/4/18.
- */
 public class FilesGeneratorTest {
 
     @Test
     public void generate() throws Exception {
         FilesGenerator generator = new FilesGenerator();
         GlobalConfig globalConfig = generator.getGlobalConfig();
-//        globalConfig.setOutProjectPath("D:/");
-        globalConfig.setBeanNameRegex("^BUS_(\\w+)$");
+        globalConfig.setOutProjectPath("D:/gen");
+        globalConfig.setBeanNameRegex("^YEB_(\\w+)$");
 //        globalConfig.setBeanNameRegex("^T_[A-Z]{3}_(\\w+)$");
         globalConfig.setJavaPackageName("com.xx.common.file");
         globalConfig.setJavaPackagePath("com");
