@@ -14,6 +14,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by jijingyu625 on 2016/4/18.
@@ -42,7 +44,7 @@ public class CodeGenerator {
         }
     }
 
-    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String attrs) throws IOException, TemplateException {
+    public static void generateDaoGetMethod(boolean isReturnList, String beanNameRegex, String tableName, String attrs) throws IOException, TemplateException {
         File dir = resourceLoader.getResource("classpath:/tmpl/code").getFile();
 
         Bean bean = new Bean();
@@ -67,8 +69,14 @@ public class CodeGenerator {
         Template temp = cfg.getTemplate(isReturnList ? "daoGetForListMethodTmpl.ftl" : "daoGetForObjMethodTmpl.ftl");
         Map dataMap = new HashMap();
         dataMap.put("bean", bean);
-        dataMap.put("beanCapNameRemoveDTO", bean.getCapitalizeName().replace("DTO", ""));
-        dataMap.put("beanNameRemoveDTO", bean.getName().replace("DTO", ""));
+        if (beanNameRegex != null) {
+            // 根据用户设置修正beanName
+            Pattern pattern = Pattern.compile(beanNameRegex);
+            Matcher matcher = pattern.matcher(bean.getTableName());
+            matcher.find();
+            String group = matcher.group(matcher.groupCount());
+            bean.setName(StringUtils.uncapitalizeCamelBySeparator(group, "_"));
+        }
         Writer out = new OutputStreamWriter(System.out);
         temp.process(dataMap, out);
         out.flush();
