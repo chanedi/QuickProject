@@ -18,6 +18,6 @@ public class CodeGeneratorTest {
 
     @Test
     public void generateDAOGetMethod() throws Exception {
-        CodeGenerator.generateDaoGetMethod(false, "ER_FUND_PRODUCTS", "String thirdCompanyCode");
+        CodeGenerator.generateDaoGetMethod(false, "^YEB_(\\w+)$", "ER_FUND_PRODUCTS", "String thirdCompanyCode");
     }
 }
