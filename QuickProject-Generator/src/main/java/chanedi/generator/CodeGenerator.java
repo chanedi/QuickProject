@@ -42,15 +42,11 @@ public class CodeGenerator {
         }
     }
 
-    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String beanClass, String attrs) throws IOException, TemplateException {
+    public static void generateDaoGetMethod(boolean isReturnList, String tableName, String attrs) throws IOException, TemplateException {
         File dir = resourceLoader.getResource("classpath:/tmpl/code").getFile();
 
         Bean bean = new Bean();
-        int lastIndexOfDot = beanClass.lastIndexOf(".");
-        String beanName = beanClass.substring(lastIndexOfDot + 1);
-        String dtoPackageName = beanClass.substring(0, lastIndexOfDot);
         bean.setTableName(tableName);
-        bean.setCapitalizeName(beanName);
 
         String[] attrArray = attrs.replace(", ", ",").split(",");
         for (String attr : attrArray) {
@@ -71,9 +67,8 @@ public class CodeGenerator {
         Template temp = cfg.getTemplate(isReturnList ? "daoGetForListMethodTmpl.ftl" : "daoGetForObjMethodTmpl.ftl");
         Map dataMap = new HashMap();
         dataMap.put("bean", bean);
-        dataMap.put("dtoPackageName", dtoPackageName);
-        dataMap.put("beanCapNameRemoveDTO", beanName.replace("DTO", ""));
-        dataMap.put("beanNameRemoveDTO", StringUtils.uncapitalize(beanName.replace("DTO", "")));
+        dataMap.put("beanCapNameRemoveDTO", bean.getCapitalizeName().replace("DTO", ""));
+        dataMap.put("beanNameRemoveDTO", bean.getName().replace("DTO", ""));
         Writer out = new OutputStreamWriter(System.out);
         temp.process(dataMap, out);
         out.flush();
